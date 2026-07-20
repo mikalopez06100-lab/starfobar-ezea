@@ -326,16 +326,59 @@
     });
   }
 
-  /* ──────────── SOUND TOGGLE (placeholder accessible) ──────────── */
+  /* ──────────── SOUND TOGGLE (JuL — La faille) ──────────── */
   function initSoundToggle() {
     var soundBtn = document.getElementById('soundToggle');
     if (!soundBtn) return;
+
+    var audio = null;
     var on = false;
+
+    function ensureAudio() {
+      if (audio) return audio;
+      audio = new Audio('/assets/audio/ambiance.mp3');
+      audio.loop = true;
+      audio.preload = 'none';
+      audio.volume = 0.7;
+      audio.addEventListener('ended', function () {
+        // Sécurité si loop non supporté
+        if (on) { audio.currentTime = 0; audio.play().catch(function () {}); }
+      });
+      return audio;
+    }
+
+    function setUi(isOn) {
+      on = isOn;
+      soundBtn.querySelector('.icon').textContent = isOn ? '🔊' : '🔇';
+      soundBtn.querySelector('.lbl').textContent = isOn ? 'SON ON' : 'SON OFF';
+      soundBtn.setAttribute('aria-pressed', isOn ? 'true' : 'false');
+      soundBtn.title = isOn ? 'Couper le son' : 'Activer l\'ambiance sonore';
+    }
+
+    setUi(false);
+
     soundBtn.addEventListener('click', function () {
-      on = !on;
-      soundBtn.querySelector('.icon').textContent = on ? '🔊' : '🔇';
-      soundBtn.querySelector('.lbl').textContent = on ? 'SON ON' : 'SON OFF';
-      // TODO : brancher un audio d'ambiance garage (assets/starfobar/audio/…)
+      var a = ensureAudio();
+      if (!on) {
+        a.play().then(function () {
+          setUi(true);
+          track('sound_on', { track: 'la-faille' });
+        }).catch(function () {
+          setUi(false);
+          toast('Impossible de lancer le son — réessaie.');
+        });
+      } else {
+        a.pause();
+        setUi(false);
+        track('sound_off', {});
+      }
+    });
+
+    // Pause auto si l'onglet est masqué (économie batterie / politesse)
+    document.addEventListener('visibilitychange', function () {
+      if (!audio || !on) return;
+      if (document.hidden) audio.pause();
+      else audio.play().catch(function () {});
     });
   }
 
