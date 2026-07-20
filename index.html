@@ -383,8 +383,20 @@ img { max-width: 100%; display: block; }
   background-repeat: no-repeat;
 }
 
+/* Cadrages distincts : navy E28 face vs E30 Marlboro blanche */
+.car-section.sleeper .car-bg {
+  background-position: 40% 55%;
+  background-size: cover;
+}
+.car-section.marlboro .car-bg {
+  background-position: 45% 40%;
+  background-size: cover;
+}
+
 @media (min-width: 1024px) {
   .car-bg { background-attachment: fixed; }
+  .car-section.sleeper .car-bg { background-position: 35% 50%; }
+  .car-section.marlboro .car-bg { background-position: 50% 35%; }
 }
 
 .car-overlay {
@@ -1919,7 +1931,7 @@ footer {
 
 <!-- ============ SÉRIE - OLD SCHOOL BMW ============ -->
 <section class="car-section sleeper" id="serie-sleeper">
-  <div class="car-bg" style="background-image: url('/assets/cars/sleeper.jpg?v=3');"></div>
+  <div class="car-bg" style="background-image: url('/assets/cars/sleeper.jpg?v=4');"></div>
   <div class="car-overlay dark"></div>
   <div class="car-label">BMW E28 · LISERÉ DORÉ</div>
   <div class="car-content">
@@ -1958,9 +1970,9 @@ footer {
 
 <!-- ============ SÉRIE - MARLBORO ============ -->
 <section class="car-section marlboro" id="serie-marlboro">
-  <div class="car-bg" style="background-image: url('/assets/cars/marlboro.jpg?v=3');"></div>
+  <div class="car-bg" style="background-image: url('/assets/cars/marlboro.jpg?v=4');"></div>
   <div class="car-overlay dark-right"></div>
-  <div class="car-label">BMW E30 · MARLBORO CORNER</div>
+  <div class="car-label">BMW E30 · LIVRÉE MARLBORO</div>
   <div class="car-content reverse">
     <div class="sculpture-card">
       <a href="#" class="card-visual" data-details="marlboro" aria-label="En voir plus sur la Marlboro Series">
