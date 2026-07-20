@@ -38,7 +38,18 @@
         accent: '#C9A651',
         desc: "Inspirée de la culture BMW old school des années 70 à 90 : élégance discrète, préparations OEM+, garages privés et esprit « sleeper ». Une pièce collector, hommage à un héritage mécanique intemporel.",
         specs: [['Format', '25 cm'], ['Finition', 'Brillante premium · Or'], ['Matière', 'Résine et recyclage'], ['Origine', 'France · Lyon']],
-        images: ['/assets/sculptures/sleeper.jpg?v=2', '/assets/sculptures/sleeper-case.jpg', '/assets/cars/sleeper.jpg'],
+        images: [
+          '/assets/sculptures/sleeper/01-product.jpg?v=3',
+          '/assets/sculptures/sleeper/02-detail-top.jpg?v=3',
+          '/assets/sculptures/sleeper/03-detail-base.jpg?v=3',
+          '/assets/sculptures/sleeper/04-packaging.jpg?v=3',
+          '/assets/sculptures/sleeper/05-poster.jpg?v=3',
+          '/assets/sculptures/sleeper/06-graphic.jpg?v=3',
+          '/assets/sculptures/sleeper/07-collage.jpg?v=3',
+          '/assets/sculptures/sleeper/08-garage.jpg?v=3',
+          '/assets/sculptures/sleeper/09-garage-wide.jpg?v=3',
+          '/assets/sculptures/sleeper/10-car.jpg?v=3',
+        ],
       },
       racing: {
         title: 'Racing Series',
@@ -46,7 +57,18 @@
         accent: '#3B82F6',
         desc: 'Inspirée des paddocks, des pit lanes et des légendes du sport automobile. Culture racing, mécanique et design performance — une véritable livrée collector.',
         specs: [['Format', '25 cm'], ['Finition', 'Racing · Bleu / Blanc'], ['Matière', 'Résine et recyclage'], ['Origine', 'France · Lyon']],
-        images: ['/assets/sculptures/racing.jpg?v=2', '/assets/sculptures/racing-case.jpg', '/assets/cars/racing.jpg'],
+        images: [
+          '/assets/sculptures/racing/01-product.jpg?v=3',
+          '/assets/sculptures/racing/02-detail.jpg?v=3',
+          '/assets/sculptures/racing/03-drip.jpg?v=3',
+          '/assets/sculptures/racing/04-packaging.jpg?v=3',
+          '/assets/sculptures/racing/05-poster.jpg?v=3',
+          '/assets/sculptures/racing/06-graphic.jpg?v=3',
+          '/assets/sculptures/racing/07-collage.jpg?v=3',
+          '/assets/sculptures/racing/08-garage.jpg?v=3',
+          '/assets/sculptures/racing/09-garage-wide.jpg?v=3',
+          '/assets/sculptures/racing/10-car.jpg?v=3',
+        ],
       },
       propaganda: {
         title: 'Propaganda Series',
@@ -54,7 +76,18 @@
         accent: '#EC4899',
         desc: 'Née dans la rue, inspirée des garages, des paddocks, des murs tagués et de la culture drift. Un univers brut, libre et sans filtre. Chaque bombe est une pièce unique, numérotée à la main.',
         specs: [['Format', '25 cm'], ['Finition', 'Résine rose fluo'], ['Matière', 'Résine et recyclage'], ['Origine', 'France · Lyon']],
-        images: ['/assets/sculptures/propaganda.jpg?v=2', '/assets/sculptures/propaganda-case.jpg', '/assets/cars/propaganda.jpg'],
+        images: [
+          '/assets/sculptures/propaganda/01-product.jpg?v=3',
+          '/assets/sculptures/propaganda/02-detail.jpg?v=3',
+          '/assets/sculptures/propaganda/03-melt.jpg?v=3',
+          '/assets/sculptures/propaganda/04-packaging.jpg?v=3',
+          '/assets/sculptures/propaganda/05-poster.jpg?v=3',
+          '/assets/sculptures/propaganda/06-graphic.jpg?v=3',
+          '/assets/sculptures/propaganda/07-collage.jpg?v=3',
+          '/assets/sculptures/propaganda/08-garage-stack.jpg?v=3',
+          '/assets/sculptures/propaganda/09-garage-wide.jpg?v=3',
+          '/assets/sculptures/propaganda/10-car.jpg?v=3',
+        ],
       },
       marlboro: {
         title: 'Marlboro Series',
@@ -62,7 +95,18 @@
         accent: '#E30613',
         desc: "Hommage à une époque où la vitesse était reine et où les légendes se créaient sur l'asphalte. Culture racing, pilotage et esprit de compétition.",
         specs: [['Format', '25 cm'], ['Finition', 'Glossy premium · Rouge'], ['Matière', 'Résine et recyclage'], ['Origine', 'France · Lyon']],
-        images: ['/assets/sculptures/marlboro.jpg?v=2', '/assets/sculptures/marlboro-case.jpg', '/assets/cars/marlboro.jpg'],
+        images: [
+          '/assets/sculptures/marlboro/01-product.jpg?v=3',
+          '/assets/sculptures/marlboro/02-detail.jpg?v=3',
+          '/assets/sculptures/marlboro/03-drip.jpg?v=3',
+          '/assets/sculptures/marlboro/04-packaging.jpg?v=3',
+          '/assets/sculptures/marlboro/05-poster.jpg?v=3',
+          '/assets/sculptures/marlboro/06-graphic.jpg?v=3',
+          '/assets/sculptures/marlboro/07-collage.jpg?v=3',
+          '/assets/sculptures/marlboro/08-garage.jpg?v=3',
+          '/assets/sculptures/marlboro/09-car-e30.jpg?v=3',
+          '/assets/sculptures/marlboro/10-car.jpg?v=3',
+        ],
       },
     },
   };
@@ -118,17 +162,64 @@
   function renderModal() {
     var img = document.getElementById('modalImg');
     var dots = document.getElementById('modalDots');
-    img.src = modalState.images[modalState.index] || '';
-    img.alt = 'Sculpture ' + (CONFIG.series[modalState.series] ? CONFIG.series[modalState.series].title : '');
-    dots.innerHTML = '';
-    modalState.images.forEach(function (_, i) {
-      var d = document.createElement('button');
-      d.className = 'modal-dot' + (i === modalState.index ? ' active' : '');
-      d.type = 'button';
-      d.setAttribute('aria-label', 'Photo ' + (i + 1));
-      d.addEventListener('click', function () { modalState.index = i; renderModal(); });
-      dots.appendChild(d);
-    });
+    var thumbs = document.getElementById('modalThumbs');
+    var counter = document.getElementById('modalCounter');
+    var total = modalState.images.length;
+    var idx = modalState.index;
+    var src = modalState.images[idx] || '';
+    var title = CONFIG.series[modalState.series] ? CONFIG.series[modalState.series].title : '';
+
+    img.src = src;
+    img.alt = 'Sculpture ' + title + ' — photo ' + (idx + 1) + ' sur ' + total;
+    img.classList.toggle('is-landscape', false);
+    // Détecte le ratio pour adapter le cadre (portrait / paysage)
+    var probe = new Image();
+    probe.onload = function () {
+      img.classList.toggle('is-landscape', probe.naturalWidth > probe.naturalHeight);
+    };
+    probe.src = src;
+
+    if (counter) {
+      counter.textContent = (idx + 1) + ' / ' + total;
+      counter.hidden = total < 2;
+    }
+
+    if (dots) {
+      dots.innerHTML = '';
+      modalState.images.forEach(function (_, i) {
+        var d = document.createElement('button');
+        d.className = 'modal-dot' + (i === idx ? ' active' : '');
+        d.type = 'button';
+        d.setAttribute('aria-label', 'Photo ' + (i + 1));
+        d.addEventListener('click', function () { modalState.index = i; renderModal(); });
+        dots.appendChild(d);
+      });
+      dots.hidden = total < 2;
+    }
+
+    if (thumbs) {
+      thumbs.innerHTML = '';
+      thumbs.hidden = total < 2;
+      modalState.images.forEach(function (url, i) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'modal-thumb' + (i === idx ? ' active' : '');
+        b.setAttribute('aria-label', 'Aperçu photo ' + (i + 1));
+        b.setAttribute('aria-current', i === idx ? 'true' : 'false');
+        var t = document.createElement('img');
+        t.src = url;
+        t.alt = '';
+        t.loading = 'lazy';
+        b.appendChild(t);
+        b.addEventListener('click', function () { modalState.index = i; renderModal(); });
+        thumbs.appendChild(b);
+      });
+      // Garde la vignette active visible dans le scroll horizontal
+      var activeThumb = thumbs.querySelector('.modal-thumb.active');
+      if (activeThumb && typeof activeThumb.scrollIntoView === 'function') {
+        activeThumb.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      }
+    }
   }
 
   function openModal(seriesId) {
