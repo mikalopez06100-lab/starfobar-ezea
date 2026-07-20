@@ -1297,6 +1297,13 @@ footer {
   .wall-grid { grid-template-columns: repeat(2, 1fr); }
   .included-grid { grid-template-columns: repeat(2, 1fr); }
   .footer-top { grid-template-columns: 1fr; }
+  /* Laisse filtrer un peu le fond voiture derrière la carte produit */
+  .sculpture-card {
+    background: rgba(10, 10, 10, 0.62);
+    border-color: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
 }
 
 @media (max-width: 768px) {
@@ -1308,7 +1315,10 @@ footer {
   .intro { padding: 80px 20px; }
   .car-section { padding: 80px 20px; }
   .car-label { top: 20px; right: 20px; }
-  .sculpture-card { padding: 30px 24px; }
+  .sculpture-card {
+    padding: 30px 24px;
+    background: rgba(10, 10, 10, 0.55);
+  }
   .wall { padding: 80px 20px; }
   .wall-grid { grid-template-columns: 1fr; }
   .bundles { padding: 80px 20px; }
