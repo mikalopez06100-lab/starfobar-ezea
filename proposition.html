@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Starfobar × Ezéa — Message à Chris</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #0A0A0A;
+  --black-2: #141414;
+  --black-3: #1A1A1A;
+  --red: #E30613;
+  --red-dark: #A00410;
+  --white: #FFFFFF;
+  --grey: #6B6B6B;
+  --grey-light: #A8A8A8;
+  --grey-border: #2A2A2A;
+  --gold: #C9A651;
+  --gold-dark: #8A6F32;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* ========== TOP BAR ========== */
+.top-bar {
+  background: var(--red);
+  padding: 8px 0;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.top-bar span { margin: 0 16px; }
+
+/* ========== HERO ========== */
+header.hero {
+  padding: 80px 0 60px;
+  border-bottom: 1px solid var(--grey-border);
+}
+
+.hero-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--grey-light);
+  margin-bottom: 60px;
+}
+
+.hero-nav .logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px;
+  letter-spacing: 4px;
+  color: var(--white);
+}
+
+.hero-nav .logo .sep {
+  color: var(--red);
+  margin: 0 8px;
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--grey-light);
+  border: 1px solid var(--grey-border);
+  padding: 8px 16px;
+  margin-bottom: 40px;
+}
+
+.hero-tag .dot {
+  width: 6px;
+  height: 6px;
+  background: var(--red);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.hero h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(56px, 9vw, 120px);
+  line-height: 0.9;
+  letter-spacing: -1px;
+  margin-bottom: 30px;
+}
+
+.hero h1 .accent { color: var(--red); }
+
+.hero .lede {
+  font-size: 19px;
+  color: var(--grey-light);
+  margin-bottom: 50px;
+  max-width: 680px;
+  font-weight: 300;
+  line-height: 1.65;
+}
+
+.hero .lede strong { color: var(--white); font-weight: 500; }
+
+.hero-signature {
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--grey-light);
+  padding-top: 20px;
+  border-top: 1px solid var(--grey-border);
+  margin-bottom: 40px;
+  text-transform: uppercase;
+}
+
+.hero-signature strong {
+  color: var(--white);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  letter-spacing: 3px;
+  display: inline-block;
+  margin-left: 8px;
+}
+
+/* Racing stripe */
+.stripe {
+  height: 3px;
+  background: linear-gradient(90deg, var(--red) 0%, var(--red) 33%, transparent 33%, transparent 40%, var(--white) 40%, var(--white) 47%, transparent 47%, transparent 54%, var(--red) 54%, var(--red) 100%);
+}
+
+/* ========== SECTIONS STANDARD ========== */
+section.block {
+  padding: 70px 0;
+  border-bottom: 1px solid var(--grey-border);
+}
+
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 24px;
+}
+
+.section-label .num {
+  background: var(--red);
+  color: var(--white);
+  padding: 3px 10px;
+  font-weight: 700;
+}
+
+.section-label .line {
+  flex: 1;
+  height: 1px;
+  background: var(--grey-border);
+}
+
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(36px, 5vw, 56px);
+  line-height: 1;
+  letter-spacing: -0.5px;
+  margin-bottom: 24px;
+}
+
+.section-title .red { color: var(--red); }
+.section-title .gold { color: var(--gold); }
+
+.body-text {
+  font-size: 16px;
+  color: var(--grey-light);
+  line-height: 1.75;
+  margin-bottom: 20px;
+  max-width: 720px;
+}
+
+.body-text strong { color: var(--white); font-weight: 500; }
+.body-text.white { color: var(--white); }
+
+/* ========== SECTION MERCI (couleur or) ========== */
+.block.thanks {
+  background: var(--black);
+  padding: 90px 0;
+  border-bottom: 1px solid var(--gold-dark);
+  position: relative;
+}
+
+.block.thanks::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--gold) 30%, var(--gold) 70%, transparent 100%);
+}
+
+.thanks .section-label { color: var(--gold); }
+.thanks .section-label .num { background: var(--gold); color: var(--black); }
+.thanks .section-title .gold { color: var(--gold); }
+
+.thanks-inner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.thanks-body {
+  font-size: 18px;
+  color: var(--white);
+  line-height: 1.85;
+  font-weight: 300;
+  margin-bottom: 24px;
+}
+
+.thanks-body:last-of-type { margin-bottom: 0; }
+
+.thanks-body strong {
+  color: var(--gold);
+  font-weight: 500;
+}
+
+.thanks-highlight {
+  background: var(--black-2);
+  border-left: 3px solid var(--gold);
+  padding: 24px 30px;
+  margin: 30px 0;
+  font-size: 17px;
+  color: var(--white);
+  line-height: 1.7;
+  font-style: italic;
+}
+
+.thanks-highlight strong {
+  color: var(--gold);
+  font-style: normal;
+  font-weight: 600;
+}
+
+.thanks-outro {
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 1px solid var(--grey-border);
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+/* ========== CONSTAT ========== */
+.constat-line {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin: 30px 0 0;
+  padding: 30px 0;
+  border-top: 1px solid var(--grey-border);
+  border-bottom: 1px solid var(--grey-border);
+}
+
+.constat-item .lbl {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--grey);
+  margin-bottom: 10px;
+}
+
+.constat-item .val {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 56px;
+  line-height: 1;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+
+.constat-item .val.red { color: var(--red); }
+
+.constat-item .ctx {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: var(--grey-light);
+  letter-spacing: 1px;
+}
+
+/* ========== CE QUE J'AI MIS SUR LA TABLE ========== */
+.gifts {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+  margin: 30px 0 0;
+}
+
+.gift {
+  background: var(--black-2);
+  border: 1px solid var(--gold);
+  padding: 30px 24px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.gift::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: var(--gold);
+}
+
+.gift-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 18px;
+  gap: 12px;
+}
+
+.gift-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.gift-count {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 42px;
+  color: var(--gold);
+  line-height: 1;
+  letter-spacing: -0.5px;
+}
+
+.gift-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  line-height: 1.1;
+  color: var(--white);
+  margin-bottom: 12px;
+  letter-spacing: 0.2px;
+}
+
+.gift-desc {
+  font-size: 13px;
+  color: var(--grey-light);
+  line-height: 1.65;
+  flex: 1;
+}
+
+.gift-desc strong { color: var(--white); font-weight: 500; }
+
+.gift-partners {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--grey-border);
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: var(--grey);
+  letter-spacing: 1px;
+  line-height: 1.6;
+}
+
+.gift-partners strong {
+  color: var(--gold);
+  display: block;
+  margin-bottom: 6px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* ========== PROPOSITION - 3 LEVIERS ========== */
+.levers {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin: 30px 0 0;
+}
+
+.lever {
+  background: var(--black-2);
+  border: 1px solid var(--grey-border);
+  padding: 28px 24px;
+  position: relative;
+}
+
+.lever-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 32px;
+  color: var(--red);
+  line-height: 1;
+  margin-bottom: 12px;
+}
+
+.lever-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 26px;
+  line-height: 1.05;
+  margin-bottom: 14px;
+  letter-spacing: 0.2px;
+  color: var(--white);
+}
+
+.lever-text {
+  font-size: 13px;
+  color: var(--grey-light);
+  line-height: 1.7;
+}
+
+.lever-text strong {
+  color: var(--white);
+  font-weight: 500;
+}
+
+/* ========== CHIFFRES CLÉS ========== */
+.numbers-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--red);
+  border: 1px solid var(--red);
+  margin: 30px 0 0;
+}
+
+.number-cell {
+  background: var(--black-2);
+  padding: 30px 24px;
+}
+
+.number-cell .n-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 10px;
+}
+
+.number-cell .n-value {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 44px;
+  line-height: 1;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+
+.number-cell .n-detail {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: var(--grey-light);
+  letter-spacing: 1px;
+}
+
+/* ========== QUI FAIT QUOI ========== */
+.roles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin: 30px 0 0;
+}
+
+.role-col {
+  background: var(--black-2);
+  border: 1px solid var(--grey-border);
+  padding: 28px 24px;
+}
+
+.role-col .header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--grey-border);
+}
+
+.role-col .logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 3px;
+  color: var(--red);
+}
+
+.role-col .tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.role-list {
+  list-style: none;
+  padding: 0;
+}
+
+.role-list li {
+  padding: 8px 0;
+  font-size: 13px;
+  color: var(--white);
+  position: relative;
+  padding-left: 22px;
+  line-height: 1.6;
+}
+
+.role-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--red);
+  font-weight: 700;
+  font-family: 'Space Mono', monospace;
+  top: 8px;
+  font-size: 12px;
+}
+
+/* ========== STEPS ========== */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--grey-border);
+  margin: 30px 0 0;
+  border: 1px solid var(--grey-border);
+}
+
+.step {
+  background: var(--black-2);
+  padding: 26px 22px;
+}
+
+.step-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 40px;
+  color: var(--red);
+  line-height: 1;
+  margin-bottom: 14px;
+}
+
+.step-title {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--white);
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.step-desc {
+  font-size: 12px;
+  color: var(--grey-light);
+  line-height: 1.55;
+}
+
+/* ========== PLANNING / RYTHME ========== */
+.rhythm-explain {
+  background: var(--black-3);
+  border-left: 3px solid var(--red);
+  padding: 24px 30px;
+  margin: 30px 0 40px;
+  font-size: 15px;
+  color: var(--white);
+  line-height: 1.75;
+}
+
+.rhythm-explain strong {
+  color: var(--red);
+  font-weight: 600;
+}
+
+.rhythm-explain em {
+  color: var(--grey-light);
+  font-style: normal;
+  display: block;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--grey-border);
+  font-size: 13px;
+}
+
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--grey-border);
+  border: 1px solid var(--grey-border);
+  margin: 30px 0 20px;
+}
+
+.week {
+  background: var(--black-2);
+  padding: 28px 22px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.week.launch::before,
+.week.closing::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--red);
+}
+
+.week-header {
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--grey-border);
+}
+
+.week-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--grey);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.week-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: 0.3px;
+  color: var(--white);
+}
+
+.week.launch .week-name,
+.week.closing .week-name {
+  color: var(--red);
+}
+
+.post-item {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--grey-border);
+}
+
+.post-item:last-child {
+  border-bottom: none;
+}
+
+.post-type {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.post-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--white);
+  font-weight: 700;
+}
+
+.post-count {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 24px;
+  line-height: 1;
+  color: var(--white);
+}
+
+.post-count.dim {
+  color: var(--grey);
+}
+
+.post-status {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  display: inline-block;
+}
+
+.post-status.required {
+  background: var(--red);
+  color: var(--white);
+}
+
+.post-status.optional {
+  background: var(--black-3);
+  color: var(--grey-light);
+  border: 1px solid var(--grey-border);
+}
+
+.rhythm-summary {
+  background: var(--black-2);
+  border: 1px solid var(--grey-border);
+  padding: 24px 28px;
+  margin: 20px 0 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.summary-item {
+  text-align: left;
+}
+
+.summary-item .sm-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--grey);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.summary-item .sm-value {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 32px;
+  line-height: 1;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+
+.summary-item .sm-value .lite {
+  font-size: 14px;
+  color: var(--grey-light);
+  font-family: 'Space Mono', monospace;
+  letter-spacing: 1px;
+}
+
+.summary-item .sm-detail {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: var(--grey-light);
+  letter-spacing: 1px;
+}
+
+.rhythm-note {
+  margin-top: 20px;
+  padding: 16px 20px;
+  background: var(--black);
+  border-left: 2px solid var(--gold);
+  font-size: 13px;
+  color: var(--grey-light);
+  line-height: 1.6;
+}
+
+.rhythm-note strong {
+  color: var(--gold);
+  font-weight: 600;
+}
+
+/* ========== CTA FINAL ========== */
+.final-cta {
+  background: var(--red);
+  padding: 60px 40px;
+  text-align: center;
+  margin: 60px 0 0;
+}
+
+.final-cta h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(36px, 5vw, 56px);
+  line-height: 1;
+  margin-bottom: 24px;
+  letter-spacing: -0.5px;
+}
+
+.final-cta .contact {
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: var(--white);
+  margin-top: 20px;
+}
+
+.final-cta .contact a {
+  color: var(--white);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,0.4);
+  padding-bottom: 2px;
+  margin: 0 10px;
+}
+
+/* ========== FOOTER ========== */
+footer {
+  background: var(--black);
+  padding: 30px 0;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.footer-tagline {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 16px;
+  letter-spacing: 3px;
+  color: var(--white);
+}
+
+.footer-tagline .accent { color: var(--red); }
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 900px) {
+  .gifts { grid-template-columns: 1fr; }
+  .levers { grid-template-columns: 1fr; }
+  .timeline { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .container { padding: 0 20px; }
+  .constat-line { grid-template-columns: 1fr; gap: 20px; }
+  .numbers-strip { grid-template-columns: 1fr; }
+  .roles { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: 1fr; }
+  .timeline { grid-template-columns: 1fr; }
+  .rhythm-summary { grid-template-columns: 1fr; gap: 20px; }
+  section.block { padding: 50px 0; }
+  .block.thanks { padding: 60px 0; }
+  header.hero { padding: 40px 0 40px; }
+  .final-cta { padding: 40px 20px; }
+  .thanks-body { font-size: 16px; }
+  .thanks-highlight { font-size: 15px; padding: 20px 22px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Top bar -->
+<div class="top-bar">
+  <span>STARFOBAR</span>
+  <span>×</span>
+  <span>EZÉA</span>
+  <span>·</span>
+  <span>MESSAGE À CHRIS · JUILLET 2026</span>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="container">
+    <div class="hero-nav">
+      <div class="logo">STARFOBAR<span class="sep">×</span>EZÉA</div>
+      <div>APRÈS L'ÉDITION 04</div>
+    </div>
+
+    <div class="hero-tag">
+      <span class="dot"></span>
+      <span>MESSAGE DIRECT · 2 MINUTES DE LECTURE</span>
+    </div>
+
+    <h1>SALUT CHRIS.<br>ON <span class="accent">S'Y REMET ?</span></h1>
+
+    <p class="lede">
+      L'Édition 04 est désormais derrière nous. Avant de parler chiffres, il y a quelques points essentiels que je tenais à partager avec toi. Ensuite, nous verrons ensemble ce que nous faisons des <strong>87 pièces restantes</strong>.
+    </p>
+
+    <div class="hero-signature">
+      Écrit par <strong>Ezéa</strong>
+    </div>
+  </div>
+</header>
+
+<div class="stripe"></div>
+
+<!-- SECTION 01 - MERCI (nouveau, en or) -->
+<section class="block thanks">
+  <div class="container">
+    <div class="section-label">
+      <span class="num">01</span>
+      <span>AVANT TOUT</span>
+      <span class="line"></span>
+    </div>
+
+    <h2 class="section-title">Merci, <span class="gold">sincèrement.</span></h2>
+
+    <div class="thanks-inner">
+      <p class="thanks-body">
+        Tu m'as offert ce stand à l'Édition 04 sans contrat ni facture, simplement par coup de cœur pour mon travail. <strong>Ce genre de geste spontané est rare.</strong> Je sais ce que cela t'a coûté en logistique, en organisation et en attention, et je t'en remercie sincèrement.
+      </p>
+
+      <p class="thanks-body">
+        En me laissant exploiter l'univers, la signature et la réputation de Starfobar sur mes créations et sur le stand, <strong>tu m'as fait une confiance aveugle.</strong> Aucun contrat ne t'y obligeait. C'est un soutien précieux sur le papier ; dans la vraie vie, ta confiance vaut encore plus.
+      </p>
+
+      <div class="thanks-highlight">
+        Plus qu'un simple stand sur un salon, j'ai eu la sensation d'être <strong>accueilli au sein de la famille Starfobar.</strong> Une opportunité pareille ne s'oublie pas, et je n'oublierai pas à qui je dois cette confiance.
+      </div>
+
+      <p class="thanks-body">
+        Voilà pourquoi je te contacte aujourd'hui. L'idée n'est pas de solliciter un autre service, mais de formaliser <strong>un vrai partenariat gagnant-gagnant</strong> pour la suite. Ce qu'on a lancé le 4 juillet a trop de potentiel pour rester dans l'informel.
+      </p>
+
+      <div class="thanks-outro">
+        — MAINTENANT, PARLONS DES CHIFFRES.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 02 - LE BILAN -->
+<section class="block">
+  <div class="container">
+    <div class="section-label">
+      <span class="num">02</span>
+      <span>OÙ ON EN EST</span>
+      <span class="line"></span>
+    </div>
+
+    <h2 class="section-title">Le <span class="red">bilan réel.</span></h2>
+
+    <p class="body-text">
+      Pour l'Édition 04, j'ai réalisé 100 sculptures sur les 4 séries de la collab. Le week-end du 4-5 juillet, 13 sont parties. C'est peu, et je ne vais pas te raconter que c'est un succès. Mais hormis les ventes, je n'ai reçu que de bons retours de ta communauté présente. Ce qui compte maintenant, c'est ce qu'on fait des 87 restantes — elles sont produites, financées, prêtes à partir.
+    </p>
+
+    <div class="constat-line">
+      <div class="constat-item">
+        <div class="lbl">Produites</div>
+        <div class="val">100</div>
+        <div class="ctx">4 séries × 25</div>
+      </div>
+      <div class="constat-item">
+        <div class="lbl">Vendues sur place</div>
+        <div class="val red">13</div>
+        <div class="ctx">4-5 juillet 2026</div>
+      </div>
+      <div class="constat-item">
+        <div class="lbl">À vendre en ligne</div>
+        <div class="val">87</div>
+        <div class="ctx">Stock disponible</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 03 - CE QUE J'AI DÉJÀ MIS SUR LA TABLE -->
+<section class="block">
+  <div class="container">
+    <div class="section-label">
+      <span class="num">03</span>
+      <span>CE QUE J'AI DÉJÀ INVESTI</span>
+      <span class="line"></span>
+    </div>
+
+    <h2 class="section-title">De <span class="red">mon côté</span> aussi.</h2>
+
+    <p class="body-text">
+      Tu as fait le premier pas en m'ouvrant cette porte, et j'ai aussitôt pris mes responsabilités. En dehors des 87 pièces prêtes pour la vente, voici la valeur concrète déjà posée entre nous.
+    </p>
+
+    <div class="gifts">
+      <!-- Gift 1 : XXL -->
+      <div class="gift">
+        <div class="gift-header">
+          <div class="gift-tag">— PIÈCE UNIQUE —</div>
+          <div class="gift-count">XXL</div>
+        </div>
+        <h3 class="gift-title">Un modèle géant unique, déjà chez toi.</h3>
+        <p class="gift-desc">
+          La grosse pièce que je t'ai livrée est déjà installée chez toi. <strong>Elle est à toi.</strong> Pas de contrepartie, pas de compteur. C'était mon geste d'ouverture — bien avant d'écrire ce message.
+        </p>
+      </div>
+
+      <!-- Gift 2 : 15 uniques -->
+      <div class="gift">
+        <div class="gift-header">
+          <div class="gift-tag">— PIÈCES UNIQUES —</div>
+          <div class="gift-count">+15</div>
+        </div>
+        <h3 class="gift-title">15 pièces uniques pour ton réseau.</h3>
+        <p class="gift-desc">
+          Une série de 15 pièces Starfobar family, hors collection, à offrir à tes partenaires. <strong>5 sont déjà données</strong> à Chatreix, Medo, Sofiane Shiftech, 71 Custom, David Diversion Store. <strong>10 sont encore à distribuer</strong> — j'ai des idées, tu me diras.
+        </p>
+        <div class="gift-partners">
+          <strong>DÉJÀ POURVUS</strong>
+          Chatreix · Medo · Sofiane Shiftech · 71 Custom · David Diversion Store
+        </div>
+      </div>
+
+      <!-- Gift 3 : 4 XL -->
+      <div class="gift">
+        <div class="gift-header">
+          <div class="gift-tag">— FORMAT XL —</div>
+          <div class="gift-count">+4</div>
+        </div>
+        <h3 class="gift-title">4 exemplaires XL pour animer.</h3>
+        <p class="gift-desc">
+          4 pièces au format XL. Idée : les faire gagner à ta communauté pour donner de l'énergie à l'opération — tirage au sort, concours, ce que tu sens. <strong>On décide ensemble.</strong>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 04 - CE QUE JE TE PROPOSE -->
+<section class="block">
+  <div class="container">
+    <div class="section-label">
+      <span class="num">04</span>
+      <span>CE QUE JE TE PROPOSE MAINTENANT</span>
+      <span class="line"></span>
+    </div>
+
+    <h2 class="section-title">Simple. <span class="red">Sur un mois.</span></h2>
+
+    <p class="body-text">
+      Un mois d'opération. Ta communauté suit, elle est prête, et honnêtement je crois qu'avec toi derrière on peut faire un vrai carton. Voici comment ça marche de mon côté.
+    </p>
+
+    <div class="levers">
+      <div class="lever">
+        <div class="lever-num">01</div>
+        <h3 class="lever-title">Tu touches 25 % sur tout.</h3>
+        <p class="lever-text">
+          Sur <strong>chaque pièce vendue en ligne pendant l'opération</strong>, peu importe qui l'a fait venir sur le site. Pas de tracking compliqué, pas de code affilié. <strong>47,50 € par pièce.</strong> Je te fais un point toutes les semaines, virement à ta demande.
+        </p>
+      </div>
+
+      <div class="lever">
+        <div class="lever-num">02</div>
+        <h3 class="lever-title">On propose sculpture + ton merch.</h3>
+        <p class="lever-text">
+          En plus des pièces seules, je propose des combinaisons avec un t-shirt ou un hoodie de chez toi. <strong>Comme ça ton shop tourne en même temps.</strong> Je t'achète ton merch à ton tarif pro, tu ne perds rien.
+        </p>
+      </div>
+
+      <div class="lever">
+        <div class="lever-num">03</div>
+        <h3 class="lever-title">Je te fournis tout le contenu.</h3>
+        <p class="lever-text">
+          Photos, vidéos, textes prêts à poster. <strong>Tu partages, tu ne crées rien.</strong> Une vidéo de reveal au lancement qu'on peut faire ensemble si tu veux, le reste je m'en occupe.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 05 - LES CHIFFRES -->
+<section class="block">
+  <div class="container">
+    <div class="section-label">
+      <span class="num">05</span>
+      <span>LES CHIFFRES</span>
+      <span class="line"></span>
+    </div>
+
+    <h2 class="section-title">Tout <span class="red">est là.</span></h2>
+
+    <p class="body-text">
+      Prix affiché intouchable — 190 € (les 13 acheteurs de l'événement ont payé ce prix-là, je ne peux pas le casser). Ta part est fixe, transparente, sur toutes les ventes de l'opération.
+    </p>
+
+    <div class="numbers-strip">
+      <div class="number-cell">
+        <div class="n-label">Prix / pièce</div>
+        <div class="n-value">190 €</div>
+        <div class="n-detail">Édition limitée</div>
+      </div>
+      <div class="number-cell">
+        <div class="n-label">Ta part</div>
+        <div class="n-value">47,50 €</div>
+        <div class="n-detail">25 % par vente</div>
+      </div>
+      <div class="number-cell">
+        <div class="n-label">Si on vend tout</div>
+        <div class="n-value">4 132 €</div>
+        <div class="n-detail">Sur 87 pièces</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 06 - QUI FAIT QUOI -->
+<section class="block">
+  <div class="container">
+    <div class="section-label">
+      <span class="num">06</span>
+      <span>QUI FAIT QUOI</span>
+      <span class="line"></span>
+    </div>
+
+    <h2 class="section-title">Chacun sa <span class="red">zone.</span></h2>
+
+    <div class="roles">
+      <div class="role-col">
+        <div class="header">
+          <div class="logo">EZÉA</div>
+          <div class="tag">JE M'OCCUPE DE :</div>
+        </div>
+        <ul class="role-list">
+          <li>Le site de vente en ligne, l'hébergement, les paiements</li>
+          <li>Les photos, vidéos, textes prêts à poster</li>
+          <li>L'expédition sous 5 jours, le suivi, les retours</li>
+          <li>Le suivi des ventes et le versement de ta part</li>
+        </ul>
+      </div>
+
+      <div class="role-col">
+        <div class="header">
+          <div class="logo">STARFOBAR</div>
+          <div class="tag">TU T'OCCUPES DE :</div>
+        </div>
+        <ul class="role-list">
+          <li>Publier selon le rythme défini plus bas (voir section 07)</li>
+          <li>Une vidéo de reveal au lancement — optionnel, on peut la faire ensemble</li>
+          <li>Choisir 2-3 pièces de ton merch à combiner</li>
+          <li>Décider avec moi de l'animation des 4 XL</li>
+          <li>Facture d'apporteur d'affaires</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 07 - LE RYTHME DES POSTS -->
+<section class="block">
+  <div class="container">
+    <div class="section-label">
+      <span class="num">07</span>
+      <span>LE RYTHME DES POSTS</span>
+      <span class="line"></span>
+    </div>
+
+    <h2 class="section-title">C'est là que ça <span class="red">se joue.</span></h2>
+
+    <p class="body-text">
+      Toute l'opération repose sur ta communauté. Le reste — le site, les paiements, la logistique, le contenu — je m'en occupe. Mais si tu ne pousses pas, ça reste 87 pièces qui prennent la poussière.
+    </p>
+
+    <!-- Timeline 4 semaines -->
+    <div class="timeline">
+      <!-- Semaine 01 -->
+      <div class="week launch">
+        <div class="week-header">
+          <div class="week-num">SEMAINE 01</div>
+          <div class="week-name">Lancement</div>
+        </div>
+
+        <div class="post-item">
+          <div class="post-type">
+            <div class="post-label">Stories</div>
+            <div class="post-count">4-5</div>
+          </div>
+          <div class="post-status required">Obligatoire</div>
+        </div>
+
+        <div class="post-item">
+          <div class="post-type">
+            <div class="post-label">Reel reveal</div>
+            <div class="post-count">1</div>
+          </div>
+          <div class="post-status required">Obligatoire</div>
+        </div>
+
+        <div class="post-item">
+          <div class="post-type">
+            <div class="post-label">Post feed</div>
+            <div class="post-count">1</div>
+          </div>
+          <div class="post-status required">Obligatoire</div>
+        </div>
+      </div>
+
+      <!-- Semaine 02 -->
+      <div class="week">
+        <div class="week-header">
+          <div class="week-num">SEMAINE 02</div>
+          <div class="week-name">Installation</div>
+        </div>
+
+        <div class="post-item">
+          <div class="post-type">
+            <div class="post-label">Stories</div>
+            <div class="post-count">3</div>
+          </div>
+          <div class="post-status required">Obligatoire</div>
+        </div>
+
+        <div class="post-item">
+          <div class="post-type">
+            <div class="post-label">Reel</div>
+            <div class="post-count dim">—</div>
+          </div>
+          <div class="post-status optional">—</div>
+        </div>
+
+        <div class="post-item">
+          <div class="post-type">
+            <div class="post-label">Post feed</div>
+            <div class="post-count dim">0-1</div>
+          </div>
+          <div class="post-status optional">Optionnel</div>
+        </div>
+      </div>
+
+      <!-- Semaine 03 -->
+      <div class="week">
+        <div class="week-header">
+          <div class="week-num">SEMAINE 03</div>
+          <div class="week-name">Mi-parcours</div>
+        </div>
+
+        <div class="post-item">
+          <div class="post-type">
+            <div class="post-label">Stories</div>
+            <div class="post-count">3</div>
+          </div>
+          <div class="post-status required">Obligatoire</div>
+        </div>
+
+        <div class="post-item">
+          <div class="post-type">
+            <div class="post-label">Reel XL</div>
+            <div class="post-count">1</div>
+          </div>
+          <div class="post-status required">Obligatoire</div>
+        </div>
+
+        <div class="post-item">
+          <div class="post-type">
+            <div class="post-label">Post feed</div>
+            <div class="post-count dim">0-1</div>
+          </div>
+          <div class="post-status optional">Optionnel</div>
+        </div>
+      </div>
+
+      <!-- Semaine 04 -->
+      <div class="week closing">
+        <div class="week-header">
+          <div class="week-num">SEMAINE 04</div>
+          <div class="week-name">Closing</div>
+        </div>
+
+        <div class="post-item">
+          <div class="post-type">
+            <div class="post-label">Stories</div>
+            <div class="post-count">4-5</div>
+          </div>
+          <div class="post-status required">Obligatoire</div>
+        </div>
+
+        <div class="post-item">
+          <div class="post-type">
+            <div class="post-label">Reel gagnants</div>
+            <div class="post-count">1</div>
+          </div>
+          <div class="post-status required">Obligatoire</div>
+        </div>
+
+        <div class="post-item">
+          <div class="post-type">
+            <div class="post-label">Post feed</div>
+            <div class="post-count">1</div>
+          </div>
+          <div class="post-status required">Obligatoire</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Récap -->
+    <div class="rhythm-summary">
+      <div class="summary-item">
+        <div class="sm-label">Stories minimum</div>
+        <div class="sm-value">14 <span class="lite">/ 4 semaines</span></div>
+        <div class="sm-detail">≈ 1 tous les 2 jours</div>
+      </div>
+      <div class="summary-item">
+        <div class="sm-label">Reels obligatoires</div>
+        <div class="sm-value">3</div>
+        <div class="sm-detail">Reveal, XL, gagnants</div>
+      </div>
+      <div class="summary-item">
+        <div class="sm-label">Posts feed obligatoires</div>
+        <div class="sm-value">2</div>
+      </div>
+    </div>
+
+    <div class="rhythm-note">
+      <strong>Ce que je livre en face :</strong> tout le contenu prêt à poster. Photos, vidéos, captions déjà écrites, story templates avec les stickers. Tu ne crées rien, tu publies. Contenu neuf toutes les 10 jours pour ne jamais poster deux fois la même chose. Si un jour tu n'as pas le temps, tu peux me dire — je programme à ta place depuis ton compte.
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 08 - POUR DÉMARRER -->
+<section class="block">
+  <div class="container">
+    <div class="section-label">
+      <span class="num">08</span>
+      <span>POUR DÉMARRER</span>
+      <span class="line"></span>
+    </div>
+
+    <h2 class="section-title">3 pas. <span class="red">10 jours.</span></h2>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-title">Ton retour</div>
+        <div class="step-desc">Dis-moi si le cadre te va. Si tu veux changer un point, on en parle.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-title">On cale</div>
+        <div class="step-desc">Choix de ton merch, planning des posts, animation des XL. Un mail ou un appel, pas plus.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-title">Go</div>
+        <div class="step-desc">Site en ligne sous 10 jours. Contenu livré. On lance ensemble.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="final-cta">
+  <h2>ON A COMMENCÉ ENSEMBLE.<br>ON PEUT FINIR ENSEMBLE.</h2>
+  <div class="contact">
+    <a href="mailto:contact@ezea.fr">CONTACT@EZEA.FR</a>
+    <span>·</span>
+    <a href="https://ezea.fr">EZEA.FR</a>
+    <span>·</span>
+    <a href="https://instagram.com/ezea.art">@ezea.art</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-tag">SF·EZ·02·2026</div>
+      <div class="footer-tagline">STOP THE MOTION. <span class="accent">OWN THE MOMENT.</span></div>
+      <div class="footer-tag">© 2026 EZÉA · LA GAUDE</div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
