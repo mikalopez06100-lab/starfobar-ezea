@@ -37,7 +37,7 @@
         tag: 'SCULPTURE · OLD SCHOOL BMW',
         accent: '#C9A651',
         desc: "Inspirée de la culture BMW old school des années 70 à 90 : élégance discrète, préparations OEM+, garages privés et esprit « sleeper ». Une pièce collector, hommage à un héritage mécanique intemporel.",
-        specs: [['Format', '25 cm'], ['Finition', 'Brillante premium · Or'], ['Matière', 'Résine et recyclage'], ['Origine', 'France · Lyon']],
+        specs: [['Format', '25 cm'], ['Finition', 'Glossy premium · Or'], ['Matière', 'Résine et recyclage'], ['Origine', 'France · Lyon']],
         images: [
           '/assets/sculptures/sleeper/01-product.jpg?v=3',
           '/assets/sculptures/sleeper/02-detail-top.jpg?v=3',
@@ -56,7 +56,7 @@
         tag: 'SCULPTURE · RACING',
         accent: '#3B82F6',
         desc: 'Inspirée des paddocks, des pit lanes et des légendes du sport automobile. Culture racing, mécanique et design performance — une véritable livrée collector.',
-        specs: [['Format', '25 cm'], ['Finition', 'Racing · Bleu / Blanc'], ['Matière', 'Résine et recyclage'], ['Origine', 'France · Lyon']],
+        specs: [['Format', '25 cm'], ['Finition', 'Glossy premium · Bleu'], ['Matière', 'Résine et recyclage'], ['Origine', 'France · Lyon']],
         images: [
           '/assets/sculptures/racing/01-product.jpg?v=3',
           '/assets/sculptures/racing/02-detail.jpg?v=3',
@@ -75,7 +75,7 @@
         tag: 'SCULPTURE · PROPAGANDA',
         accent: '#EC4899',
         desc: 'Née dans la rue, inspirée des garages, des paddocks, des murs tagués et de la culture drift. Un univers brut, libre et sans filtre. Chaque bombe est une pièce unique, numérotée à la main.',
-        specs: [['Format', '25 cm'], ['Finition', 'Résine rose fluo'], ['Matière', 'Résine et recyclage'], ['Origine', 'France · Lyon']],
+        specs: [['Format', '25 cm'], ['Finition', 'Glossy premium · Rose'], ['Matière', 'Résine et recyclage'], ['Origine', 'France · Lyon']],
         images: [
           '/assets/sculptures/propaganda/01-product.jpg?v=3',
           '/assets/sculptures/propaganda/02-detail.jpg?v=3',
