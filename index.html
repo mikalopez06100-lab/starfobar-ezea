@@ -1,0 +1,2038 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Starfobar × Ezéa — Le garage · Sculptures résine numérotées</title>
+<meta name="description" content="Collection Starfobar × Ezéa, édition limitée à 100 exemplaires. Sculptures en résine réalisées à la main, numérotées, cachées dans le garage de Chris. 190 €.">
+<link rel="canonical" href="https://starfobar-ezea.com">
+<meta name="theme-color" content="#0A0A0A">
+<meta name="robots" content="index, follow">
+
+<!-- Favicon (emoji SVG inline, remplaçable par un vrai favicon.ico) -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230A0A0A'/%3E%3Ctext y='72' x='50' text-anchor='middle' font-size='64' fill='%23E30613'%3E×%3C/text%3E%3C/svg%3E">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Starfobar × Ezéa">
+<meta property="og:title" content="Starfobar × Ezéa — Le garage">
+<meta property="og:description" content="Sculptures en résine réalisées à la main, numérotées, cachées dans le garage de Chris. Édition limitée · 100 pièces. 190 €.">
+<meta property="og:url" content="https://starfobar-ezea.com">
+<meta property="og:image" content="https://starfobar-ezea.com/assets/garage/09-entrance-marlboro-neon.jpg">
+<meta property="og:image:width" content="1920">
+<meta property="og:image:height" content="1080">
+<meta property="og:locale" content="fr_FR">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Starfobar × Ezéa — Le garage">
+<meta name="twitter:description" content="Sculptures résine numérotées, cachées dans le garage de Chris. Édition limitée · 100 pièces. 190 €.">
+<meta name="twitter:image" content="https://starfobar-ezea.com/assets/garage/09-entrance-marlboro-neon.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #0A0A0A;
+  --black-2: #141414;
+  --black-3: #1A1A1A;
+  --red: #E30613;
+  --red-dark: #A00410;
+  --gold: #C9A651;
+  --gold-dark: #8A6F32;
+  --white: #FFFFFF;
+  --grey: #6B6B6B;
+  --grey-light: #A8A8A8;
+  --grey-border: #2A2A2A;
+  --blue-racing: #1D4ED8;
+  --pink-prop: #EC4899;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+img { max-width: 100%; display: block; }
+
+/* ============ NAV FIXE ============ */
+.topnav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(180deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%);
+  transition: background 0.3s;
+}
+
+.topnav.scrolled {
+  background: rgba(10,10,10,0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--grey-border);
+}
+
+.topnav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  letter-spacing: 4px;
+  color: var(--white);
+}
+
+.topnav-logo .sep {
+  color: var(--red);
+  margin: 0 8px;
+}
+
+.topnav-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.sound-toggle {
+  background: transparent;
+  border: 1px solid var(--grey-border);
+  color: var(--white);
+  padding: 8px 12px;
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sound-toggle:hover {
+  border-color: var(--red);
+  color: var(--red);
+}
+
+.sound-toggle .icon {
+  width: 12px;
+  height: 12px;
+  position: relative;
+}
+
+.stock-badge {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--grey-light);
+  text-transform: uppercase;
+}
+
+.stock-badge .num { color: var(--red); font-weight: 700; }
+
+/* ============ HERO / ENTRÉE ============ */
+.hero {
+  height: 100vh;
+  min-height: 700px;
+  position: relative;
+  background: url('/assets/garage/09-entrance-marlboro-neon.jpg') center/cover no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 100px 40px 60px;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.3) 40%, rgba(10,10,10,0.95) 100%);
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--white);
+  border: 1px solid rgba(255,255,255,0.3);
+  padding: 8px 16px;
+  margin-bottom: 40px;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(4px);
+}
+
+.hero-tag .dot {
+  width: 6px;
+  height: 6px;
+  background: var(--red);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.hero h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(64px, 11vw, 180px);
+  line-height: 0.88;
+  letter-spacing: -1px;
+  margin-bottom: 30px;
+  color: var(--white);
+  text-shadow: 0 4px 40px rgba(0,0,0,0.6);
+}
+
+.hero h1 .accent { color: var(--red); }
+
+.hero .subtitle {
+  font-size: 20px;
+  color: var(--white);
+  max-width: 600px;
+  margin-bottom: 40px;
+  font-weight: 300;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.8);
+}
+
+.hero .subtitle strong {
+  color: var(--red);
+  font-weight: 700;
+}
+
+.hero-footer {
+  position: relative;
+  z-index: 2;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.hero-metas {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.hero-meta {
+  font-family: 'Space Mono', monospace;
+}
+
+.hero-meta .label {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--grey-light);
+  margin-bottom: 6px;
+}
+
+.hero-meta .value {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  letter-spacing: 1px;
+  color: var(--white);
+}
+
+.hero-meta .value.red { color: var(--red); }
+
+.scroll-hint {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--white);
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: bob 2s ease-in-out infinite;
+}
+
+.scroll-hint::after {
+  content: '↓';
+  font-size: 16px;
+  color: var(--red);
+}
+
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(5px); }
+}
+
+/* Racing stripe */
+.stripe {
+  height: 3px;
+  background: linear-gradient(90deg, var(--red) 0%, var(--red) 33%, transparent 33%, transparent 40%, var(--white) 40%, var(--white) 47%, transparent 47%, transparent 54%, var(--red) 54%, var(--red) 100%);
+}
+
+/* ============ INTRO STORYTELLING ============ */
+.intro {
+  padding: 120px 40px;
+  background: var(--black);
+  text-align: center;
+  position: relative;
+}
+
+.intro-inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.intro-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.intro-label::before,
+.intro-label::after {
+  content: '';
+  width: 40px;
+  height: 1px;
+  background: var(--grey-border);
+}
+
+.intro h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(36px, 5.5vw, 68px);
+  line-height: 1.05;
+  margin-bottom: 40px;
+  letter-spacing: -0.5px;
+}
+
+.intro h2 .red { color: var(--red); }
+
+.intro p {
+  font-size: 17px;
+  color: var(--grey-light);
+  line-height: 1.75;
+  margin-bottom: 20px;
+}
+
+.intro p strong { color: var(--white); font-weight: 500; }
+
+.intro .highlight {
+  color: var(--white);
+  font-size: 19px;
+  font-weight: 400;
+  margin-top: 40px;
+  padding: 30px;
+  border-left: 3px solid var(--red);
+  background: var(--black-2);
+  text-align: left;
+  font-style: italic;
+}
+
+/* ============ VOITURE / SÉRIE ============ */
+.car-section {
+  position: relative;
+  min-height: 100vh;
+  padding: 100px 40px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.car-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+@media (min-width: 1024px) {
+  .car-bg { background-attachment: fixed; }
+}
+
+.car-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.car-overlay.dark {
+  background: linear-gradient(90deg, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.75) 50%, rgba(10,10,10,0.4) 100%);
+}
+
+.car-overlay.dark-right {
+  background: linear-gradient(90deg, rgba(10,10,10,0.4) 0%, rgba(10,10,10,0.75) 50%, rgba(10,10,10,0.92) 100%);
+}
+
+.car-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.car-content.reverse {
+  grid-template-columns: 0.9fr 1.1fr;
+}
+
+.car-narrative { position: relative; }
+
+.series-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid rgba(227,6,19,0.3);
+  padding: 6px 14px;
+  background: rgba(227,6,19,0.08);
+}
+
+.series-num .marker {
+  width: 6px;
+  height: 6px;
+  background: var(--red);
+  border-radius: 50%;
+}
+
+.car-name {
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--grey-light);
+  margin-bottom: 12px;
+}
+
+.series-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(48px, 7vw, 96px);
+  line-height: 0.9;
+  letter-spacing: -0.5px;
+  margin-bottom: 24px;
+  color: var(--white);
+}
+
+.series-desc {
+  font-size: 16px;
+  color: var(--grey-light);
+  line-height: 1.75;
+  margin-bottom: 30px;
+  max-width: 520px;
+}
+
+.series-desc strong { color: var(--white); font-weight: 500; }
+
+.series-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 40px;
+}
+
+.series-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--white);
+  padding: 6px 12px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+/* CARD SCULPTURE */
+.sculpture-card {
+  background: var(--black-2);
+  border: 1px solid var(--grey-border);
+  padding: 40px;
+  position: relative;
+  backdrop-filter: blur(8px);
+}
+
+.sculpture-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: var(--red);
+}
+
+.card-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--grey);
+  margin-bottom: 20px;
+}
+
+.card-specs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 30px;
+  padding: 24px 0;
+  border-top: 1px solid var(--grey-border);
+  border-bottom: 1px solid var(--grey-border);
+}
+
+.card-spec {
+  font-family: 'Space Mono', monospace;
+}
+
+.card-spec .lbl {
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--grey);
+  margin-bottom: 6px;
+}
+
+.card-spec .val {
+  font-size: 14px;
+  color: var(--white);
+  font-weight: 700;
+}
+
+.stock-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 12px;
+}
+
+.stock-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.stock-count {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 24px;
+  color: var(--white);
+  letter-spacing: 1px;
+}
+
+.stock-count .rem { color: var(--red); }
+
+.stock-bar {
+  height: 4px;
+  background: var(--black-3);
+  margin-bottom: 30px;
+  overflow: hidden;
+  position: relative;
+}
+
+.stock-bar::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background: linear-gradient(90deg, var(--red) 0%, var(--red-dark) 100%);
+  width: var(--stock-fill, 50%);
+  transition: width 1s ease;
+}
+
+.price-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 24px;
+}
+
+.price {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 48px;
+  color: var(--white);
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.price .cur { font-size: 24px; margin-left: 4px; color: var(--grey-light); }
+
+.price-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.cta-primary {
+  display: block;
+  width: 100%;
+  background: var(--red);
+  color: var(--white);
+  padding: 18px;
+  border: none;
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+  text-align: center;
+  font-weight: 700;
+}
+
+.cta-primary:hover {
+  background: var(--red-dark);
+  transform: translateY(-2px);
+}
+
+.cta-secondary {
+  display: block;
+  width: 100%;
+  background: transparent;
+  color: var(--white);
+  padding: 14px;
+  border: 1px solid var(--grey-border);
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.cta-secondary:hover {
+  border-color: var(--white);
+  background: rgba(255,255,255,0.05);
+}
+
+/* Accent variants per series */
+.car-section.sleeper .series-num { color: var(--gold); border-color: rgba(201,166,81,0.3); background: rgba(201,166,81,0.08); }
+.car-section.sleeper .series-num .marker { background: var(--gold); }
+.car-section.sleeper .sculpture-card::before { background: var(--gold); }
+.car-section.sleeper .stock-count .rem { color: var(--gold); }
+.car-section.sleeper .stock-bar::after { background: linear-gradient(90deg, var(--gold) 0%, var(--gold-dark) 100%); }
+.car-section.sleeper .cta-primary { background: var(--gold); color: var(--black); }
+.car-section.sleeper .cta-primary:hover { background: var(--gold-dark); color: var(--white); }
+
+.car-section.propaganda .series-num { color: var(--pink-prop); border-color: rgba(236,72,153,0.3); background: rgba(236,72,153,0.08); }
+.car-section.propaganda .series-num .marker { background: var(--pink-prop); }
+.car-section.propaganda .sculpture-card::before { background: var(--pink-prop); }
+.car-section.propaganda .stock-count .rem { color: var(--pink-prop); }
+.car-section.propaganda .stock-bar::after { background: linear-gradient(90deg, var(--pink-prop) 0%, #BE185D 100%); }
+.car-section.propaganda .cta-primary { background: var(--pink-prop); color: var(--white); }
+.car-section.propaganda .cta-primary:hover { background: #BE185D; }
+
+.car-section.racing .series-num { color: #3B82F6; border-color: rgba(59,130,246,0.3); background: rgba(59,130,246,0.08); }
+.car-section.racing .series-num .marker { background: #3B82F6; }
+.car-section.racing .sculpture-card::before { background: #3B82F6; }
+.car-section.racing .stock-count .rem { color: #3B82F6; }
+.car-section.racing .stock-bar::after { background: linear-gradient(90deg, #3B82F6 0%, #1D4ED8 100%); }
+.car-section.racing .cta-primary { background: #3B82F6; }
+.car-section.racing .cta-primary:hover { background: #1D4ED8; }
+
+/* Corner label voiture */
+.car-label {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  z-index: 3;
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  background: rgba(0,0,0,0.6);
+  padding: 8px 14px;
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.car-label .num { color: var(--red); font-weight: 700; }
+
+/* Voiture spéciale : dropquote propaganda */
+.narrative-quote {
+  margin-top: 30px;
+  padding: 20px 24px;
+  background: rgba(255,255,255,0.04);
+  border-left: 3px solid var(--white);
+  font-size: 14px;
+  color: var(--white);
+  font-style: italic;
+  line-height: 1.6;
+}
+
+.narrative-quote strong { color: var(--pink-prop); font-style: normal; font-weight: 700; }
+
+/* ============ WALL OF MEMORIES ============ */
+.wall {
+  padding: 120px 40px;
+  background: var(--black);
+  position: relative;
+}
+
+.wall-header {
+  max-width: 1400px;
+  margin: 0 auto 60px;
+  text-align: center;
+}
+
+.wall-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 20px;
+}
+
+.wall h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(40px, 6vw, 72px);
+  line-height: 1;
+  letter-spacing: -0.5px;
+  margin-bottom: 20px;
+}
+
+.wall .sub {
+  font-size: 16px;
+  color: var(--grey-light);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.wall-grid {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.wall-item {
+  aspect-ratio: 4/3;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s;
+}
+
+.wall-item:hover { transform: scale(1.02); }
+
+.wall-item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.8) 100%);
+}
+
+.wall-item .caption {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  z-index: 2;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--white);
+  text-transform: uppercase;
+}
+
+/* ============ BUNDLES ============ */
+.bundles {
+  padding: 120px 40px;
+  background: var(--black-2);
+  position: relative;
+  border-top: 1px solid var(--grey-border);
+  border-bottom: 1px solid var(--grey-border);
+}
+
+.bundles-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.bundles-header { text-align: center; margin-bottom: 60px; }
+
+.bundles-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 20px;
+}
+
+.bundles h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(40px, 6vw, 72px);
+  line-height: 1;
+  margin-bottom: 20px;
+  letter-spacing: -0.5px;
+}
+
+.bundles h2 .red { color: var(--red); }
+
+.bundles-sub {
+  font-size: 16px;
+  color: var(--grey-light);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.bundles-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.bundle {
+  background: var(--black);
+  border: 1px solid var(--grey-border);
+  padding: 40px 30px;
+  position: relative;
+  transition: border-color 0.3s;
+  display: flex;
+  flex-direction: column;
+}
+
+.bundle:hover { border-color: var(--red); }
+
+.bundle.featured {
+  border-color: var(--red);
+  position: relative;
+}
+
+.bundle.featured::before {
+  content: 'LE PLUS RARE';
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--red);
+  color: var(--white);
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  padding: 4px 12px;
+}
+
+.bundle-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 16px;
+}
+
+.bundle-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 42px;
+  line-height: 1;
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
+}
+
+.bundle-desc {
+  font-size: 14px;
+  color: var(--grey-light);
+  line-height: 1.6;
+  margin-bottom: 30px;
+  min-height: 60px;
+}
+
+.bundle-includes {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 30px;
+  flex: 1;
+}
+
+.bundle-includes li {
+  font-size: 13px;
+  color: var(--white);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--grey-border);
+  position: relative;
+  padding-left: 24px;
+  line-height: 1.5;
+}
+
+.bundle-includes li::before {
+  content: '+';
+  position: absolute;
+  left: 0;
+  color: var(--red);
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+}
+
+.bundle-price-line {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.bundle-price {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 56px;
+  line-height: 1;
+  color: var(--white);
+  letter-spacing: -1px;
+}
+
+.bundle-price .cur { font-size: 28px; color: var(--grey-light); margin-left: 4px; }
+
+.bundle-save {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--red);
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.bundle-was {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: var(--grey);
+  text-decoration: line-through;
+  margin-bottom: 24px;
+}
+
+/* ============ CE QUI VIENT AVEC ============ */
+.included {
+  padding: 100px 40px;
+  background: var(--black);
+}
+
+.included-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.included-header { text-align: center; margin-bottom: 60px; }
+
+.included h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(36px, 5vw, 56px);
+  line-height: 1;
+  margin-bottom: 20px;
+}
+
+.included-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.included-grid--3 { grid-template-columns: repeat(3, 1fr); max-width: 960px; margin: 0 auto; }
+
+.included-item {
+  text-align: center;
+  padding: 30px 20px;
+  border: 1px solid var(--grey-border);
+  background: var(--black-2);
+}
+
+.included-item .num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 42px;
+  color: var(--red);
+  line-height: 1;
+  margin-bottom: 16px;
+}
+
+.included-item .name {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--white);
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.included-item .desc {
+  font-size: 13px;
+  color: var(--grey-light);
+  line-height: 1.5;
+}
+
+/* ============ SIGNATURE / OUTRO ============ */
+.outro {
+  height: 90vh;
+  min-height: 600px;
+  position: relative;
+  background: url('/assets/garage/11-facade-bmw-showroom.jpg') center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 40px;
+}
+
+.outro::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10,10,10,0.4) 0%, rgba(10,10,10,0.9) 100%);
+}
+
+.outro-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 900px;
+}
+
+.outro-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 30px;
+}
+
+.outro h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(48px, 8vw, 96px);
+  line-height: 0.95;
+  margin-bottom: 30px;
+  letter-spacing: -1px;
+}
+
+.outro h2 .red { color: var(--red); }
+
+.outro p {
+  font-size: 18px;
+  color: var(--grey-light);
+  margin-bottom: 40px;
+}
+
+.outro-signature {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  letter-spacing: 3px;
+  color: var(--white);
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 1px solid rgba(255,255,255,0.15);
+  display: inline-block;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.outro-signature .accent { color: var(--red); }
+
+/* ============ FOOTER ============ */
+footer {
+  background: var(--black);
+  padding: 60px 40px 40px;
+  border-top: 1px solid var(--grey-border);
+}
+
+.footer-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 40px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--grey-border);
+}
+
+.footer-brand {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 32px;
+  letter-spacing: 4px;
+  margin-bottom: 20px;
+}
+
+.footer-brand .sep { color: var(--red); margin: 0 8px; }
+
+.footer-tag {
+  font-size: 13px;
+  color: var(--grey-light);
+  line-height: 1.6;
+  max-width: 400px;
+}
+
+.footer-col h4 {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 20px;
+}
+
+.footer-col a {
+  display: block;
+  color: var(--grey-light);
+  text-decoration: none;
+  font-size: 13px;
+  padding: 6px 0;
+  transition: color 0.2s;
+}
+
+.footer-col a:hover { color: var(--white); }
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding-top: 30px;
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.footer-tagline {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 16px;
+  letter-spacing: 3px;
+  color: var(--white);
+}
+
+.footer-tagline .accent { color: var(--red); }
+
+/* ============ FADE-IN AU SCROLL ============ */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 1024px) {
+  .car-content, .car-content.reverse { grid-template-columns: 1fr; gap: 40px; }
+  .bundles-grid { grid-template-columns: 1fr; }
+  .wall-grid { grid-template-columns: repeat(2, 1fr); }
+  .included-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-top { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  .topnav { padding: 15px 20px; }
+  .stock-badge { display: none; }
+  .hero { padding: 80px 20px 40px; }
+  .hero-metas { gap: 24px; }
+  .hero-meta .value { font-size: 22px; }
+  .intro { padding: 80px 20px; }
+  .car-section { padding: 80px 20px; }
+  .car-label { top: 20px; right: 20px; }
+  .sculpture-card { padding: 30px 24px; }
+  .wall { padding: 80px 20px; }
+  .wall-grid { grid-template-columns: 1fr; }
+  .bundles { padding: 80px 20px; }
+  .included { padding: 80px 20px; }
+  .included-grid { grid-template-columns: 1fr; }
+  .outro { padding: 60px 20px; height: auto; min-height: 500px; }
+  .card-specs { grid-template-columns: 1fr; }
+  footer { padding: 40px 20px 30px; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; }
+}
+/* ============ HERO MEDIA (vidéo + Ken Burns fallback) ============ */
+.hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.hero-kenburns {
+  position: absolute;
+  inset: -5%;
+  background: url('/assets/garage/09-entrance-marlboro-neon.jpg') center/cover no-repeat;
+  animation: kenburns 24s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes kenburns {
+  0%   { transform: scale(1) translate(0, 0); }
+  100% { transform: scale(1.12) translate(-2%, -2%); }
+}
+
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.hero-video.is-playing { opacity: 1; }
+
+.media-toggle {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  z-index: 5;
+  background: rgba(0,0,0,0.5);
+  border: 1px solid var(--grey-border);
+  color: var(--white);
+  width: 40px;
+  height: 40px;
+  font-size: 12px;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: all 0.2s;
+  display: none; /* affiché par JS uniquement si une vidéo est chargée */
+  align-items: center;
+  justify-content: center;
+}
+
+.media-toggle:hover { border-color: var(--red); color: var(--red); }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-kenburns { animation: none; }
+  .fade-in { transition: none; opacity: 1; transform: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* ============ SÉLECTEUR DE SÉRIES (hero) ============ */
+.series-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 32px;
+}
+
+.series-pill {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--white);
+  border: 1px solid rgba(255,255,255,0.25);
+  background: rgba(0,0,0,0.35);
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  backdrop-filter: blur(4px);
+  text-decoration: none;
+}
+
+.series-pill:hover { border-color: var(--pill-color, var(--red)); color: var(--pill-color, var(--red)); }
+
+.combo-pill { background: var(--red); border-color: var(--red); color: var(--white); font-weight: 700; }
+.combo-pill:hover { background: var(--red-dark); border-color: var(--red-dark); color: var(--white); }
+
+/* Disponibilité qualitative (remplace le compteur chiffré) */
+.availability {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--grey-light);
+  margin-bottom: 26px;
+  padding-top: 4px;
+}
+.availability .dot { width: 8px; height: 8px; border-radius: 50%; background: #4ade80; box-shadow: 0 0 0 3px rgba(74,222,128,0.15); }
+/* États alternatifs — changer la classe sur .availability (voir README) */
+.availability.low { color: #fff; }
+.availability.low .dot { background: var(--red); box-shadow: 0 0 0 3px rgba(227,6,19,0.18); animation: pulse 1.6s infinite; }
+.availability.sold { color: var(--grey); }
+.availability.sold .dot { background: var(--grey); box-shadow: none; }
+
+/* ============ NEWSLETTER ============ */
+.newsletter {
+  padding: 90px 40px;
+  background: var(--black);
+  border-top: 1px solid var(--grey-border);
+  text-align: center;
+}
+
+.newsletter-inner { max-width: 640px; margin: 0 auto; }
+
+.newsletter-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 20px;
+}
+
+.newsletter h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(32px, 4.5vw, 52px);
+  line-height: 1.02;
+  margin-bottom: 18px;
+}
+
+.newsletter p { color: var(--grey-light); font-size: 15px; line-height: 1.7; margin-bottom: 32px; }
+
+.newsletter-form {
+  display: flex;
+  gap: 10px;
+  max-width: 460px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+.newsletter-form input {
+  flex: 1;
+  min-width: 200px;
+  background: var(--black-2);
+  border: 1px solid var(--grey-border);
+  color: var(--white);
+  padding: 15px 16px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+}
+
+.newsletter-form input:focus { outline: none; border-color: var(--red); }
+
+.newsletter-form button {
+  background: var(--red);
+  color: var(--white);
+  border: none;
+  padding: 15px 24px;
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.newsletter-form button:hover { background: var(--red-dark); }
+.newsletter-form button:disabled { opacity: 0.5; cursor: default; }
+
+.newsletter-msg {
+  margin-top: 18px;
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 1px;
+  min-height: 18px;
+}
+.newsletter-msg.ok { color: #4ade80; }
+.newsletter-msg.err { color: var(--red); }
+
+/* ============ MODALE SCULPTURE ============ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(6px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-overlay.open { display: flex; }
+
+.modal {
+  background: var(--black-2);
+  border: 1px solid var(--grey-border);
+  max-width: 960px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+}
+
+.modal::before { content: ''; position: absolute; top: 0; left: 0; width: 80px; height: 4px; background: var(--modal-accent, var(--red)); z-index: 2; }
+
+.modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 5;
+  background: rgba(0,0,0,0.5);
+  border: 1px solid var(--grey-border);
+  color: var(--white);
+  width: 36px;
+  height: 36px;
+  font-size: 18px;
+  cursor: pointer;
+  line-height: 1;
+}
+.modal-close:hover { border-color: var(--red); color: var(--red); }
+
+.modal-gallery { position: relative; background: #000; min-height: 460px; display: flex; align-items: center; }
+.modal-gallery-img { width: 100%; height: 100%; max-height: 78vh; object-fit: contain; background: #000; }
+
+/* Vignette produit dans la carte sculpture */
+.card-visual {
+  position: relative;
+  display: block;
+  margin-bottom: 26px;
+  overflow: hidden;
+  border: 1px solid var(--grey-border);
+  background: #fff;
+  cursor: pointer;
+}
+.card-visual img { width: 100%; aspect-ratio: 4/5; object-fit: contain; display: block; transition: transform 0.5s ease; background: #fff; }
+.card-visual:hover img { transform: scale(1.04); }
+.card-visual-hint {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(0,0,0,0.6);
+  padding: 5px 9px;
+  border: 1px solid rgba(255,255,255,0.2);
+  backdrop-filter: blur(4px);
+}
+
+.modal-gallery-nav {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 3;
+}
+.modal-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.35); border: none; cursor: pointer; padding: 0; }
+.modal-dot.active { background: var(--white); }
+
+.modal-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.5);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: var(--white);
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  z-index: 3;
+  font-size: 18px;
+}
+.modal-arrow.prev { left: 12px; }
+.modal-arrow.next { right: 12px; }
+
+.modal-body { padding: 40px 34px; }
+.modal-body .card-tag { margin-bottom: 16px; }
+.modal-title { font-family: 'Bebas Neue', sans-serif; font-size: 40px; line-height: 0.95; margin-bottom: 14px; }
+.modal-desc { font-size: 14px; color: var(--grey-light); line-height: 1.7; margin-bottom: 24px; }
+.modal-note { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 1px; color: var(--grey); margin-top: 14px; }
+
+@media (max-width: 768px) {
+  .modal { grid-template-columns: 1fr; }
+  .newsletter { padding: 70px 20px; }
+}
+
+/* ============ BANDE AMBIANCE (vidéo Starfobar) ============ */
+.ambiance {
+  position: relative;
+  height: 46vh;
+  min-height: 320px;
+  max-height: 480px;
+  overflow: hidden;
+  background-color: #000;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-top: 1px solid var(--grey-border);
+  border-bottom: 1px solid var(--grey-border);
+}
+
+.ambiance-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.ambiance::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(10,10,10,0.6) 0%, rgba(10,10,10,0.4) 45%, rgba(10,10,10,0.82) 100%);
+}
+
+.ambiance-content { position: relative; z-index: 2; padding: 0 20px; max-width: 900px; }
+
+.ambiance-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 16px;
+}
+
+.ambiance h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(40px, 7vw, 92px);
+  line-height: 0.9;
+  letter-spacing: -0.5px;
+  color: var(--white);
+  text-shadow: 0 4px 30px rgba(0,0,0,0.7);
+}
+
+.ambiance h2 .accent { color: var(--red); }
+
+.ambiance .sub {
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--grey-light);
+  margin-top: 18px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ambiance-video { display: none; }
+}
+
+@media (max-width: 768px) {
+  .ambiance { height: 40vh; min-height: 260px; }
+  .ambiance h2 { font-size: clamp(34px, 11vw, 60px); }
+}
+
+</style>
+
+<!-- ════════════ JSON-LD (SEO structured data) ════════════ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Collection Starfobar × Ezéa",
+  "description": "Sculptures en résine réalisées à la main, édition limitée 100 exemplaires, 4 séries.",
+  "itemListElement": [
+    { "@type": "Product", "position": 1, "name": "Old School BMW", "description": "Sculpture en résine, 25 cm, finition brillante premium or, numérotée à la main.", "image": "https://starfobar-ezea.com/assets/sculptures/sleeper.jpg?v=2", "brand": { "@type": "Brand", "name": "Starfobar × Ezéa" }, "offers": { "@type": "Offer", "price": "190", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" } },
+    { "@type": "Product", "position": 2, "name": "Racing Series", "description": "Sculpture en résine, 25 cm, finition racing bleu/blanc, numérotée à la main.", "image": "https://starfobar-ezea.com/assets/sculptures/racing.jpg?v=2", "brand": { "@type": "Brand", "name": "Starfobar × Ezéa" }, "offers": { "@type": "Offer", "price": "190", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" } },
+    { "@type": "Product", "position": 3, "name": "Propaganda Series", "description": "Sculpture en résine, 25 cm, finition rose fluo, numérotée à la main.", "image": "https://starfobar-ezea.com/assets/sculptures/propaganda.jpg?v=2", "brand": { "@type": "Brand", "name": "Starfobar × Ezéa" }, "offers": { "@type": "Offer", "price": "190", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" } },
+    { "@type": "Product", "position": 4, "name": "Marlboro Series", "description": "Sculpture en résine, 25 cm, finition glossy premium rouge, numérotée à la main.", "image": "https://starfobar-ezea.com/assets/sculptures/marlboro.jpg?v=2", "brand": { "@type": "Brand", "name": "Starfobar × Ezéa" }, "offers": { "@type": "Offer", "price": "190", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" } }
+  ]
+}
+</script>
+</head>
+<body>
+
+<!-- ============ NAV FIXE ============ -->
+<nav class="topnav" id="topnav">
+  <div class="topnav-logo">STARFOBAR<span class="sep">×</span>EZÉA</div>
+  <div class="topnav-actions">
+    <div class="stock-badge">Édition limitée · 100 pièces</div>
+    <button class="sound-toggle" id="soundToggle" title="Ambiance sonore">
+      <span class="icon">🔇</span>
+      <span class="lbl">SON OFF</span>
+    </button>
+  </div>
+</nav>
+
+<!-- ============ HERO / ENTRÉE DU GARAGE ============ -->
+<section class="hero">
+  <!-- Média hero : Ken Burns sur le poster (fallback immédiat) + vidéo optionnelle.
+       La vidéo ne se charge que si le fichier existe (voir js/starfobar.js). -->
+  <div class="hero-media">
+    <div class="hero-kenburns"></div>
+    <video class="hero-video" muted loop playsinline preload="none"
+           poster="/assets/garage/09-entrance-marlboro-neon.jpg"
+           data-src-mp4="/assets/video/hero-garage.mp4"
+           data-src-webm="/assets/video/hero-garage.webm"></video>
+  </div>
+  <button class="media-toggle" id="mediaToggle" type="button" aria-label="Mettre en pause la vidéo">❚❚</button>
+  <div class="hero-content">
+    <div class="hero-tag">
+      <span class="dot"></span>
+      <span>STARFOBAR × EZÉA · COLLECTION ÉDITION 04</span>
+    </div>
+    <h1>BIENVENUE<br>DANS LE GARAGE<br>DE <span class="accent">CHRIS.</span></h1>
+    <p class="subtitle"><strong>Quelques créations</strong> s'y cachent. Une pour chaque voiture. Sculptures en résine réalisées à la main, numérotées, signées Ezéa.</p>
+    <div class="series-selector">
+      <a href="#serie-propaganda" class="series-pill" style="--pill-color:var(--pink-prop)">Propaganda</a>
+      <a href="#serie-racing" class="series-pill" style="--pill-color:var(--blue-racing)">Racing</a>
+      <a href="#serie-sleeper" class="series-pill" style="--pill-color:var(--gold)">BMW</a>
+      <a href="#serie-marlboro" class="series-pill" style="--pill-color:var(--red)">Marlboro</a>
+      <a href="#combos" class="series-pill combo-pill">Voir les combos →</a>
+    </div>
+  </div>
+  <div class="hero-footer">
+    <div class="hero-metas">
+      <div class="hero-meta">
+        <div class="label">Édition</div>
+        <div class="value">Limitée · 100</div>
+      </div>
+      <div class="hero-meta">
+        <div class="label">Format</div>
+        <div class="value">25 cm</div>
+      </div>
+      <div class="hero-meta">
+        <div class="label">Prix unitaire</div>
+        <div class="value red">190 €</div>
+      </div>
+    </div>
+    <div class="scroll-hint">ENTRE DANS LE GARAGE</div>
+  </div>
+</section>
+
+<div class="stripe"></div>
+
+<!-- ============ INTRO / STORYTELLING ============ -->
+<section class="intro">
+  <div class="intro-inner">
+    <div class="intro-label">L'HISTOIRE</div>
+    <h2>Ezéa a réalisé <span class="red">100 sculptures</span><br>pour l'événement Starfobar Édition 04.</h2>
+    <p class="fade-in">Quatre séries, vingt-cinq exemplaires chacune. Sculptures en résine réalisées à la main. Chaque bombe reproduite depuis les voitures du garage, les codes, les ambiances, les univers que Chris a construits depuis plus de dix ans.</p>
+    <p class="fade-in"><strong>Le 4 et 5 juillet, vous avez été nombreux à repartir avec une de ces pépites.</strong> Mais quelques créations restantes dorment encore ici, dans le garage. Numérotées, signées, prêtes à être découvertes.</p>
+    <div class="highlight fade-in">
+      Cette page n'est pas une simple boutique. C'est une visite. Descends dans le garage, ouvre les portes, croise les voitures. Chacune correspond à une série. Chacune attend son collectionneur.
+    </div>
+  </div>
+</section>
+
+<!-- ============ BANDE AMBIANCE (vidéo Starfobar) ============ -->
+<section class="ambiance" id="ambiance" style="background-image: url('/assets/video/ambiance-poster.jpg');" aria-label="Ambiance Starfobar — drift">
+  <video class="ambiance-video" autoplay muted loop playsinline preload="metadata"
+         poster="/assets/video/ambiance-poster.jpg" aria-hidden="true">
+    <source src="/assets/video/ambiance-starfobar.webm" type="video/webm">
+    <source src="/assets/video/ambiance-starfobar.mp4" type="video/mp4">
+  </video>
+  <div class="ambiance-content">
+    <div class="ambiance-label">— L'UNIVERS —</div>
+    <h2>BORN TO <span class="accent">BURN OUT.</span></h2>
+    <div class="sub">Drift · Street · Race · Classic</div>
+  </div>
+</section>
+
+<!-- ============ SÉRIE - PROPAGANDA ============ -->
+<section class="car-section propaganda" id="serie-propaganda">
+  <div class="car-bg" style="background-image: url('/assets/cars/propaganda.jpg');"></div>
+  <div class="car-overlay dark"></div>
+  <div class="car-label">BMW 1-SERIES · PROPAGANDA</div>
+  <div class="car-content">
+    <div class="car-narrative">
+      <h2 class="series-title">PROPAGANDA<br>SERIES.</h2>
+      <p class="series-desc">Née dans la rue, inspirée des garages, des paddocks, des murs tagués et de la culture drift. La série Propaganda reflète <strong>un univers brut, libre et sans filtre.</strong> Chaque bombe est une pièce unique, numérotée à la main.</p>
+      <div class="series-tags">
+        <span class="series-tag">Street</span>
+        <span class="series-tag">Graffiti</span>
+        <span class="series-tag">Underground</span>
+        <span class="series-tag">Raw</span>
+      </div>
+    </div>
+    <div class="sculpture-card">
+      <a href="#" class="card-visual" data-details="propaganda" aria-label="Voir la Propaganda Series en grand">
+        <img src="/assets/sculptures/propaganda.jpg?v=2" alt="Sculptures bombe Propaganda Series, rose fluo graffiti" loading="lazy">
+        <span class="card-visual-hint">Voir en grand</span>
+      </a>
+      <div class="card-tag">SCULPTURE · PROPAGANDA</div>
+      <div class="card-specs">
+        <div class="card-spec"><div class="lbl">Format</div><div class="val">25 cm</div></div>
+        <div class="card-spec"><div class="lbl">Finition</div><div class="val">Résine rose fluo</div></div>
+        <div class="card-spec"><div class="lbl">Matière</div><div class="val">Résine et recyclage</div></div>
+        <div class="card-spec"><div class="lbl">Origine</div><div class="val">France · Lyon</div></div>
+      </div>
+      <div class="availability"><span class="dot"></span>Encore quelques pièces en stock</div>
+      <div class="price-line">
+        <div class="price">190<span class="cur">€</span></div>
+        <div class="price-tag">Édition limitée · numérotée</div>
+      </div>
+      <a href="#" class="cta-primary" data-series="propaganda" data-price="190" aria-label="Acquérir une sculpture Propaganda Series — 190 €">Acquérir cette pièce</a>
+      <a href="#" class="cta-secondary" data-details="propaganda" aria-label="Voir les détails de la Propaganda Series">Voir les détails</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SÉRIE - RACING ============ -->
+<section class="car-section racing" id="serie-racing">
+  <div class="car-bg" style="background-image: url('/assets/cars/racing.jpg');"></div>
+  <div class="car-overlay dark-right"></div>
+  <div class="car-label">BMW E36 DRIFT · OR NOIR</div>
+  <div class="car-content reverse">
+    <div class="sculpture-card">
+      <a href="#" class="card-visual" data-details="racing" aria-label="Voir la Racing Series en grand">
+        <img src="/assets/sculptures/racing.jpg?v=2" alt="Sculptures bombe Racing Series, bleu blanc rouge" loading="lazy">
+        <span class="card-visual-hint">Voir en grand</span>
+      </a>
+      <div class="card-tag">SCULPTURE · RACING</div>
+      <div class="card-specs">
+        <div class="card-spec"><div class="lbl">Format</div><div class="val">25 cm</div></div>
+        <div class="card-spec"><div class="lbl">Finition</div><div class="val">Racing · Bleu / Blanc</div></div>
+        <div class="card-spec"><div class="lbl">Matière</div><div class="val">Résine et recyclage</div></div>
+        <div class="card-spec"><div class="lbl">Origine</div><div class="val">France · Lyon</div></div>
+      </div>
+      <div class="availability"><span class="dot"></span>Encore quelques pièces en stock</div>
+      <div class="price-line">
+        <div class="price">190<span class="cur">€</span></div>
+        <div class="price-tag">Édition limitée · numérotée</div>
+      </div>
+      <a href="#" class="cta-primary" data-series="racing" data-price="190" aria-label="Acquérir une sculpture Racing Series — 190 €">Acquérir cette pièce</a>
+      <a href="#" class="cta-secondary" data-details="racing" aria-label="Voir les détails de la Racing Series">Voir les détails</a>
+    </div>
+    <div class="car-narrative">
+      <h2 class="series-title">RACING<br>SERIES.</h2>
+      <p class="series-desc">Inspirée des paddocks, des pit lanes et des légendes du sport automobile, la Racing Series fusionne <strong>culture racing, mécanique et design performance.</strong> Lignes agressives, sponsors techniques, esthétique motorsport — chaque création reprend l'énergie brute des voitures préparées pour la rue et la piste. Une édition pensée comme une véritable livrée collector.</p>
+      <div class="series-tags">
+        <span class="series-tag">Drift</span>
+        <span class="series-tag">Street</span>
+        <span class="series-tag">Race</span>
+        <span class="series-tag">Classic</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SÉRIE - OLD SCHOOL BMW ============ -->
+<section class="car-section sleeper" id="serie-sleeper">
+  <div class="car-bg" style="background-image: url('/assets/cars/sleeper.jpg');"></div>
+  <div class="car-overlay dark"></div>
+  <div class="car-label">BMW E28 · LISERÉ DORÉ</div>
+  <div class="car-content">
+    <div class="car-narrative">
+      <h2 class="series-title">OLD SCHOOL<br>BMW.</h2>
+      <p class="series-desc">Inspirée de la culture BMW old school des années 70 à 90, la série célèbre <strong>l'élégance discrète, les préparations OEM+</strong>, les garages privés et l'esprit « sleeper ». Chaque bombe est une pièce collector, conçue comme un hommage à un héritage mécanique intemporel.</p>
+      <div class="series-tags">
+        <span class="series-tag">OEM+</span>
+        <span class="series-tag">Heritage</span>
+        <span class="series-tag">Discreet</span>
+        <span class="series-tag">Classic</span>
+      </div>
+    </div>
+    <div class="sculpture-card">
+      <a href="#" class="card-visual" data-details="sleeper" aria-label="Voir la série Old School BMW en grand">
+        <img src="/assets/sculptures/sleeper.jpg?v=2" alt="Sculptures bombe Old School BMW, navy et or" loading="lazy">
+        <span class="card-visual-hint">Voir en grand</span>
+      </a>
+      <div class="card-tag">SCULPTURE · OLD SCHOOL BMW</div>
+      <div class="card-specs">
+        <div class="card-spec"><div class="lbl">Format</div><div class="val">25 cm</div></div>
+        <div class="card-spec"><div class="lbl">Finition</div><div class="val">Brillante premium · Or</div></div>
+        <div class="card-spec"><div class="lbl">Matière</div><div class="val">Résine et recyclage</div></div>
+        <div class="card-spec"><div class="lbl">Origine</div><div class="val">France · Lyon</div></div>
+      </div>
+      <div class="availability"><span class="dot"></span>Encore quelques pièces en stock</div>
+      <div class="price-line">
+        <div class="price">190<span class="cur">€</span></div>
+        <div class="price-tag">Édition limitée · numérotée</div>
+      </div>
+      <a href="#" class="cta-primary" data-series="sleeper" data-price="190" aria-label="Acquérir une sculpture Old School BMW — 190 €">Acquérir cette pièce</a>
+      <a href="#" class="cta-secondary" data-details="sleeper" aria-label="Voir les détails de la série Old School BMW">Voir les détails</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SÉRIE - MARLBORO ============ -->
+<section class="car-section marlboro" id="serie-marlboro">
+  <div class="car-bg" style="background-image: url('/assets/cars/marlboro.jpg');"></div>
+  <div class="car-overlay dark-right"></div>
+  <div class="car-label">BMW E30 · MARLBORO CORNER</div>
+  <div class="car-content reverse">
+    <div class="sculpture-card">
+      <a href="#" class="card-visual" data-details="marlboro" aria-label="Voir la Marlboro Series en grand">
+        <img src="/assets/sculptures/marlboro.jpg?v=2" alt="Sculptures bombe Marlboro Series, rouge et blanc" loading="lazy">
+        <span class="card-visual-hint">Voir en grand</span>
+      </a>
+      <div class="card-tag">SCULPTURE · MARLBORO</div>
+      <div class="card-specs">
+        <div class="card-spec"><div class="lbl">Format</div><div class="val">25 cm</div></div>
+        <div class="card-spec"><div class="lbl">Finition</div><div class="val">Glossy premium · Rouge</div></div>
+        <div class="card-spec"><div class="lbl">Matière</div><div class="val">Résine et recyclage</div></div>
+        <div class="card-spec"><div class="lbl">Origine</div><div class="val">France · Lyon</div></div>
+      </div>
+      <div class="availability"><span class="dot"></span>Encore quelques pièces en stock</div>
+      <div class="price-line">
+        <div class="price">190<span class="cur">€</span></div>
+        <div class="price-tag">Édition limitée · numérotée</div>
+      </div>
+      <a href="#" class="cta-primary" data-series="marlboro" data-price="190" aria-label="Acquérir une sculpture Marlboro Series — 190 €">Acquérir cette pièce</a>
+      <a href="#" class="cta-secondary" data-details="marlboro" aria-label="Voir les détails de la Marlboro Series">Voir les détails</a>
+    </div>
+    <div class="car-narrative">
+      <h2 class="series-title">MARLBORO<br>SERIES.</h2>
+      <p class="series-desc">Hommage à une époque où la vitesse était reine et où les légendes se créaient sur l'asphalte. La Marlboro Series célèbre <strong>la culture racing, le pilotage et l'esprit de compétition.</strong></p>
+      <div class="series-tags">
+        <span class="series-tag">Racing</span>
+        <span class="series-tag">Vintage</span>
+        <span class="series-tag">Fast</span>
+        <span class="series-tag">Legends</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMBOS ============ -->
+<section class="bundles" id="combos">
+  <div class="bundles-inner">
+    <div class="bundles-header">
+      <div class="bundles-label">— LES COMBOS —</div>
+      <h2>PLUSIEURS PIÈCES.<br><span class="red">UN PRIX RÉDUIT.</span></h2>
+      <p class="bundles-sub">Sur les 4 séries, tu peux en prendre plusieurs. Sur la culture Starfobar, tu peux aussi repartir avec du merch. Les combos ci-dessous sont montés pour ça.</p>
+    </div>
+
+    <div class="bundles-grid">
+      <!-- Combo 1 - Duo -->
+      <div class="bundle">
+        <div class="bundle-tag">LE COMBO</div>
+        <h3 class="bundle-name">Duo Ezéa</h3>
+        <p class="bundle-desc">Deux sculptures au choix parmi les 4 séries. Composition libre.</p>
+        <ul class="bundle-includes">
+          <li>2 sculptures 25 cm au choix</li>
+          <li>Composition libre parmi les séries</li>
+        </ul>
+        <div class="bundle-price-line">
+          <div class="bundle-price">340<span class="cur">€</span></div>
+          <div class="bundle-save">−40 €</div>
+        </div>
+        <div class="bundle-was">Au lieu de 380 €</div>
+        <a href="#" class="cta-primary" data-bundle="duo" data-price="340">Composer mon duo</a>
+      </div>
+
+      <!-- Combo 2 - Full (featured) -->
+      <div class="bundle featured">
+        <div class="bundle-tag">LE COLLECTOR</div>
+        <h3 class="bundle-name">Full Collection</h3>
+        <p class="bundle-desc">Les 4 séries. Une pièce de chaque. La collection complète en un envoi.</p>
+        <ul class="bundle-includes">
+          <li>1 × Propaganda</li>
+          <li>1 × Racing</li>
+          <li>1 × Old School BMW</li>
+          <li>1 × Marlboro</li>
+          <li>Coffret collector</li>
+          <li>Certificats du coffret</li>
+          <li>Livraison offerte</li>
+        </ul>
+        <div class="bundle-price-line">
+          <div class="bundle-price">680<span class="cur">€</span></div>
+          <div class="bundle-save">−80 €</div>
+        </div>
+        <div class="bundle-was">Au lieu de 760 €</div>
+        <a href="#" class="cta-primary" data-bundle="full" data-price="680">Prendre les 4 séries</a>
+      </div>
+
+      <!-- Combo 3 - Kit Starfobar -->
+      <div class="bundle">
+        <div class="bundle-tag">LE KIT STARFOBAR</div>
+        <h3 class="bundle-name">Sculpture + Merch</h3>
+        <p class="bundle-desc">Une sculpture au choix + un textile officiel Starfobar (t-shirt, jersey ou hoodie).</p>
+        <ul class="bundle-includes">
+          <li>1 sculpture 25 cm au choix</li>
+          <li>1 textile Starfobar au choix</li>
+        </ul>
+        <div class="bundle-price-line">
+          <div class="bundle-price">229<span class="cur">€</span></div>
+          <div class="bundle-save">−20 €</div>
+        </div>
+        <div class="bundle-was">À partir de 249 €</div>
+        <a href="#" class="cta-primary" data-bundle="kit" data-price="229">Composer mon kit</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WALL OF MEMORIES ============ -->
+<section class="wall">
+  <div class="wall-header">
+    <div class="wall-label">— LE RESTE DU GARAGE —</div>
+    <h2>CE QUI N'EST PAS À VENDRE.</h2>
+    <p class="sub">Ce qu'on voit en levant les yeux, en poussant une porte, en tournant la tête. L'atmosphère qui a produit les séries.</p>
+  </div>
+  <div class="wall-grid">
+    <div class="wall-item" style="background-image: url('/assets/garage/10-ferrari-mezzanine.jpg');">
+      <div class="caption">La mezzanine · Ferrari 348 · Testarossa</div>
+    </div>
+    <div class="wall-item" style="background-image: url('/assets/garage/13-bmw-e28-blue-m.jpg');">
+      <div class="caption">BMW E28 · bandes M · low profile</div>
+    </div>
+    <div class="wall-item" style="background-image: url('/assets/garage/11-facade-bmw-showroom.jpg');">
+      <div class="caption">Façade · Starfobar Gang · showroom</div>
+    </div>
+    <div class="wall-item" style="background-image: url('/assets/garage/07-bmw1-pepinox-showroom.jpg');">
+      <div class="caption">Race prep · Pepinox · TJ Motors</div>
+    </div>
+    <div class="wall-item" style="background-image: url('/assets/garage/14-atelier-parts.jpg');">
+      <div class="caption">L'atelier · pièces démontées · projet en cours</div>
+    </div>
+    <div class="wall-item" style="background-image: url('/assets/garage/06-drift-back-graffiti.jpg');">
+      <div class="caption">Arrière drift · graffiti · Speed Specialties</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NEWSLETTER ============ -->
+<section class="newsletter" id="newsletter">
+  <div class="newsletter-inner">
+    <div class="newsletter-label">— RESTE DANS LA BOUCLE —</div>
+    <h2>UNE PIÈCE PART.<br>TU LE SAURAS.</h2>
+    <p>Prévenu·e quand une pièce trouve son collectionneur, quand les 4 séries sont sold-out, quand la prochaine collab est annoncée. Rien d'autre.</p>
+    <form class="newsletter-form" id="newsletterForm" novalidate>
+      <label for="newsletter-email" class="sr-only" style="position:absolute;left:-9999px">Adresse email</label>
+      <input type="email" id="newsletter-email" name="email" placeholder="ton@email.com" autocomplete="email" required>
+      <button type="submit" id="newsletterBtn">Prévenez-moi</button>
+    </form>
+    <div class="newsletter-msg" id="newsletterMsg" role="status" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- ============ CE QUI VIENT AVEC ============ -->
+<section class="included">
+  <div class="included-inner">
+    <div class="included-header">
+      <h2>CE QUI ARRIVE CHEZ TOI.</h2>
+    </div>
+    <div class="included-grid included-grid--3">
+      <div class="included-item">
+        <div class="num">01</div>
+        <div class="name">La sculpture</div>
+        <div class="desc">25 cm, résine réalisée à la main, socle intégré, signature Ezéa</div>
+      </div>
+      <div class="included-item">
+        <div class="num">02</div>
+        <div class="name">Le coffret</div>
+        <div class="desc">Emballage sur mesure, protection intégrale, prêt à offrir</div>
+      </div>
+      <div class="included-item">
+        <div class="num">03</div>
+        <div class="name">Un bout de l'univers Starfobar</div>
+        <div class="desc">Une pièce née dans le garage — entre drift, street et culture Starfobar</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OUTRO / SORTIE DU GARAGE ============ -->
+<section class="outro">
+  <div class="outro-content">
+    <div class="outro-tag">— FIN DE LA VISITE —</div>
+    <h2>MERCI D'ÊTRE PASSÉ<br>DANS LE <span class="red">GARAGE.</span></h2>
+    <p>La collection est limitée. Une fois les pièces parties, il n'y en aura plus. Ni ici, ni ailleurs.</p>
+    <div class="outro-signature">STOP THE MOTION. <span class="accent">OWN THE MOMENT.</span></div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">STARFOBAR<span class="sep">×</span>EZÉA</div>
+        <p class="footer-tag">Collection limitée à 100 exemplaires, née à l'événement Starfobar Édition 04 des 4-5 juillet 2026. Sculptures en résine et recyclage réalisées à la main, numérotées, signées Ezéa.</p>
+      </div>
+      <div class="footer-col">
+        <h4>EZÉA</h4>
+        <a href="https://ezea.fr" target="_blank" rel="noopener">ezea.fr</a>
+        <a href="https://instagram.com/ezea.art" target="_blank" rel="noopener">@ezea.art</a>
+        <a href="mailto:contact@ezea.fr">contact@ezea.fr</a>
+      </div>
+      <div class="footer-col">
+        <h4>STARFOBAR</h4>
+        <a href="https://starfobar.com" target="_blank" rel="noopener">starfobar.com</a>
+        <a href="https://instagram.com/starfobar" target="_blank" rel="noopener">@starfobar</a>
+        <a href="#">Voir le merch</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 EZÉA · ORIGINAL HAND ARTWORK</div>
+      <div class="footer-tagline">SF·EZ·04·2026 <span class="accent">·</span> ÉDITION LIMITÉE</div>
+      <div>Mentions légales · CGV · Livraison</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ MODALE SCULPTURE ============ -->
+<div class="modal-overlay" id="sculptureModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal">
+    <button class="modal-close" id="modalClose" type="button" aria-label="Fermer">×</button>
+    <div class="modal-gallery">
+      <img class="modal-gallery-img" id="modalImg" src="" alt="">
+      <button class="modal-arrow prev" id="modalPrev" type="button" aria-label="Photo précédente">‹</button>
+      <button class="modal-arrow next" id="modalNext" type="button" aria-label="Photo suivante">›</button>
+      <div class="modal-gallery-nav" id="modalDots"></div>
+    </div>
+    <div class="modal-body">
+      <div class="card-tag" id="modalTag">SCULPTURE</div>
+      <h3 class="modal-title" id="modalTitle">—</h3>
+      <p class="modal-desc" id="modalDesc"></p>
+      <div class="card-specs" id="modalSpecs"></div>
+      <a href="#" class="cta-primary" id="modalCta" data-series="">Acquérir cette pièce — 190 €</a>
+      <p class="modal-note">Visuel produit officiel Starfobar × Ezéa · pièce numérotée à la main.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Analytics (Vercel Web Analytics — RGPD-safe) -->
+<script src="/js/analytics.js"></script>
+<!-- Logique landing Starfobar : CTAs Stripe, modale, newsletter, hero vidéo -->
+<script src="/js/starfobar.js"></script>
+
+</body>
+</html>

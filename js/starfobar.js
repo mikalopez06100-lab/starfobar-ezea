@@ -1,0 +1,314 @@
+/* ══════════════════════════════════════════════════════════
+   Landing Starfobar × Ezéa — logique front
+   - CTAs → Stripe Payment Links (config ci-dessous)
+   - Modale galerie sculpture (clavier + swipe)
+   - Capture newsletter (Brevo via /api/newsletter)
+   - Hero vidéo avec fallback Ken Burns
+   Aucune dépendance externe. Vanilla JS.
+   ══════════════════════════════════════════════════════════ */
+(function starfobar() {
+  'use strict';
+
+  /* ────────────────────────────────────────────────
+     CONFIG — À COMPLÉTER PAR MICHAËL
+     Colle ici les URL des Stripe Payment Links (1 par série + 1 par bundle).
+     Tant qu'une valeur est `null`, le CTA affiche « bientôt disponible »
+     et invite à laisser son email (aucun paiement lancé).
+     Voir README §Starfobar pour créer les Payment Links.
+     ──────────────────────────────────────────────── */
+  var CONFIG = {
+    price: 190,
+    paymentLinks: {
+      // Séries (190 € chacune)
+      sleeper: null,      // ex : 'https://buy.stripe.com/xxxxx'
+      racing: null,
+      propaganda: null,
+      marlboro: null,
+      // Bundles
+      duo: null,          // 340 €
+      full: null,         // 680 €
+      kit: null,          // 229 €
+    },
+    // Détails affichés dans la modale « Voir les détails ».
+    // images : placeholders garage tant que les photos HD sculptures ne sont pas fournies.
+    series: {
+      sleeper: {
+        title: 'Old School BMW',
+        tag: 'SCULPTURE · OLD SCHOOL BMW',
+        accent: '#C9A651',
+        desc: "Inspirée de la culture BMW old school des années 70 à 90 : élégance discrète, préparations OEM+, garages privés et esprit « sleeper ». Une pièce collector, hommage à un héritage mécanique intemporel.",
+        specs: [['Format', '25 cm'], ['Finition', 'Brillante premium · Or'], ['Matière', 'Résine et recyclage'], ['Origine', 'France · Lyon']],
+        images: ['/assets/sculptures/sleeper.jpg?v=2', '/assets/sculptures/sleeper-case.jpg', '/assets/cars/sleeper.jpg'],
+      },
+      racing: {
+        title: 'Racing Series',
+        tag: 'SCULPTURE · RACING',
+        accent: '#3B82F6',
+        desc: 'Inspirée des paddocks, des pit lanes et des légendes du sport automobile. Culture racing, mécanique et design performance — une véritable livrée collector.',
+        specs: [['Format', '25 cm'], ['Finition', 'Racing · Bleu / Blanc'], ['Matière', 'Résine et recyclage'], ['Origine', 'France · Lyon']],
+        images: ['/assets/sculptures/racing.jpg?v=2', '/assets/sculptures/racing-case.jpg', '/assets/cars/racing.jpg'],
+      },
+      propaganda: {
+        title: 'Propaganda Series',
+        tag: 'SCULPTURE · PROPAGANDA',
+        accent: '#EC4899',
+        desc: 'Née dans la rue, inspirée des garages, des paddocks, des murs tagués et de la culture drift. Un univers brut, libre et sans filtre. Chaque bombe est une pièce unique, numérotée à la main.',
+        specs: [['Format', '25 cm'], ['Finition', 'Résine rose fluo'], ['Matière', 'Résine et recyclage'], ['Origine', 'France · Lyon']],
+        images: ['/assets/sculptures/propaganda.jpg?v=2', '/assets/sculptures/propaganda-case.jpg', '/assets/cars/propaganda.jpg'],
+      },
+      marlboro: {
+        title: 'Marlboro Series',
+        tag: 'SCULPTURE · MARLBORO',
+        accent: '#E30613',
+        desc: "Hommage à une époque où la vitesse était reine et où les légendes se créaient sur l'asphalte. Culture racing, pilotage et esprit de compétition.",
+        specs: [['Format', '25 cm'], ['Finition', 'Glossy premium · Rouge'], ['Matière', 'Résine et recyclage'], ['Origine', 'France · Lyon']],
+        images: ['/assets/sculptures/marlboro.jpg?v=2', '/assets/sculptures/marlboro-case.jpg', '/assets/cars/marlboro.jpg'],
+      },
+    },
+  };
+
+  /* ──────────── ANALYTICS (Vercel Web Analytics) ──────────── */
+  function track(event, data) {
+    try {
+      if (typeof window.va === 'function') window.va('event', { name: event, data: data || {} });
+    } catch (e) { /* no-op */ }
+  }
+
+  /* ──────────── TOAST ──────────── */
+  var toastEl = null;
+  function toast(msg) {
+    if (!toastEl) {
+      toastEl = document.createElement('div');
+      toastEl.setAttribute('role', 'status');
+      toastEl.style.cssText = 'position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:300;' +
+        'background:#141414;border:1px solid #2A2A2A;border-left:3px solid #E30613;color:#fff;' +
+        "padding:14px 20px;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:1px;" +
+        'max-width:90vw;text-align:center;box-shadow:0 8px 40px rgba(0,0,0,.6);transition:opacity .3s;opacity:0;';
+      document.body.appendChild(toastEl);
+    }
+    toastEl.textContent = msg;
+    toastEl.style.opacity = '1';
+    clearTimeout(toastEl._t);
+    toastEl._t = setTimeout(function () { toastEl.style.opacity = '0'; }, 4200);
+  }
+
+  /* ──────────── CTAs → Payment Links ──────────── */
+  function handleBuy(e) {
+    var btn = e.currentTarget;
+    e.preventDefault();
+    var id = btn.dataset.series || btn.dataset.bundle;
+    if (!id) return;
+    var link = CONFIG.paymentLinks[id];
+    track('cta_click', { item: id, hasLink: !!link });
+    if (link) {
+      window.location.href = link;
+    } else {
+      toast('Paiement en cours d\'activation — laisse ton email, on te prévient dès l\'ouverture.');
+      var nl = document.getElementById('newsletter');
+      if (nl) nl.scrollIntoView({ behavior: 'smooth' });
+      var input = document.getElementById('newsletter-email');
+      if (input) setTimeout(function () { input.focus(); }, 600);
+    }
+  }
+
+  /* ──────────── MODALE SCULPTURE ──────────── */
+  var modal = document.getElementById('sculptureModal');
+  var modalState = { images: [], index: 0, series: null };
+
+  function renderModal() {
+    var img = document.getElementById('modalImg');
+    var dots = document.getElementById('modalDots');
+    img.src = modalState.images[modalState.index] || '';
+    img.alt = 'Sculpture ' + (CONFIG.series[modalState.series] ? CONFIG.series[modalState.series].title : '');
+    dots.innerHTML = '';
+    modalState.images.forEach(function (_, i) {
+      var d = document.createElement('button');
+      d.className = 'modal-dot' + (i === modalState.index ? ' active' : '');
+      d.type = 'button';
+      d.setAttribute('aria-label', 'Photo ' + (i + 1));
+      d.addEventListener('click', function () { modalState.index = i; renderModal(); });
+      dots.appendChild(d);
+    });
+  }
+
+  function openModal(seriesId) {
+    var s = CONFIG.series[seriesId];
+    if (!s) return;
+    modalState = { images: s.images.slice(), index: 0, series: seriesId };
+    document.getElementById('modalTag').textContent = s.tag;
+    document.getElementById('modalTitle').textContent = s.title;
+    document.getElementById('modalDesc').textContent = s.desc;
+    document.querySelector('.modal').style.setProperty('--modal-accent', s.accent);
+    var specsEl = document.getElementById('modalSpecs');
+    specsEl.innerHTML = s.specs.map(function (sp) {
+      return '<div class="card-spec"><div class="lbl">' + sp[0] + '</div><div class="val">' + sp[1] + '</div></div>';
+    }).join('');
+    var cta = document.getElementById('modalCta');
+    cta.dataset.series = seriesId;
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    renderModal();
+    document.getElementById('modalClose').focus();
+    track('modal_open', { series: seriesId });
+  }
+
+  function closeModal() {
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function modalNav(dir) {
+    if (!modalState.images.length) return;
+    modalState.index = (modalState.index + dir + modalState.images.length) % modalState.images.length;
+    renderModal();
+  }
+
+  /* ──────────── NEWSLETTER ──────────── */
+  function submitNewsletter(e) {
+    e.preventDefault();
+    var input = document.getElementById('newsletter-email');
+    var btn = document.getElementById('newsletterBtn');
+    var msg = document.getElementById('newsletterMsg');
+    var email = (input.value || '').trim();
+    msg.className = 'newsletter-msg';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      msg.textContent = 'Email invalide.';
+      msg.classList.add('err');
+      return;
+    }
+    btn.disabled = true;
+    btn.textContent = 'Envoi…';
+    fetch('/api/newsletter', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email, source: 'starfobar' }),
+    }).then(function (res) {
+      return res.json().then(function (data) { return { ok: res.ok, data: data }; });
+    }).then(function (r) {
+      if (!r.ok) throw new Error(r.data && r.data.error ? r.data.error : 'Erreur');
+      msg.textContent = 'C\'est noté — tu seras prévenu·e.';
+      msg.classList.add('ok');
+      input.value = '';
+      track('newsletter_signup', { source: 'starfobar' });
+    }).catch(function (err) {
+      msg.textContent = err.message === 'not_configured'
+        ? 'Newsletter bientôt active — reviens vite.'
+        : 'Oups, réessaie dans un instant.';
+      msg.classList.add('err');
+    }).finally(function () {
+      btn.disabled = false;
+      btn.textContent = 'Prévenez-moi';
+    });
+  }
+
+  /* ──────────── HERO VIDÉO (chargement conditionnel) ──────────── */
+  function initHeroVideo() {
+    var video = document.querySelector('.hero-video');
+    var toggle = document.getElementById('mediaToggle');
+    if (!video) return;
+
+    // Mobile : on économise la data → pas de vidéo, Ken Burns sur le poster.
+    var isMobile = window.matchMedia('(max-width: 768px)').matches;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (isMobile || reduce) return;
+
+    var mp4 = video.dataset.srcMp4;
+    // Vérifie l'existence du fichier avant de charger (évite un élément vidéo vide).
+    fetch(mp4, { method: 'HEAD' }).then(function (res) {
+      if (!res.ok) return;
+      var webm = video.dataset.srcWebm;
+      if (webm) { var sW = document.createElement('source'); sW.src = webm; sW.type = 'video/webm'; video.appendChild(sW); }
+      var sM = document.createElement('source'); sM.src = mp4; sM.type = 'video/mp4'; video.appendChild(sM);
+      video.preload = 'metadata';
+      video.load();
+      video.play().then(function () {
+        video.classList.add('is-playing');
+        toggle.style.display = 'flex';
+      }).catch(function () { /* autoplay bloqué → poster/Ken Burns */ });
+    }).catch(function () { /* pas de vidéo → fallback silencieux */ });
+
+    var playing = true;
+    toggle.addEventListener('click', function () {
+      playing = !playing;
+      if (playing) { video.play(); toggle.textContent = '❚❚'; toggle.setAttribute('aria-label', 'Mettre en pause la vidéo'); }
+      else { video.pause(); toggle.textContent = '►'; toggle.setAttribute('aria-label', 'Lire la vidéo'); }
+    });
+  }
+
+  /* ──────────── SOUND TOGGLE (placeholder accessible) ──────────── */
+  function initSoundToggle() {
+    var soundBtn = document.getElementById('soundToggle');
+    if (!soundBtn) return;
+    var on = false;
+    soundBtn.addEventListener('click', function () {
+      on = !on;
+      soundBtn.querySelector('.icon').textContent = on ? '🔊' : '🔇';
+      soundBtn.querySelector('.lbl').textContent = on ? 'SON ON' : 'SON OFF';
+      // TODO : brancher un audio d'ambiance garage (assets/starfobar/audio/…)
+    });
+  }
+
+  /* ──────────── FADE-IN + NAV + COMPTEUR ──────────── */
+  function initScrollFx() {
+    var nav = document.getElementById('topnav');
+    window.addEventListener('scroll', function () {
+      nav.classList.toggle('scrolled', window.scrollY > 100);
+    }, { passive: true });
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.sculpture-card, .car-narrative, .bundle, .wall-item, .included-item, .fade-in')
+      .forEach(function (el) { el.classList.add('fade-in'); observer.observe(el); });
+  }
+
+  /* ──────────── INIT ──────────── */
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.cta-primary[data-series], .cta-primary[data-bundle]')
+      .forEach(function (btn) { btn.addEventListener('click', handleBuy); });
+
+    document.querySelectorAll('[data-details]').forEach(function (btn) {
+      btn.addEventListener('click', function (e) { e.preventDefault(); openModal(btn.dataset.details); });
+    });
+
+    document.getElementById('modalClose').addEventListener('click', closeModal);
+    document.getElementById('modalPrev').addEventListener('click', function () { modalNav(-1); });
+    document.getElementById('modalNext').addEventListener('click', function () { modalNav(1); });
+    modal.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', function (e) {
+      if (!modal.classList.contains('open')) return;
+      if (e.key === 'Escape') closeModal();
+      else if (e.key === 'ArrowLeft') modalNav(-1);
+      else if (e.key === 'ArrowRight') modalNav(1);
+    });
+
+    // Swipe mobile sur la galerie modale
+    var gallery = document.querySelector('.modal-gallery');
+    var startX = 0;
+    if (gallery) {
+      gallery.addEventListener('touchstart', function (e) { startX = e.touches[0].clientX; }, { passive: true });
+      gallery.addEventListener('touchend', function (e) {
+        var dx = e.changedTouches[0].clientX - startX;
+        if (Math.abs(dx) > 40) modalNav(dx < 0 ? 1 : -1);
+      }, { passive: true });
+    }
+
+    var nlForm = document.getElementById('newsletterForm');
+    if (nlForm) nlForm.addEventListener('submit', submitNewsletter);
+
+    initHeroVideo();
+
+    // Bande ambiance : respecte prefers-reduced-motion (poster seul).
+    var ambiance = document.querySelector('.ambiance-video');
+    if (ambiance && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      ambiance.removeAttribute('autoplay');
+      ambiance.pause();
+    }
+
+    initSoundToggle();
+    initScrollFx();
+  });
+})();

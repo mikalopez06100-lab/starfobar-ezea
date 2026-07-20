@@ -1,0 +1,10 @@
+{
+  "name": "starfobar-ezea",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Landing Starfobar × Ezéa — 4 séries de sculptures résine, édition limitée. Site statique + fonction serverless newsletter (Brevo).",
+  "scripts": {
+    "dev": "npx serve .",
+    "start": "npx serve ."
+  }
+}
