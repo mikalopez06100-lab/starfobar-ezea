@@ -1208,13 +1208,86 @@ footer {
 /* ============ FADE-IN AU SCROLL ============ */
 .fade-in {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transform: translateY(40px);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
 
 .fade-in.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Produits : entrée plus marquée */
+.sculpture-card.fade-in {
+  opacity: 0;
+  transform: translateY(72px) scale(0.92);
+  filter: blur(4px);
+  transition:
+    opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.8s ease;
+}
+
+.sculpture-card.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+.car-narrative.fade-in {
+  opacity: 0;
+  transform: translateX(-48px);
+  transition: opacity 0.95s cubic-bezier(0.16, 1, 0.3, 1), transform 0.95s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.car-section .car-content.reverse .car-narrative.fade-in,
+.car-content.reverse > .car-narrative.fade-in {
+  transform: translateX(48px);
+}
+
+.car-narrative.fade-in.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.series-title {
+  transition: transform 1.1s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.1s ease;
+}
+
+.car-narrative:not(.visible) .series-title {
+  opacity: 0.35;
+  transform: translateY(18px);
+}
+
+.car-narrative.visible .series-title {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.bundle.fade-in,
+.wall-item.fade-in,
+.included-item.fade-in {
+  opacity: 0;
+  transform: translateY(56px) scale(0.96);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bundle.fade-in.visible,
+.wall-item.fade-in.visible,
+.included-item.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Décalage en cascade (injecté via --reveal-delay) */
+.fade-in {
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.modal-gallery-img.is-swiping {
+  opacity: 0;
+  transform: scale(0.97);
 }
 
 /* ============ RESPONSIVE ============ */
@@ -1320,7 +1393,23 @@ footer {
 
 @media (prefers-reduced-motion: reduce) {
   .hero-kenburns { animation: none; }
-  .fade-in { transition: none; opacity: 1; transform: none; }
+  .fade-in,
+  .sculpture-card.fade-in,
+  .car-narrative.fade-in,
+  .bundle.fade-in,
+  .wall-item.fade-in,
+  .included-item.fade-in {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+  .car-narrative:not(.visible) .series-title,
+  .car-narrative.visible .series-title {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .modal-gallery-img { transition: none; }
   html { scroll-behavior: auto; }
 }
 
@@ -1518,6 +1607,7 @@ footer {
   object-position: center;
   background: #0a0a0a;
   display: block;
+  transition: opacity 0.45s ease, transform 0.45s ease;
 }
 
 .modal-counter {

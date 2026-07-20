@@ -158,8 +158,32 @@
   /* ──────────── MODALE SCULPTURE ──────────── */
   var modal = document.getElementById('sculptureModal');
   var modalState = { images: [], index: 0, series: null };
+  var modalAutoTimer = null;
+  var MODAL_AUTO_MS = 4000;
 
-  function renderModal() {
+  function stopModalAutoplay() {
+    if (modalAutoTimer) {
+      clearInterval(modalAutoTimer);
+      modalAutoTimer = null;
+    }
+  }
+
+  function startModalAutoplay() {
+    stopModalAutoplay();
+    if (modalState.images.length < 2) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    modalAutoTimer = setInterval(function () {
+      modalNav(1, true);
+    }, MODAL_AUTO_MS);
+  }
+
+  function resetModalAutoplay() {
+    if (!modal.classList.contains('open')) return;
+    startModalAutoplay();
+  }
+
+  function renderModal(opts) {
+    opts = opts || {};
     var img = document.getElementById('modalImg');
     var dots = document.getElementById('modalDots');
     var thumbs = document.getElementById('modalThumbs');
@@ -169,15 +193,28 @@
     var src = modalState.images[idx] || '';
     var title = CONFIG.series[modalState.series] ? CONFIG.series[modalState.series].title : '';
 
-    img.src = src;
-    img.alt = 'Sculpture ' + title + ' — photo ' + (idx + 1) + ' sur ' + total;
-    img.classList.toggle('is-landscape', false);
-    // Détecte le ratio pour adapter le cadre (portrait / paysage)
-    var probe = new Image();
-    probe.onload = function () {
-      img.classList.toggle('is-landscape', probe.naturalWidth > probe.naturalHeight);
-    };
-    probe.src = src;
+    function applySrc() {
+      img.src = src;
+      img.alt = 'Sculpture ' + title + ' — photo ' + (idx + 1) + ' sur ' + total;
+      img.classList.toggle('is-landscape', false);
+      var probe = new Image();
+      probe.onload = function () {
+        img.classList.toggle('is-landscape', probe.naturalWidth > probe.naturalHeight);
+      };
+      probe.src = src;
+    }
+
+    if (opts.animate && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      img.classList.add('is-swiping');
+      setTimeout(function () {
+        applySrc();
+        requestAnimationFrame(function () {
+          img.classList.remove('is-swiping');
+        });
+      }, 180);
+    } else {
+      applySrc();
+    }
 
     if (counter) {
       counter.textContent = (idx + 1) + ' / ' + total;
@@ -191,7 +228,11 @@
         d.className = 'modal-dot' + (i === idx ? ' active' : '');
         d.type = 'button';
         d.setAttribute('aria-label', 'Photo ' + (i + 1));
-        d.addEventListener('click', function () { modalState.index = i; renderModal(); });
+        d.addEventListener('click', function () {
+          modalState.index = i;
+          renderModal({ animate: true });
+          resetModalAutoplay();
+        });
         dots.appendChild(d);
       });
       dots.hidden = total < 2;
@@ -211,10 +252,13 @@
         t.alt = '';
         t.loading = 'lazy';
         b.appendChild(t);
-        b.addEventListener('click', function () { modalState.index = i; renderModal(); });
+        b.addEventListener('click', function () {
+          modalState.index = i;
+          renderModal({ animate: true });
+          resetModalAutoplay();
+        });
         thumbs.appendChild(b);
       });
-      // Garde la vignette active visible dans le scroll horizontal
       var activeThumb = thumbs.querySelector('.modal-thumb.active');
       if (activeThumb && typeof activeThumb.scrollIntoView === 'function') {
         activeThumb.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
@@ -239,19 +283,22 @@
     modal.classList.add('open');
     document.body.style.overflow = 'hidden';
     renderModal();
+    startModalAutoplay();
     document.getElementById('modalClose').focus();
     track('modal_open', { series: seriesId });
   }
 
   function closeModal() {
+    stopModalAutoplay();
     modal.classList.remove('open');
     document.body.style.overflow = '';
   }
 
-  function modalNav(dir) {
+  function modalNav(dir, fromAuto) {
     if (!modalState.images.length) return;
     modalState.index = (modalState.index + dir + modalState.images.length) % modalState.images.length;
-    renderModal();
+    renderModal({ animate: true });
+    if (!fromAuto) resetModalAutoplay();
   }
 
   /* ──────────── NEWSLETTER ──────────── */
@@ -389,14 +436,37 @@
       nav.classList.toggle('scrolled', window.scrollY > 100);
     }, { passive: true });
 
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.querySelectorAll('.sculpture-card, .car-narrative, .bundle, .wall-item, .included-item, .fade-in')
+        .forEach(function (el) { el.classList.add('visible'); });
+      return;
+    }
+
     var observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
-        if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
       });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
 
-    document.querySelectorAll('.sculpture-card, .car-narrative, .bundle, .wall-item, .included-item, .fade-in')
-      .forEach(function (el) { el.classList.add('fade-in'); observer.observe(el); });
+    var groups = [
+      { sel: '.sculpture-card', step: 120 },
+      { sel: '.car-narrative', step: 0 },
+      { sel: '.bundle', step: 100 },
+      { sel: '.wall-item', step: 80 },
+      { sel: '.included-item', step: 70 },
+      { sel: '.fade-in:not(.sculpture-card):not(.car-narrative):not(.bundle):not(.wall-item):not(.included-item)', step: 90 },
+    ];
+
+    groups.forEach(function (g) {
+      document.querySelectorAll(g.sel).forEach(function (el, i) {
+        el.classList.add('fade-in');
+        if (g.step) el.style.setProperty('--reveal-delay', (i * g.step) + 'ms');
+        observer.observe(el);
+      });
+    });
   }
 
   /* ──────────── INIT ──────────── */
