@@ -1237,18 +1237,27 @@ footer {
 
 .car-narrative.fade-in {
   opacity: 0;
-  transform: translateX(-48px);
+  transform: translateY(40px);
   transition: opacity 0.95s cubic-bezier(0.16, 1, 0.3, 1), transform 0.95s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.car-section .car-content.reverse .car-narrative.fade-in,
-.car-content.reverse > .car-narrative.fade-in {
-  transform: translateX(48px);
+/* Desktop : slide latéral (gauche / droite selon reverse) */
+@media (min-width: 1025px) {
+  .car-narrative.fade-in {
+    transform: translateX(-48px);
+  }
+  .car-content.reverse .car-narrative.fade-in {
+    transform: translateX(48px);
+  }
+  .car-narrative.fade-in.visible,
+  .car-content.reverse .car-narrative.fade-in.visible {
+    transform: translateX(0);
+  }
 }
 
 .car-narrative.fade-in.visible {
   opacity: 1;
-  transform: translateX(0);
+  transform: translateY(0);
 }
 
 .series-title {
