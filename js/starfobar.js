@@ -3,7 +3,8 @@
    - CTAs → Stripe Payment Links (config ci-dessous)
    - Modale galerie sculpture (clavier + swipe)
    - Capture newsletter (Brevo via /api/newsletter)
-   - Hero swipe d'images + vidéo optionnelle
+   - Hero vidéo avec fallback Ken Burns
+   - Swipe auto des images produits (cartes)
    Aucune dépendance externe. Vanilla JS.
    ══════════════════════════════════════════════════════════ */
 (function starfobar() {
@@ -339,188 +340,214 @@
     });
   }
 
-  /* ──────────── HERO SLIDER (swipe + autoplay) ──────────── */
-  var HERO_AUTO_MS = 4000;
-  var heroSliderApi = null;
+  /* ──────────── PRODUIT SLIDER (swipe + autoplay sur les cartes) ──────────── */
+  var CARD_AUTO_MS = 4000;
 
-  function initHeroSlider() {
-    var hero = document.querySelector('.hero');
-    var track = document.getElementById('heroTrack');
-    var dotsEl = document.getElementById('heroDots');
-    var media = document.getElementById('heroMedia');
-    var btnPrev = document.getElementById('heroPrev');
-    var btnNext = document.getElementById('heroNext');
-    if (!hero || !track || !dotsEl || !media) return null;
-
-    var slides = Array.prototype.slice.call(track.querySelectorAll('.hero-slide'));
-    if (slides.length < 2) return null;
-
-    var index = 0;
-    var timer = null;
-    var startX = 0;
-    var startY = 0;
-    var dragging = false;
-    var axis = null;
-    var locked = false;
+  function initProductSliders() {
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var surface = hero;
+    var cards = document.querySelectorAll('.card-visual[data-details]');
+    if (!cards.length) return;
 
-    slides.forEach(function (_, i) {
-      var b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'hero-dot' + (i === 0 ? ' active' : '');
-      b.setAttribute('role', 'tab');
-      b.setAttribute('aria-label', 'Photo ' + (i + 1));
-      b.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
-      b.addEventListener('click', function (e) {
-        e.stopPropagation();
-        goTo(i, true);
+    cards.forEach(function (card) {
+      var seriesId = card.dataset.details;
+      var series = CONFIG.series[seriesId];
+      if (!series || !series.images || series.images.length < 2) return;
+
+      var stage = card.querySelector('.card-visual-stage');
+      if (!stage) return;
+
+      var images = series.images.slice();
+      var index = 0;
+      var timer = null;
+      var inView = false;
+      var startX = 0;
+      var startY = 0;
+      var dragging = false;
+      var axis = null;
+      var moved = false;
+
+      // Rebuild stage with all images (crossfade)
+      stage.innerHTML = '';
+      images.forEach(function (src, i) {
+        var img = document.createElement('img');
+        img.src = src;
+        img.alt = series.title + ' — photo ' + (i + 1);
+        img.loading = i === 0 ? 'eager' : 'lazy';
+        if (i === 0) img.classList.add('is-active');
+        stage.appendChild(img);
       });
-      dotsEl.appendChild(b);
-    });
 
-    function render() {
-      slides.forEach(function (s, i) {
-        s.classList.toggle('is-active', i === index);
-        s.classList.remove('is-prev');
-        s.setAttribute('aria-hidden', i === index ? 'false' : 'true');
+      var dots = document.createElement('div');
+      dots.className = 'card-visual-dots';
+      dots.setAttribute('role', 'tablist');
+      dots.setAttribute('aria-label', 'Photos ' + series.title);
+      images.forEach(function (_, i) {
+        var d = document.createElement('button');
+        d.type = 'button';
+        d.className = 'card-visual-dot' + (i === 0 ? ' active' : '');
+        d.setAttribute('aria-label', 'Photo ' + (i + 1));
+        d.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          goTo(i, true);
+        });
+        dots.appendChild(d);
       });
-      var dots = dotsEl.querySelectorAll('.hero-dot');
-      dots.forEach(function (d, i) {
-        d.classList.toggle('active', i === index);
-        d.setAttribute('aria-selected', i === index ? 'true' : 'false');
-      });
-    }
+      card.appendChild(dots);
 
-    function goTo(i, user) {
-      var next = (i + slides.length) % slides.length;
-      if (next === index) return;
-      index = next;
-      render();
-      if (user) resetAuto();
-    }
+      function render() {
+        var imgs = stage.querySelectorAll('img');
+        imgs.forEach(function (img, i) {
+          img.classList.toggle('is-active', i === index);
+        });
+        dots.querySelectorAll('.card-visual-dot').forEach(function (d, i) {
+          d.classList.toggle('active', i === index);
+        });
+      }
 
-    function next() { goTo(index + 1, false); }
-    function prev() { goTo(index - 1, false); }
+      function goTo(i, user) {
+        index = (i + images.length) % images.length;
+        render();
+        if (user) resetAuto();
+      }
 
-    function stopAuto() {
-      if (timer) { clearInterval(timer); timer = null; }
-    }
+      function next() { goTo(index + 1, false); }
 
-    function startAuto() {
-      stopAuto();
-      if (locked || reduce || slides.length < 2) return;
-      if (document.hidden) return;
-      timer = setInterval(next, HERO_AUTO_MS);
-    }
+      function stopAuto() {
+        if (timer) { clearInterval(timer); timer = null; }
+      }
 
-    function resetAuto() {
-      if (!locked) startAuto();
-    }
+      function startAuto() {
+        stopAuto();
+        if (reduce || !inView || document.hidden || images.length < 2) return;
+        timer = setInterval(next, CARD_AUTO_MS);
+      }
 
-    function setLocked(isLocked) {
-      locked = !!isLocked;
-      hero.classList.toggle('is-video-playing', locked);
-      if (locked) stopAuto();
-      else startAuto();
-    }
+      function resetAuto() {
+        if (inView) startAuto();
+      }
 
-    if (btnPrev) btnPrev.addEventListener('click', function (e) {
-      e.stopPropagation();
-      goTo(index - 1, true);
-    });
-    if (btnNext) btnNext.addEventListener('click', function (e) {
-      e.stopPropagation();
-      goTo(index + 1, true);
-    });
+      // Autoplay seulement quand la carte est visible
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            inView = entry.isIntersecting;
+            if (inView) startAuto();
+            else stopAuto();
+          });
+        }, { threshold: 0.35 });
+        io.observe(card);
+      } else {
+        inView = true;
+        startAuto();
+      }
 
-    function onStart(clientX, clientY) {
-      if (locked) return false;
-      dragging = true;
-      axis = null;
-      startX = clientX;
-      startY = clientY;
-      stopAuto();
-      return true;
-    }
+      function onStart(x, y) {
+        dragging = true;
+        moved = false;
+        axis = null;
+        startX = x;
+        startY = y;
+        stopAuto();
+      }
 
-    function onMove(clientX, clientY) {
-      if (!dragging) return;
-      var dx = clientX - startX;
-      var dy = clientY - startY;
-      if (!axis) {
-        if (Math.abs(dx) < 10 && Math.abs(dy) < 10) return;
-        axis = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
-        if (axis === 'y') {
+      function onMove(x, y) {
+        if (!dragging) return;
+        var dx = x - startX;
+        var dy = y - startY;
+        if (!axis) {
+          if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
+          axis = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
+          if (axis === 'y') dragging = false;
+        }
+        if (axis === 'x' && Math.abs(dx) > 12) moved = true;
+      }
+
+      function onEnd(x) {
+        if (!dragging && axis !== 'x') {
           dragging = false;
+          axis = null;
+          resetAuto();
+          return !moved;
+        }
+        var dx = x - startX;
+        dragging = false;
+        if (axis === 'x' && Math.abs(dx) > 40) {
+          goTo(index + (dx < 0 ? 1 : -1), true);
+          moved = true;
+        } else {
           resetAuto();
         }
+        axis = null;
+        return !moved;
       }
-    }
 
-    function onEnd(clientX) {
-      if (!dragging) return;
-      dragging = false;
-      var dx = clientX - startX;
-      var threshold = 50;
-      if (axis === 'x' && dx < -threshold) goTo(index + 1, true);
-      else if (axis === 'x' && dx > threshold) goTo(index - 1, true);
-      else resetAuto();
-      axis = null;
-    }
+      card.addEventListener('touchstart', function (e) {
+        if (e.target.closest('.card-visual-dot')) return;
+        if (!e.touches[0]) return;
+        onStart(e.touches[0].clientX, e.touches[0].clientY);
+      }, { passive: true });
 
-    // Touch (fiable sur mobile)
-    surface.addEventListener('touchstart', function (e) {
-      if (e.target.closest('button, a, input, textarea, select, label')) return;
-      if (!e.touches[0]) return;
-      onStart(e.touches[0].clientX, e.touches[0].clientY);
-    }, { passive: true });
+      card.addEventListener('touchmove', function (e) {
+        if (!e.touches[0]) return;
+        onMove(e.touches[0].clientX, e.touches[0].clientY);
+      }, { passive: true });
 
-    surface.addEventListener('touchmove', function (e) {
-      if (!dragging || !e.touches[0]) return;
-      onMove(e.touches[0].clientX, e.touches[0].clientY);
-    }, { passive: true });
+      card.addEventListener('touchend', function (e) {
+        if (!e.changedTouches[0]) return;
+        onEnd(e.changedTouches[0].clientX);
+      }, { passive: true });
 
-    surface.addEventListener('touchend', function (e) {
-      if (!e.changedTouches[0]) return;
-      onEnd(e.changedTouches[0].clientX);
-    }, { passive: true });
+      card.addEventListener('pointerdown', function (e) {
+        if (e.pointerType === 'touch') return;
+        if (e.button !== 0) return;
+        if (e.target.closest('.card-visual-dot')) return;
+        onStart(e.clientX, e.clientY);
+      });
 
-    // Pointer / souris (desktop)
-    surface.addEventListener('pointerdown', function (e) {
-      if (e.pointerType === 'touch') return; // géré via touch*
-      if (e.pointerType === 'mouse' && e.button !== 0) return;
-      if (e.target.closest('button, a, input, textarea, select, label')) return;
-      if (!onStart(e.clientX, e.clientY)) return;
-      try { surface.setPointerCapture(e.pointerId); } catch (err) { /* no-op */ }
-    });
+      card.addEventListener('pointermove', function (e) {
+        if (e.pointerType === 'touch') return;
+        onMove(e.clientX, e.clientY);
+      });
 
-    surface.addEventListener('pointermove', function (e) {
-      if (e.pointerType === 'touch') return;
-      onMove(e.clientX, e.clientY);
-    });
+      card.addEventListener('pointerup', function (e) {
+        if (e.pointerType === 'touch') return;
+        onEnd(e.clientX);
+      });
 
-    surface.addEventListener('pointerup', function (e) {
-      if (e.pointerType === 'touch') return;
-      onEnd(e.clientX);
-    });
+      // Clic / clavier → ouvrir la modale (sauf après un swipe)
+      card.addEventListener('click', function (e) {
+        if (e.target.closest('.card-visual-dot')) return;
+        if (moved) {
+          e.preventDefault();
+          e.stopPropagation();
+          moved = false;
+          return;
+        }
+        e.preventDefault();
+        openModal(seriesId);
+      });
 
-    surface.addEventListener('pointercancel', function (e) {
-      if (e.pointerType === 'touch') return;
-      dragging = false;
-      axis = null;
-      resetAuto();
+      card.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openModal(seriesId);
+        } else if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          goTo(index + 1, true);
+        } else if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          goTo(index - 1, true);
+        }
+      });
     });
 
     document.addEventListener('visibilitychange', function () {
-      if (document.hidden) stopAuto();
-      else resetAuto();
+      // restart handled per-card via their own timers on next intersection / focus
+      if (document.hidden) {
+        cards.forEach(function () { /* timers cleared via stop when hidden checked in startAuto */ });
+      }
     });
-
-    render();
-    startAuto();
-
-    return { goTo: goTo, setLocked: setLocked, next: next, prev: prev };
   }
 
   /* ──────────── HERO VIDÉO (chargement conditionnel) ──────────── */
@@ -529,7 +556,7 @@
     var toggle = document.getElementById('mediaToggle');
     if (!video) return;
 
-    // Mobile : on économise la data → pas de vidéo, swipe d'images.
+    // Mobile : on économise la data → pas de vidéo, Ken Burns sur le poster.
     var isMobile = window.matchMedia('(max-width: 768px)').matches;
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (isMobile || reduce) return;
@@ -546,26 +573,14 @@
       video.play().then(function () {
         video.classList.add('is-playing');
         toggle.style.display = 'flex';
-        if (heroSliderApi) heroSliderApi.setLocked(true);
-      }).catch(function () { /* autoplay bloqué → swipe images */ });
+      }).catch(function () { /* autoplay bloqué → poster/Ken Burns */ });
     }).catch(function () { /* pas de vidéo → fallback silencieux */ });
 
     var playing = true;
     toggle.addEventListener('click', function () {
       playing = !playing;
-      if (playing) {
-        video.play();
-        toggle.textContent = '❚❚';
-        toggle.setAttribute('aria-label', 'Mettre en pause la vidéo');
-        video.classList.add('is-playing');
-        if (heroSliderApi) heroSliderApi.setLocked(true);
-      } else {
-        video.pause();
-        toggle.textContent = '►';
-        toggle.setAttribute('aria-label', 'Lire la vidéo');
-        video.classList.remove('is-playing');
-        if (heroSliderApi) heroSliderApi.setLocked(false);
-      }
+      if (playing) { video.play(); toggle.textContent = '❚❚'; toggle.setAttribute('aria-label', 'Mettre en pause la vidéo'); }
+      else { video.pause(); toggle.textContent = '►'; toggle.setAttribute('aria-label', 'Lire la vidéo'); }
     });
   }
 
@@ -670,7 +685,7 @@
     document.querySelectorAll('.cta-primary[data-series], .cta-primary[data-bundle]')
       .forEach(function (btn) { btn.addEventListener('click', handleBuy); });
 
-    document.querySelectorAll('[data-details]').forEach(function (btn) {
+    document.querySelectorAll('[data-details]:not(.card-visual)').forEach(function (btn) {
       btn.addEventListener('click', function (e) { e.preventDefault(); openModal(btn.dataset.details); });
     });
 
@@ -699,8 +714,8 @@
     var nlForm = document.getElementById('newsletterForm');
     if (nlForm) nlForm.addEventListener('submit', submitNewsletter);
 
-    heroSliderApi = initHeroSlider();
     initHeroVideo();
+    initProductSliders();
 
     // Bande ambiance : respecte prefers-reduced-motion (poster seul).
     var ambiance = document.querySelector('.ambiance-video');

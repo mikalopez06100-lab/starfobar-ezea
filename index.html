@@ -157,7 +157,6 @@ img { max-width: 100%; display: block; }
   justify-content: space-between;
   padding: 100px 40px 60px;
   overflow: hidden;
-  touch-action: pan-y;
 }
 
 .hero::before {
@@ -174,12 +173,6 @@ img { max-width: 100%; display: block; }
   max-width: 1400px;
   margin: 0 auto;
   width: 100%;
-  pointer-events: none;
-}
-
-.hero-content a,
-.hero-content button {
-  pointer-events: auto;
 }
 
 .hero-tag {
@@ -248,12 +241,6 @@ img { max-width: 100%; display: block; }
   align-items: flex-end;
   flex-wrap: wrap;
   gap: 20px;
-  pointer-events: none;
-}
-
-.hero-footer a,
-.hero-footer button {
-  pointer-events: auto;
 }
 
 .hero-metas {
@@ -1377,108 +1364,17 @@ footer {
   overflow: hidden;
 }
 
-.hero-slider {
+.hero-kenburns {
   position: absolute;
-  inset: 0;
-  overflow: hidden;
+  inset: -5%;
+  background: url('/assets/garage/09-entrance-marlboro-neon.jpg?v=2') center/cover no-repeat;
+  animation: kenburns 24s ease-in-out infinite alternate;
+  will-change: transform;
 }
 
-.hero-track {
-  position: absolute;
-  inset: 0;
-}
-
-.hero-slide {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  opacity: 0;
-  transform: scale(1.04);
-  transition:
-    opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 8s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
-  pointer-events: none;
-}
-
-.hero-slide.is-active {
-  opacity: 1;
-  transform: scale(1.12);
-  z-index: 1;
-}
-
-.hero-slide.is-prev {
-  opacity: 1;
-  z-index: 0;
-}
-
-.hero-nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 5;
-  width: 44px;
-  height: 44px;
-  border: 1px solid rgba(255,255,255,0.25);
-  background: rgba(0,0,0,0.45);
-  color: var(--white);
-  backdrop-filter: blur(6px);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  line-height: 1;
-  transition: border-color 0.2s, color 0.2s, background 0.2s;
-  pointer-events: auto;
-}
-
-.hero-nav:hover {
-  border-color: var(--red);
-  color: var(--red);
-}
-
-.hero-nav.prev { left: 16px; }
-.hero-nav.next { right: 16px; }
-
-.hero-dots {
-  position: absolute;
-  bottom: 120px;
-  left: 40px;
-  z-index: 5;
-  display: flex;
-  gap: 8px;
-  padding: 6px 10px;
-  background: rgba(0,0,0,0.35);
-  border: 1px solid rgba(255,255,255,0.12);
-  backdrop-filter: blur(6px);
-  pointer-events: auto;
-}
-
-.hero-dot {
-  width: 7px;
-  height: 7px;
-  padding: 0;
-  border: none;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.35);
-  cursor: pointer;
-  transition: background 0.25s ease, transform 0.25s ease;
-}
-
-.hero-dot:hover { background: rgba(255,255,255,0.7); }
-.hero-dot.active {
-  background: var(--red);
-  transform: scale(1.25);
-}
-
-@media (max-width: 768px) {
-  .hero-dots {
-    left: 20px;
-    bottom: 168px;
-  }
-  .hero-nav { display: none; }
+@keyframes kenburns {
+  0%   { transform: scale(1) translate(0, 0); }
+  100% { transform: scale(1.12) translate(-2%, -2%); }
 }
 
 .hero-video {
@@ -1489,14 +1385,9 @@ footer {
   object-fit: cover;
   opacity: 0;
   transition: opacity 0.8s ease;
-  pointer-events: none;
-  z-index: 2;
 }
 
 .hero-video.is-playing { opacity: 1; }
-
-.hero.is-video-playing .hero-dots,
-.hero.is-video-playing .hero-nav { opacity: 0; pointer-events: none; }
 
 .media-toggle {
   position: absolute;
@@ -1520,11 +1411,7 @@ footer {
 .media-toggle:hover { border-color: var(--red); color: var(--red); }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-slide,
-  .hero-slide.is-active {
-    transition: opacity 0.2s ease;
-    transform: none;
-  }
+  .hero-kenburns { animation: none; }
   .fade-in,
   .sculpture-card.fade-in,
   .car-narrative.fade-in,
@@ -1757,7 +1644,7 @@ footer {
   backdrop-filter: blur(4px);
 }
 
-/* Vignette produit dans la carte sculpture */
+/* Vignette produit dans la carte sculpture (swipe + autoplay) */
 .card-visual {
   position: relative;
   display: block;
@@ -1766,13 +1653,58 @@ footer {
   border: 1px solid var(--grey-border);
   background: #fff;
   cursor: pointer;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
 }
-.card-visual img { width: 100%; aspect-ratio: 4/5; object-fit: contain; display: block; transition: transform 0.5s ease; background: #fff; }
-.card-visual:hover img { transform: scale(1.04); }
+.card-visual-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4/5;
+  background: #fff;
+  overflow: hidden;
+}
+.card-visual-stage img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  background: #fff;
+  opacity: 0;
+  transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+.card-visual-stage img.is-active { opacity: 1; z-index: 1; }
+.card-visual-dots {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  z-index: 3;
+  display: flex;
+  gap: 6px;
+  padding: 5px 7px;
+  background: rgba(0,0,0,0.45);
+  border: 1px solid rgba(255,255,255,0.15);
+  backdrop-filter: blur(4px);
+  pointer-events: auto;
+}
+.card-visual-dot {
+  width: 6px;
+  height: 6px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.35);
+  cursor: pointer;
+}
+.card-visual-dot.active { background: #fff; }
 .card-visual-hint {
   position: absolute;
   bottom: 10px;
   right: 10px;
+  z-index: 3;
   font-family: 'Space Mono', monospace;
   font-size: 9px;
   letter-spacing: 2px;
@@ -1782,6 +1714,10 @@ footer {
   padding: 5px 9px;
   border: 1px solid rgba(255,255,255,0.2);
   backdrop-filter: blur(4px);
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .card-visual-stage img { transition: none; }
 }
 
 .modal-gallery-nav {
@@ -1999,30 +1935,16 @@ footer {
 </nav>
 
 <!-- ============ HERO / ENTRÉE DU GARAGE ============ -->
-<section class="hero" aria-roledescription="carousel" aria-label="Photos du garage Starfobar">
-  <!-- Média hero : swipe d'images garage + vidéo optionnelle (desktop).
+<section class="hero">
+  <!-- Média hero : Ken Burns sur le poster (fallback immédiat) + vidéo optionnelle.
        La vidéo ne se charge que si le fichier existe (voir js/starfobar.js). -->
-  <div class="hero-media" id="heroMedia">
-    <div class="hero-slider" id="heroSlider">
-      <div class="hero-track" id="heroTrack">
-        <div class="hero-slide is-active" style="background-image: url('/assets/garage/09-entrance-marlboro-neon.jpg?v=2');" role="group" aria-roledescription="slide" aria-label="1 sur 8"></div>
-        <div class="hero-slide" style="background-image: url('/assets/garage/01-tabac-marlboro-e30.jpg');" role="group" aria-roledescription="slide" aria-label="2 sur 8"></div>
-        <div class="hero-slide" style="background-image: url('/assets/garage/08-bmw1-propaganda-front.jpg');" role="group" aria-roledescription="slide" aria-label="3 sur 8"></div>
-        <div class="hero-slide" style="background-image: url('/assets/garage/04-drift-ornoir-garage.jpg');" role="group" aria-roledescription="slide" aria-label="4 sur 8"></div>
-        <div class="hero-slide" style="background-image: url('/assets/garage/12-bmw-e28-gold-liseret.jpg');" role="group" aria-roledescription="slide" aria-label="5 sur 8"></div>
-        <div class="hero-slide" style="background-image: url('/assets/garage/07-bmw1-pepinox-showroom.jpg');" role="group" aria-roledescription="slide" aria-label="6 sur 8"></div>
-        <div class="hero-slide" style="background-image: url('/assets/garage/10-ferrari-mezzanine.jpg');" role="group" aria-roledescription="slide" aria-label="7 sur 8"></div>
-        <div class="hero-slide" style="background-image: url('/assets/garage/11-facade-bmw-showroom.jpg');" role="group" aria-roledescription="slide" aria-label="8 sur 8"></div>
-      </div>
-    </div>
+  <div class="hero-media">
+    <div class="hero-kenburns"></div>
     <video class="hero-video" muted loop playsinline preload="none"
            poster="/assets/garage/09-entrance-marlboro-neon.jpg?v=2"
            data-src-mp4="/assets/video/hero-garage.mp4"
            data-src-webm="/assets/video/hero-garage.webm"></video>
   </div>
-  <div class="hero-dots" id="heroDots" role="tablist" aria-label="Navigation des photos"></div>
-  <button class="hero-nav prev" id="heroPrev" type="button" aria-label="Photo précédente">‹</button>
-  <button class="hero-nav next" id="heroNext" type="button" aria-label="Photo suivante">›</button>
   <button class="media-toggle" id="mediaToggle" type="button" aria-label="Mettre en pause la vidéo">❚❚</button>
   <div class="hero-content">
     <div class="hero-tag">
@@ -2104,10 +2026,12 @@ footer {
       </div>
     </div>
     <div class="sculpture-card">
-      <a href="#" class="card-visual" data-details="propaganda" aria-label="En voir plus sur la Propaganda Series">
-        <img src="/assets/sculptures/propaganda.jpg?v=3" alt="Sculpture bombe Propaganda Series, rose fluo graffiti" loading="lazy">
+      <div class="card-visual" data-details="propaganda" role="button" tabindex="0" aria-label="En voir plus sur la Propaganda Series">
+        <div class="card-visual-stage">
+          <img src="/assets/sculptures/propaganda.jpg?v=3" alt="Sculpture bombe Propaganda Series, rose fluo graffiti" loading="lazy">
+        </div>
         <span class="card-visual-hint">En voir plus</span>
-      </a>
+      </div>
       <div class="card-tag">SCULPTURE · PROPAGANDA</div>
       <div class="card-specs">
         <div class="card-spec"><div class="lbl">Format</div><div class="val">25 cm</div></div>
@@ -2133,10 +2057,12 @@ footer {
   <div class="car-label">BMW E36 DRIFT · OR NOIR</div>
   <div class="car-content reverse">
     <div class="sculpture-card">
-      <a href="#" class="card-visual" data-details="racing" aria-label="En voir plus sur la Racing Series">
-        <img src="/assets/sculptures/racing.jpg?v=3" alt="Sculpture bombe Racing Series, bleu blanc rouge" loading="lazy">
+      <div class="card-visual" data-details="racing" role="button" tabindex="0" aria-label="En voir plus sur la Racing Series">
+        <div class="card-visual-stage">
+          <img src="/assets/sculptures/racing.jpg?v=3" alt="Sculpture bombe Racing Series, bleu blanc rouge" loading="lazy">
+        </div>
         <span class="card-visual-hint">En voir plus</span>
-      </a>
+      </div>
       <div class="card-tag">SCULPTURE · RACING</div>
       <div class="card-specs">
         <div class="card-spec"><div class="lbl">Format</div><div class="val">25 cm</div></div>
@@ -2182,10 +2108,12 @@ footer {
       </div>
     </div>
     <div class="sculpture-card">
-      <a href="#" class="card-visual" data-details="sleeper" aria-label="En voir plus sur la série Old School BMW">
-        <img src="/assets/sculptures/sleeper.jpg?v=3" alt="Sculpture bombe Old School BMW, navy et or" loading="lazy">
+      <div class="card-visual" data-details="sleeper" role="button" tabindex="0" aria-label="En voir plus sur la série Old School BMW">
+        <div class="card-visual-stage">
+          <img src="/assets/sculptures/sleeper.jpg?v=3" alt="Sculpture bombe Old School BMW, navy et or" loading="lazy">
+        </div>
         <span class="card-visual-hint">En voir plus</span>
-      </a>
+      </div>
       <div class="card-tag">SCULPTURE · OLD SCHOOL BMW</div>
       <div class="card-specs">
         <div class="card-spec"><div class="lbl">Format</div><div class="val">25 cm</div></div>
@@ -2211,10 +2139,12 @@ footer {
   <div class="car-label">BMW E30 · LIVRÉE MARLBORO</div>
   <div class="car-content reverse">
     <div class="sculpture-card">
-      <a href="#" class="card-visual" data-details="marlboro" aria-label="En voir plus sur la Marlboro Series">
-        <img src="/assets/sculptures/marlboro.jpg?v=3" alt="Sculpture bombe Marlboro Series, rouge et blanc" loading="lazy">
+      <div class="card-visual" data-details="marlboro" role="button" tabindex="0" aria-label="En voir plus sur la Marlboro Series">
+        <div class="card-visual-stage">
+          <img src="/assets/sculptures/marlboro.jpg?v=3" alt="Sculpture bombe Marlboro Series, rouge et blanc" loading="lazy">
+        </div>
         <span class="card-visual-hint">En voir plus</span>
-      </a>
+      </div>
       <div class="card-tag">SCULPTURE · MARLBORO</div>
       <div class="card-specs">
         <div class="card-spec"><div class="lbl">Format</div><div class="val">25 cm</div></div>
@@ -2442,7 +2372,7 @@ footer {
 <!-- Analytics (Vercel Web Analytics — RGPD-safe) -->
 <script src="/js/analytics.js"></script>
 <!-- Logique landing Starfobar : CTAs Stripe, modale, newsletter, hero vidéo -->
-<script src="/js/starfobar.js?v=6"></script>
+<script src="/js/starfobar.js?v=7"></script>
 
 </body>
 </html>
