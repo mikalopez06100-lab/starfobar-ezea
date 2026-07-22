@@ -1,0 +1,6 @@
+# Sources lourdes non servies par le site (aperçus web = _preview/*.jpg)
+contenu-reseaux/_tools
+contenu-reseaux/templates
+contenu-reseaux/**/*.png
+contenu-reseaux/*.zip
+contenu-reseaux.zip

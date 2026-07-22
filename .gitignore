@@ -15,3 +15,7 @@ Thumbs.db
 
 .vercel
 .env*
+
+# Contenu réseaux — binaires lourds (rendus PNG + archive), non versionnés
+contenu-reseaux.zip
+contenu-reseaux/**/*.png

@@ -1,0 +1,54 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="base.css">
+<style>
+  .quad{position:absolute;inset:0;display:flex;flex-direction:column;z-index:5;background:var(--black);}
+  .q-head{padding:40px 56px 30px;display:flex;justify-content:space-between;align-items:center;}
+  .q-cols{flex:1;display:grid;grid-template-columns:repeat(4,1fr);gap:3px;background:var(--grey-border);}
+  .q-cell{position:relative;background:linear-gradient(180deg,#f4f4f4,#e7e7e7);overflow:hidden;display:flex;align-items:center;justify-content:center;}
+  .q-cell img{width:100%;height:100%;object-fit:cover;object-position:center 42%;}
+  .q-cap{position:absolute;left:0;right:0;bottom:0;padding:16px 14px 14px;
+    background:linear-gradient(180deg,rgba(10,10,10,0) 0%,rgba(10,10,10,.92) 55%);}
+  .q-cap .n{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px;color:var(--grey-light);}
+  .q-cap .t{font-family:'Bebas Neue',sans-serif;font-size:30px;line-height:.95;color:#fff;letter-spacing:.5px;}
+  .q-bar{height:5px;width:100%;margin-top:8px;}
+  .q-foot{padding:30px 56px 40px;display:flex;justify-content:space-between;align-items:center;
+    border-top:1px solid var(--grey-border);}
+</style></head>
+<body><div class="canvas feed">
+  <div class="quad">
+    <div class="q-head">
+      <div class="lockup" style="font-size:32px">STARFOBAR<span class="x" style="color:var(--red)">×</span>EZÉA</div>
+      <div class="mono" style="font-size:14px;color:var(--grey-light)">4 SÉRIES · ÉDITION LIMITÉE</div>
+    </div>
+
+    <div class="q-cols">
+      <div class="q-cell">
+        <img src="../../assets/sculptures/propaganda.jpg">
+        <div class="q-cap"><div class="n">SÉRIE 01</div><div class="t">PROPAGANDA</div><div class="q-bar" style="background:var(--pink)"></div></div>
+      </div>
+      <div class="q-cell">
+        <img src="../../assets/sculptures/racing.jpg">
+        <div class="q-cap"><div class="n">SÉRIE 02</div><div class="t">RACING</div><div class="q-bar" style="background:var(--blue)"></div></div>
+      </div>
+      <div class="q-cell">
+        <img src="../../assets/sculptures/sleeper.jpg">
+        <div class="q-cap"><div class="n">SÉRIE 03</div><div class="t">OLD SCHOOL BMW</div><div class="q-bar" style="background:var(--gold)"></div></div>
+      </div>
+      <div class="q-cell">
+        <img src="../../assets/sculptures/marlboro.jpg">
+        <div class="q-cap"><div class="n">SÉRIE 04</div><div class="t">MARLBORO</div><div class="q-bar" style="background:var(--red)"></div></div>
+      </div>
+    </div>
+
+    <div class="q-foot">
+      <div>
+        <div class="bebas" style="font-size:52px;color:#fff">190 € <span style="font-size:24px;color:var(--grey-light);font-family:'Space Mono'">/ PIÈCE</span></div>
+        <div class="mono" style="font-size:13px;color:var(--grey);margin-top:2px">RÉSINE COULÉE MAIN · 25 CM · NUMÉROTÉE</div>
+      </div>
+      <div style="text-align:right">
+        <div class="mono" style="font-size:14px;color:#fff">EN LIGNE MAINTENANT</div>
+        <div class="mono" style="font-size:16px;color:var(--red);margin-top:6px">STARFOBAR.VERCEL.APP</div>
+      </div>
+    </div>
+  </div>
+</div></body></html>
