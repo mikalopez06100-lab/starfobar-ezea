@@ -17,8 +17,11 @@ js/
   starfobar.js        → CTAs Stripe, modale galerie, newsletter, hero vidéo (+ CONFIG)
   analytics.js        → Vercel Web Analytics (injecté côté client)
 api/
-  newsletter.js       → POST /api/newsletter → inscription Brevo
+  newsletter.js       → POST /api/newsletter → email Resend (+ Brevo optionnel)
   checkout.js         → POST /api/checkout → Stripe Checkout Session
+  stripe-webhook.js   → POST /api/stripe-webhook → email commande Resend
+lib/
+  resend.js           → client + templates emails
 assets/
   sculptures/         → photos produit ({serie}.jpg) + packaging ({serie}-case.jpg)
   cars/               → voitures d'inspiration ({serie}.jpg) — fonds de section
@@ -90,11 +93,52 @@ crée une **Checkout Session** via `POST /api/checkout`.
 L'adresse de livraison exacte est collectée sur la page Stripe.
 Les choix (séries, merch, taille, zone) partent en `metadata` de la session.
 
-## Newsletter (Brevo)
+## Emails (Resend)
 
-Créer une liste Brevo `starfobar-ezea-audience`, puis définir `BREVO_API_KEY` et
-`BREVO_LIST_ID` (voir `.env.example`, à configurer dans les env vars Vercel).
-Sans ces variables, le formulaire répond « bientôt actif » sans erreur bloquante.
+Emails transactionnels via **Resend** :
+
+| Événement | Route | Email |
+|---|---|---|
+| Inscription newsletter | `POST /api/newsletter` | Confirmation « Tu es dans la boucle » |
+| Commande payée | `POST /api/stripe-webhook` (`checkout.session.completed`) | Confirmation commande (+ copie interne optionnelle) |
+
+### Variables Vercel
+
+| Variable | Requis | Exemple |
+|---|---|---|
+| `RESEND_API_KEY` | oui | `re_…` |
+| `RESEND_FROM` | oui | `Starfobar × Ezéa <noreply@ton-domaine.com>` |
+| `ORDER_NOTIFY_TO` | non | `contact@ezea.fr` |
+| `STRIPE_SECRET_KEY` | oui (paiements) | `sk_test_…` / `sk_live_…` |
+| `STRIPE_WEBHOOK_SECRET` | oui (email commande) | `whsec_…` |
+| `SITE_URL` | non | `https://starfobar.vercel.app` |
+| `BREVO_API_KEY` + `BREVO_LIST_ID` | non | liste contacts (en plus de Resend) |
+
+### Checklist mise en ligne Resend
+
+1. Créer un compte [Resend](https://resend.com) → API Key
+2. **Domains** → ajouter ton domaine (ex. `ezea.fr` ou `starfobar-ezea.com`)
+3. Ajouter les enregistrements DNS (SPF / DKIM) indiqués par Resend → attendre **Verified**
+4. Définir `RESEND_FROM` avec une adresse **sur ce domaine vérifié**
+5. Coller `RESEND_API_KEY` + `RESEND_FROM` dans Vercel → Redeploy
+
+Sans domaine vérifié, Resend ne laisse envoyer qu'à l'email du compte (mode test).
+
+### Checklist Stripe webhook (email commande)
+
+1. Stripe Dashboard → **Developers → Webhooks → Add endpoint**
+2. URL : `https://starfobar.vercel.app/api/stripe-webhook`
+3. Event : `checkout.session.completed`
+4. Copier le **Signing secret** (`whsec_…`) → `STRIPE_WEBHOOK_SECRET` sur Vercel
+5. Redeploy
+
+En local : `stripe listen --forward-to localhost:3000/api/stripe-webhook`
+
+## Newsletter (Brevo — optionnel)
+
+Brevo reste **optionnel** pour stocker les contacts en liste.
+Resend envoie l'email de confirmation même sans Brevo.
+Si `BREVO_API_KEY` + `BREVO_LIST_ID` sont définis, le contact est aussi ajouté à la liste.
 
 ## Mettre à jour la disponibilité (sans chiffres)
 
