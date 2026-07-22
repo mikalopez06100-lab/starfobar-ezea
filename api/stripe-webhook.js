@@ -77,8 +77,8 @@ async function handleCheckoutCompleted(session) {
   const sent = await resend.sendEmail(mail);
 
   let notified = false;
-  if (process.env.ORDER_NOTIFY_TO) {
-    const notify = resend.orderNotifyEmail({ session: session, customerEmail: customerEmail });
+  const notify = resend.orderNotifyEmail({ session: session, customerEmail: customerEmail });
+  if (notify.to) {
     const n = await resend.sendEmail(notify);
     notified = !!(n && n.ok);
   }

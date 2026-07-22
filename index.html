@@ -146,6 +146,39 @@ img { max-width: 100%; display: block; }
 
 .stock-badge .num { color: var(--red); font-weight: 700; }
 
+.topnav-contact {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: lowercase;
+  color: var(--white);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,0.28);
+  padding-bottom: 2px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.topnav-contact:hover {
+  color: var(--red);
+  border-color: var(--red);
+}
+
+.newsletter-contact {
+  margin-top: 22px;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--grey);
+}
+.newsletter-contact a {
+  color: var(--white);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,0.3);
+}
+.newsletter-contact a:hover {
+  color: var(--red);
+  border-color: var(--red);
+}
+
 /* ============ HERO / ENTRÉE ============ */
 .hero {
   height: 100vh;
@@ -2233,6 +2266,7 @@ footer {
   <a href="/" class="topnav-logo" aria-label="Starfobar × Ezéa — retour à l'accueil">STARFOBAR<span class="sep">×</span>EZÉA</a>
   <div class="topnav-actions">
     <div class="stock-badge">Édition limitée · 100 pièces</div>
+    <a class="topnav-contact" href="mailto:contact@ezea.fr">contact@ezea.fr</a>
     <button class="sound-toggle" id="soundToggle" type="button" title="Activer l'ambiance sonore" aria-pressed="false" aria-label="Activer l'ambiance sonore">
       <span class="icon" aria-hidden="true">🔇</span>
       <span class="lbl">SON OFF</span>
@@ -2582,6 +2616,7 @@ footer {
       <button type="submit" id="newsletterBtn">Prévenez-moi</button>
     </form>
     <div class="newsletter-msg" id="newsletterMsg" role="status" aria-live="polite"></div>
+    <p class="newsletter-contact">Une question ? <a href="mailto:contact@ezea.fr">contact@ezea.fr</a></p>
   </div>
 </section>
 
