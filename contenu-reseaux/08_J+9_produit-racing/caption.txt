@@ -1,4 +1,4 @@
-POST 08 · J+9 · STORY (Produit 2 · RACING)
+﻿POST 08 · J+9 · STORY (Produit 2 · RACING)
 ========================================
 
 CAPTION / TEXTE STORY
@@ -12,7 +12,7 @@ Résine coulée main · ≈ 25 cm · numérotée · 190 €.
 
 STICKERS / LIEN
 ------------------------
-- Sticker LIEN → starfobar.vercel.app (sur le bouton « JE LA VEUX »).
+- Sticker LIEN → starfobarxezea.com (sur le bouton « JE LA VEUX »).
 - Couleur d'accent : bleu (#1D4ED8).
 - Sticker sondage optionnel : « Circuit ou tandem drift ? ».
 

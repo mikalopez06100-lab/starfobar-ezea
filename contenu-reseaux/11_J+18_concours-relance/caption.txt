@@ -1,4 +1,4 @@
-POST 11 · J+18 · STORY (jeu concours · relance)
+﻿POST 11 · J+18 · STORY (jeu concours · relance)
 ========================================
 
 CAPTION / TEXTE STORY
@@ -17,7 +17,7 @@ STICKERS / LIEN
 ------------------------
 - Sticker « COMPTE À REBOURS » IG (optionnel) réglé sur la date de tirage.
 - Repartager le POST FEED du concours (là où se font like + tags).
-- Renvoyer aussi vers la boutique : starfobar.vercel.app.
+- Renvoyer aussi vers la boutique : starfobarxezea.com.
 
 HASHTAGS (si repartage)
 ------------------------

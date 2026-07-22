@@ -1,4 +1,4 @@
-User-agent: *
+﻿User-agent: *
 Allow: /
 
-Sitemap: https://starfobar.vercel.app/sitemap.xml
+Sitemap: https://starfobarxezea.com/sitemap.xml

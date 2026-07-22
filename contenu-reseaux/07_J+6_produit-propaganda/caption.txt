@@ -1,4 +1,4 @@
-POST 07 · J+6 · STORY (Produit 1 · PROPAGANDA)
+﻿POST 07 · J+6 · STORY (Produit 1 · PROPAGANDA)
 ========================================
 
 CAPTION / TEXTE STORY
@@ -12,7 +12,7 @@ Résine coulée main · ≈ 25 cm · numérotée · 190 €.
 
 STICKERS / LIEN
 ------------------------
-- Sticker LIEN → starfobar.vercel.app (sur le bouton « JE LA VEUX »).
+- Sticker LIEN → starfobarxezea.com (sur le bouton « JE LA VEUX »).
 - Couleur d'accent : rose (#EC4899).
 - Sticker sondage optionnel : « Tu l'accroches ou tu la poses ? ».
 

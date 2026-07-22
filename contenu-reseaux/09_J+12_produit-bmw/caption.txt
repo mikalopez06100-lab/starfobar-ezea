@@ -1,4 +1,4 @@
-POST 09 · J+12 · STORY (Produit 3 · OLD SCHOOL BMW · SLEEPER)
+﻿POST 09 · J+12 · STORY (Produit 3 · OLD SCHOOL BMW · SLEEPER)
 ========================================
 
 CAPTION / TEXTE STORY
@@ -12,7 +12,7 @@ Résine coulée main · ≈ 25 cm · numérotée · 190 €.
 
 STICKERS / LIEN
 ------------------------
-- Sticker LIEN → starfobar.vercel.app (sur le bouton « JE LA VEUX »).
+- Sticker LIEN → starfobarxezea.com (sur le bouton « JE LA VEUX »).
 - Couleur d'accent : or (#C9A651).
 - Sticker sondage optionnel : « E28 ou E30, ton coeur balance ? ».
 

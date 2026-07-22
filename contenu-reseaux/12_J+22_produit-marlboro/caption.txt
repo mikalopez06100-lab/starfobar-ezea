@@ -1,4 +1,4 @@
-POST 12 · J+22 · STORY (Produit 4 · MARLBORO)
+﻿POST 12 · J+22 · STORY (Produit 4 · MARLBORO)
 ========================================
 
 CAPTION / TEXTE STORY
@@ -12,7 +12,7 @@ Résine coulée main · ≈ 25 cm · numérotée · 190 €.
 
 STICKERS / LIEN
 ------------------------
-- Sticker LIEN → starfobar.vercel.app (sur le bouton « JE LA VEUX »).
+- Sticker LIEN → starfobarxezea.com (sur le bouton « JE LA VEUX »).
 - Couleur d'accent : rouge (#E30613).
 - Sticker sondage optionnel : « La plus belle des 4 ? ».
 

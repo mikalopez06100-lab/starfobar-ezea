@@ -1,4 +1,4 @@
-POST 10 · J+15 · STORY (Le Pack)
+﻿POST 10 · J+15 · STORY (Le Pack)
 ========================================
 
 CAPTION / TEXTE STORY
@@ -10,11 +10,11 @@ DUO — 2 séries au choix · 340 €
 FULL SET — les 4 séries · coffret complet · 680 €
 KIT — 1 pièce + coffret collector · 229 €
 
-Compose le tien → starfobar.vercel.app
+Compose le tien → starfobarxezea.com
 
 STICKERS / LIEN
 ------------------------
-- Sticker LIEN → starfobar.vercel.app (sur « JE COMPOSE MON PACK »).
+- Sticker LIEN → starfobarxezea.com (sur « JE COMPOSE MON PACK »).
 - NE PAS mentionner « livraison offerte » (retiré de l'offre).
 - Sticker sondage optionnel : « Duo ou Full Set ? ».
 

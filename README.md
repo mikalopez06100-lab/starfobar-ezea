@@ -1,4 +1,4 @@
-# Starfobar × Ezéa — Landing
+﻿# Starfobar × Ezéa — Landing
 
 Site de vente de la collection **Starfobar × Ezéa** : 4 séries de sculptures résine
 (bombes aérosol), édition limitée, née à l'événement Starfobar Édition 04.
@@ -54,12 +54,9 @@ npx vercel            # preview
 npx vercel --prod     # production
 ```
 
-### ⚠️ À faire au moment de brancher le domaine
+### Domaine production
 
-Les URLs absolues (canonical, Open Graph, Twitter Card, JSON-LD) utilisent le
-**placeholder `https://starfobar-ezea.com`**. Remplacer par le vrai domaine dans :
-`index.html` (balises `<link rel="canonical">`, `og:*`, `twitter:*`, JSON-LD `image`),
-`robots.txt` et `sitemap.xml`.
+Site live : **https://starfobarxezea.com** (apex + `www` sur Vercel, DNS IONOS).
 
 ## Brancher les paiements (Stripe Checkout)
 
@@ -69,7 +66,7 @@ crée une **Checkout Session** via `POST /api/checkout`.
 1. Dashboard Stripe → Developers → API keys → copier la **Secret key**
 2. Dans Vercel (Project → Settings → Environment Variables) :
    - `STRIPE_SECRET_KEY=sk_test_…` (ou `sk_live_…`)
-   - optionnel : `SITE_URL=https://starfobar.vercel.app`
+   - optionnel : `SITE_URL=https://starfobarxezea.com`
 3. Redeploy. Sans cette clé, le bouton « Payer » renvoie vers la newsletter
    (« paiement en cours d'activation ») — **aucun paiement lancé**.
 
@@ -111,13 +108,13 @@ Emails transactionnels via **Resend** :
 | `ORDER_NOTIFY_TO` | non | `contact@ezea.fr` |
 | `STRIPE_SECRET_KEY` | oui (paiements) | `sk_test_…` / `sk_live_…` |
 | `STRIPE_WEBHOOK_SECRET` | oui (email commande) | `whsec_…` |
-| `SITE_URL` | non | `https://starfobar.vercel.app` |
+| `SITE_URL` | non | `https://starfobarxezea.com` |
 | `BREVO_API_KEY` + `BREVO_LIST_ID` | non | liste contacts (en plus de Resend) |
 
 ### Checklist mise en ligne Resend
 
 1. Créer un compte [Resend](https://resend.com) → API Key
-2. **Domains** → ajouter ton domaine (ex. `ezea.fr` ou `starfobar-ezea.com`)
+2. **Domains** → domaine déjà branché : `starfobarxezea.com` (+ `www`)
 3. Ajouter les enregistrements DNS (SPF / DKIM) indiqués par Resend → attendre **Verified**
 4. Définir `RESEND_FROM` avec une adresse **sur ce domaine vérifié**
 5. Coller `RESEND_API_KEY` + `RESEND_FROM` dans Vercel → Redeploy
@@ -127,7 +124,7 @@ Sans domaine vérifié, Resend ne laisse envoyer qu'à l'email du compte (mode t
 ### Checklist Stripe webhook (email commande)
 
 1. Stripe Dashboard → **Developers → Webhooks → Add endpoint**
-2. URL : `https://starfobar.vercel.app/api/stripe-webhook`
+2. URL : `https://starfobarxezea.com/api/stripe-webhook`
 3. Event : `checkout.session.completed`
 4. Copier le **Signing secret** (`whsec_…`) → `STRIPE_WEBHOOK_SECRET` sur Vercel
 5. Redeploy

@@ -1,10 +1,10 @@
-/* ══════════════════════════════════════════════════════════
+﻿/* ══════════════════════════════════════════════════════════
    POST /api/checkout
    Crée une Stripe Checkout Session à partir du panier validé.
    Env requis :
      STRIPE_SECRET_KEY — clé secrète Stripe (sk_live_… / sk_test_…)
    Optionnel :
-     SITE_URL — origine canonique (ex. https://starfobar.vercel.app)
+     SITE_URL — origine canonique (ex. https://starfobarxezea.com)
    Si non configuré → 503 { error: 'not_configured' }
    ══════════════════════════════════════════════════════════ */
 
@@ -51,7 +51,7 @@ function originFromReq(req) {
   const proto = (req.headers['x-forwarded-proto'] || 'https').split(',')[0].trim();
   const host = (req.headers['x-forwarded-host'] || req.headers.host || '').split(',')[0].trim();
   if (host) return proto + '://' + host;
-  return 'https://starfobar.vercel.app';
+  return 'https://starfobarxezea.com';
 }
 
 function validateCart(body) {

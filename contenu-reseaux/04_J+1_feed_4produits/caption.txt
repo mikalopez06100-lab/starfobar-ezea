@@ -1,4 +1,4 @@
-POST 04 · J+1 · PUBLICATION FEED (les 4 produits)
+﻿POST 04 · J+1 · PUBLICATION FEED (les 4 produits)
 ========================================
 Format : 1080×1350 (4:5)
 
@@ -18,7 +18,7 @@ socle marbre. Chacune numérotée, éditée à 100 exemplaires.
 190 € la pièce. Résine coulée main · ≈ 25 cm · numérotée.
 Il en reste 87 sur 100. Quand c'est parti, c'est parti.
 
-🛒 Lien en bio → starfobar.vercel.app
+🛒 Lien en bio → starfobarxezea.com
 🎨 Sculptures @ezea.art × 🏁 @starfobar
 
 HASHTAGS
@@ -27,6 +27,6 @@ HASHTAGS
 
 CONSIGNES
 ------------------------
-- Post feed (permanent). Mettre le lien en bio (starfobar.vercel.app).
+- Post feed (permanent). Mettre le lien en bio (starfobarxezea.com).
 - Épingler le commentaire avec le lien direct de la boutique.
 - Relayer aussitôt en story (voir post 05) avec sticker lien.

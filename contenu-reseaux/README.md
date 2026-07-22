@@ -1,10 +1,10 @@
-# Contenu réseaux — Starfobar × Ezéa
+﻿# Contenu réseaux — Starfobar × Ezéa
 
 Campagne d'écoulement des 87 sculptures résine · **15 publications sur 1 mois**.
 Tout est **prêt à poster** : pour chaque post, une image finale (PNG) + un `caption.txt`
 (texte + hashtags + consignes de stickers/lien). Chris n'a plus qu'à publier.
 
-Site de vente (toujours en CTA / sticker lien) : **https://starfobar.vercel.app**
+Site de vente (toujours en CTA / sticker lien) : **https://starfobarxezea.com**
 Comptes à taguer : **@ezea.art** (Ezéa) · **@starfobar** (Chris)
 
 ---
@@ -45,7 +45,7 @@ respectée (textes clés dans la bande centrale, haut/bas laissés à l'UI Insta
    Instagram** indiqués dans le `caption.txt` (lien, compte à rebours, sondage/question).
    Les zones en pointillés sur certains visuels indiquent où poser le sticker.
 2. **Feed** (04 et 15) : importer le `post.png`, copier-coller la caption du `caption.txt`,
-   **mettre le lien en bio** (`starfobar.vercel.app`) et épingler un commentaire avec le lien direct.
+   **mettre le lien en bio** (`starfobarxezea.com`) et épingler un commentaire avec le lien direct.
 3. Toujours taguer **@ezea.art** et **@starfobar**.
 
 ## Règles éditoriales (rappels du brief)
@@ -57,7 +57,7 @@ respectée (textes clés dans la bande centrale, haut/bas laissés à l'UI Insta
 
 ## Aperçu pour la page proposition
 
-4 posts « léchés » à mettre en avant sur `starfobar.vercel.app/proposition` :
+4 posts « léchés » à mettre en avant sur `starfobarxezea.com/proposition` :
 `04_J+1_feed_4produits`, `07_J+6_produit-propaganda`, `06_J+3_concours`, `15_J+30_closing`.
 
 ---
