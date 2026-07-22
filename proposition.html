@@ -671,38 +671,69 @@ section.block {
   font-size: 13px;
 }
 
+.rhythm-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 28px;
+  margin: 8px 0 28px;
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.rhythm-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rhythm-legend i {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex: none;
+}
+
+.rhythm-legend .lg-collab i { background: var(--red); }
+.rhythm-legend .lg-story i {
+  background: transparent;
+  border: 1px solid var(--grey);
+}
+.rhythm-legend .lg-contest i {
+  background: transparent;
+  border: 1px solid var(--gold);
+}
+
 .timeline {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1px;
-  background: var(--grey-border);
-  border: 1px solid var(--grey-border);
-  margin: 30px 0 20px;
+  gap: 20px;
+  margin: 10px 0 28px;
+  background: none;
+  border: none;
 }
 
 .week {
-  background: var(--black-2);
-  padding: 28px 22px;
+  background: transparent;
+  padding: 0;
   display: flex;
   flex-direction: column;
   position: relative;
+  border-top: 1px solid var(--grey-border);
+  padding-top: 18px;
 }
 
-.week.launch::before,
-.week.closing::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: var(--red);
+.week.launch {
+  border-top-color: rgba(227, 6, 19, 0.45);
 }
 
 .week-header {
-  margin-bottom: 20px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid var(--grey-border);
+  margin-bottom: 16px;
+  padding-bottom: 0;
+  border-bottom: none;
 }
 
 .week-num {
@@ -716,47 +747,70 @@ section.block {
 
 .week-name {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 24px;
+  font-size: 22px;
   line-height: 1;
   letter-spacing: 0.3px;
   color: var(--white);
 }
 
-.week.launch .week-name,
-.week.closing .week-name {
+.week.launch .week-name {
+  color: var(--white);
+}
+
+.week.launch .week-num {
   color: var(--red);
 }
 
 .post-item {
-  padding: 12px 0;
-  border-bottom: 1px solid var(--grey-border);
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(42, 42, 42, 0.7);
 }
 
 .post-item:last-child {
   border-bottom: none;
 }
 
+.post-item.featured {
+  margin: 4px 0 12px;
+  padding: 14px 14px 16px;
+  background: rgba(227, 6, 19, 0.06);
+  border: 1px solid rgba(227, 6, 19, 0.35);
+  border-bottom: 1px solid rgba(227, 6, 19, 0.35);
+}
+
 .post-type {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 6px;
+  align-items: baseline;
+  margin-bottom: 5px;
+  gap: 10px;
 }
 
 .post-label {
   font-family: 'Space Mono', monospace;
-  font-size: 11px;
+  font-size: 10px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: var(--white);
+  color: var(--grey-light);
+  font-weight: 400;
+}
+
+.post-item.featured .post-label {
+  color: var(--red);
   font-weight: 700;
 }
 
 .post-count {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 24px;
+  font-size: 18px;
   line-height: 1;
+  color: var(--grey-light);
+  flex: none;
+}
+
+.post-item.featured .post-count {
   color: var(--white);
+  font-size: 22px;
 }
 
 .post-count.dim {
@@ -765,29 +819,48 @@ section.block {
 
 .post-status {
   font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  text-transform: none;
+  padding: 0;
+  display: block;
+  color: var(--white);
+  background: none;
+  border: none;
+  line-height: 1.4;
+}
+
+.post-status.story {
+  color: var(--grey-light);
+  font-size: 12px;
+}
+
+.post-status.contest {
+  color: var(--gold);
+}
+
+.post-status.collab {
+  color: var(--white);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+.post-hint {
+  margin-top: 6px;
+  font-family: 'Space Mono', monospace;
   font-size: 9px;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  padding: 3px 8px;
-  display: inline-block;
-}
-
-.post-status.required {
-  background: var(--red);
-  color: var(--white);
-}
-
-.post-status.optional {
-  background: var(--black-3);
-  color: var(--grey-light);
-  border: 1px solid var(--grey-border);
+  color: var(--red);
 }
 
 .rhythm-summary {
-  background: var(--black-2);
-  border: 1px solid var(--grey-border);
-  padding: 24px 28px;
-  margin: 20px 0 0;
+  background: transparent;
+  border: none;
+  border-top: 1px solid var(--grey-border);
+  padding: 28px 0 0;
+  margin: 8px 0 0;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
@@ -808,10 +881,14 @@ section.block {
 
 .summary-item .sm-value {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 32px;
+  font-size: 36px;
   line-height: 1;
   color: var(--white);
   margin-bottom: 4px;
+}
+
+.summary-item.is-key .sm-value {
+  color: var(--red);
 }
 
 .summary-item .sm-value .lite {
@@ -826,20 +903,21 @@ section.block {
   font-size: 10px;
   color: var(--grey-light);
   letter-spacing: 1px;
+  line-height: 1.5;
 }
 
 .rhythm-note {
-  margin-top: 20px;
-  padding: 16px 20px;
-  background: var(--black);
-  border-left: 2px solid var(--gold);
+  margin-top: 24px;
+  padding: 0;
+  background: none;
+  border-left: none;
   font-size: 13px;
-  color: var(--grey-light);
-  line-height: 1.6;
+  color: var(--grey);
+  line-height: 1.65;
 }
 
 .rhythm-note strong {
-  color: var(--gold);
+  color: var(--grey-light);
   font-weight: 600;
 }
 
@@ -910,7 +988,7 @@ footer {
 @media (max-width: 900px) {
   .gifts { grid-template-columns: 1fr; }
   .levers { grid-template-columns: 1fr; }
-  .timeline { grid-template-columns: repeat(2, 1fr); }
+  .timeline { grid-template-columns: 1fr 1fr; gap: 28px 24px; }
 }
 
 @media (max-width: 768px) {
@@ -919,8 +997,21 @@ footer {
   .numbers-strip { grid-template-columns: 1fr; }
   .roles { grid-template-columns: 1fr; }
   .steps { grid-template-columns: 1fr; }
-  .timeline { grid-template-columns: 1fr; }
-  .rhythm-summary { grid-template-columns: 1fr; gap: 20px; }
+  .timeline {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .week {
+    padding-top: 14px;
+  }
+  .week-name { font-size: 26px; }
+  .post-item.featured { padding: 16px; }
+  .rhythm-summary {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding-top: 22px;
+  }
+  .rhythm-legend { gap: 12px 20px; margin-bottom: 22px; }
   section.block { padding: 50px 0; }
   .block.thanks { padding: 60px 0; }
   header.hero { padding: 40px 0 40px; }
@@ -1256,6 +1347,12 @@ footer {
       Simple : sur tout le mois, tu as <strong>une seule collab à valider</strong> — la publication de lancement, tu l'acceptes en 1 tap. Tout le reste, ce sont des <strong>stories que je publie et que tu repartages</strong> sur ton compte en un geste. Voici le rythme, pour que tu voies à quoi ça ressemble.
     </p>
 
+    <div class="rhythm-legend" aria-hidden="true">
+      <span class="lg-collab"><i></i> Collab · 1 tap</span>
+      <span class="lg-story"><i></i> Story · tu repartages</span>
+      <span class="lg-contest"><i></i> Jeu concours</span>
+    </div>
+
     <!-- Timeline 4 semaines · calendrier J -->
     <div class="timeline">
       <div class="week">
@@ -1265,38 +1362,39 @@ footer {
         </div>
         <div class="post-item">
           <div class="post-type"><div class="post-label">Story</div><div class="post-count">J-7</div></div>
-          <div class="post-status optional">Teaser simple</div>
+          <div class="post-status story">Teaser simple</div>
         </div>
         <div class="post-item">
           <div class="post-type"><div class="post-label">Story</div><div class="post-count">J-3</div></div>
-          <div class="post-status optional">Légère explication</div>
+          <div class="post-status story">Légère explication</div>
         </div>
         <div class="post-item">
           <div class="post-type"><div class="post-label">Story</div><div class="post-count">H-12</div></div>
-          <div class="post-status required">Compte à rebours</div>
+          <div class="post-status story">Compte à rebours</div>
         </div>
       </div>
 
       <div class="week launch">
         <div class="week-header">
-          <div class="week-num">SEMAINE 02</div>
+          <div class="week-num">SEMAINE 02 · LANCEMENT</div>
           <div class="week-name">Lancement</div>
         </div>
-        <div class="post-item">
+        <div class="post-item featured">
           <div class="post-type"><div class="post-label">Publication</div><div class="post-count">J+1</div></div>
-          <div class="post-status required">Les 4 produits</div>
+          <div class="post-status collab">Les 4 produits</div>
+          <div class="post-hint">Ta seule collab à valider</div>
         </div>
         <div class="post-item">
           <div class="post-type"><div class="post-label">Story</div><div class="post-count">J+1</div></div>
-          <div class="post-status required">Produits · général</div>
+          <div class="post-status story">Produits · général</div>
         </div>
         <div class="post-item">
           <div class="post-type"><div class="post-label">Story</div><div class="post-count">J+3</div></div>
-          <div class="post-status required">Jeu concours</div>
+          <div class="post-status contest">Jeu concours</div>
         </div>
         <div class="post-item">
           <div class="post-type"><div class="post-label">Story</div><div class="post-count">J+6</div></div>
-          <div class="post-status required">Produit 1</div>
+          <div class="post-status story">Produit 1</div>
         </div>
       </div>
 
@@ -1307,19 +1405,19 @@ footer {
         </div>
         <div class="post-item">
           <div class="post-type"><div class="post-label">Story</div><div class="post-count">J+9</div></div>
-          <div class="post-status required">Produit 2</div>
+          <div class="post-status story">Produit 2</div>
         </div>
         <div class="post-item">
           <div class="post-type"><div class="post-label">Story</div><div class="post-count">J+12</div></div>
-          <div class="post-status required">Produit 3</div>
+          <div class="post-status story">Produit 3</div>
         </div>
         <div class="post-item">
           <div class="post-type"><div class="post-label">Story</div><div class="post-count">J+15</div></div>
-          <div class="post-status required">Le Pack</div>
+          <div class="post-status story">Le Pack</div>
         </div>
         <div class="post-item">
           <div class="post-type"><div class="post-label">Story</div><div class="post-count">J+18</div></div>
-          <div class="post-status required">Jeu concours</div>
+          <div class="post-status contest">Jeu concours</div>
         </div>
       </div>
 
@@ -1330,26 +1428,26 @@ footer {
         </div>
         <div class="post-item">
           <div class="post-type"><div class="post-label">Story</div><div class="post-count">J+22</div></div>
-          <div class="post-status required">Produit 4</div>
+          <div class="post-status story">Produit 4</div>
         </div>
         <div class="post-item">
           <div class="post-type"><div class="post-label">Story</div><div class="post-count">J+25</div></div>
-          <div class="post-status optional">Rappel J-5</div>
+          <div class="post-status story">Rappel J-5</div>
         </div>
         <div class="post-item">
           <div class="post-type"><div class="post-label">Story</div><div class="post-count">J+28</div></div>
-          <div class="post-status optional">Rappel J-3</div>
+          <div class="post-status story">Rappel J-3</div>
         </div>
         <div class="post-item">
           <div class="post-type"><div class="post-label">Story</div><div class="post-count">J+30</div></div>
-          <div class="post-status required">Closing · concours</div>
+          <div class="post-status contest">Closing · concours</div>
         </div>
       </div>
     </div>
 
     <!-- Récap -->
     <div class="rhythm-summary">
-      <div class="summary-item">
+      <div class="summary-item is-key">
         <div class="sm-label">Collab</div>
         <div class="sm-value">1</div>
         <div class="sm-detail">au lancement · tu acceptes (1 tap)</div>
