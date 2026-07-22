@@ -1384,30 +1384,63 @@ footer {
 }
 
 .hero-track {
-  display: flex;
-  height: 100%;
-  width: 100%;
-  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform;
-}
-
-.hero-track.is-dragging {
-  transition: none;
+  position: absolute;
+  inset: 0;
 }
 
 .hero-slide {
-  flex: 0 0 100%;
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  inset: 0;
   background-size: cover;
   background-position: center;
+  opacity: 0;
   transform: scale(1.04);
-  transition: transform 8s cubic-bezier(0.16, 1, 0.3, 1);
+  transition:
+    opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+  pointer-events: none;
 }
 
 .hero-slide.is-active {
+  opacity: 1;
   transform: scale(1.12);
+  z-index: 1;
 }
+
+.hero-slide.is-prev {
+  opacity: 1;
+  z-index: 0;
+}
+
+.hero-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(255,255,255,0.25);
+  background: rgba(0,0,0,0.45);
+  color: var(--white);
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  line-height: 1;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+  pointer-events: auto;
+}
+
+.hero-nav:hover {
+  border-color: var(--red);
+  color: var(--red);
+}
+
+.hero-nav.prev { left: 16px; }
+.hero-nav.next { right: 16px; }
 
 .hero-dots {
   position: absolute;
@@ -1420,6 +1453,7 @@ footer {
   background: rgba(0,0,0,0.35);
   border: 1px solid rgba(255,255,255,0.12);
   backdrop-filter: blur(6px);
+  pointer-events: auto;
 }
 
 .hero-dot {
@@ -1444,6 +1478,7 @@ footer {
     left: 20px;
     bottom: 168px;
   }
+  .hero-nav { display: none; }
 }
 
 .hero-video {
@@ -1455,11 +1490,13 @@ footer {
   opacity: 0;
   transition: opacity 0.8s ease;
   pointer-events: none;
+  z-index: 2;
 }
 
 .hero-video.is-playing { opacity: 1; }
 
-.hero.is-video-playing .hero-dots { opacity: 0; pointer-events: none; }
+.hero.is-video-playing .hero-dots,
+.hero.is-video-playing .hero-nav { opacity: 0; pointer-events: none; }
 
 .media-toggle {
   position: absolute;
@@ -1483,9 +1520,11 @@ footer {
 .media-toggle:hover { border-color: var(--red); color: var(--red); }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-track { transition: none; }
   .hero-slide,
-  .hero-slide.is-active { transform: none; transition: none; }
+  .hero-slide.is-active {
+    transition: opacity 0.2s ease;
+    transform: none;
+  }
   .fade-in,
   .sculpture-card.fade-in,
   .car-narrative.fade-in,
@@ -1982,6 +2021,8 @@ footer {
            data-src-webm="/assets/video/hero-garage.webm"></video>
   </div>
   <div class="hero-dots" id="heroDots" role="tablist" aria-label="Navigation des photos"></div>
+  <button class="hero-nav prev" id="heroPrev" type="button" aria-label="Photo précédente">‹</button>
+  <button class="hero-nav next" id="heroNext" type="button" aria-label="Photo suivante">›</button>
   <button class="media-toggle" id="mediaToggle" type="button" aria-label="Mettre en pause la vidéo">❚❚</button>
   <div class="hero-content">
     <div class="hero-tag">
@@ -2401,7 +2442,7 @@ footer {
 <!-- Analytics (Vercel Web Analytics — RGPD-safe) -->
 <script src="/js/analytics.js"></script>
 <!-- Logique landing Starfobar : CTAs Stripe, modale, newsletter, hero vidéo -->
-<script src="/js/starfobar.js?v=5"></script>
+<script src="/js/starfobar.js?v=6"></script>
 
 </body>
 </html>

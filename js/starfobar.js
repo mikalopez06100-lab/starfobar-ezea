@@ -348,6 +348,8 @@
     var track = document.getElementById('heroTrack');
     var dotsEl = document.getElementById('heroDots');
     var media = document.getElementById('heroMedia');
+    var btnPrev = document.getElementById('heroPrev');
+    var btnNext = document.getElementById('heroNext');
     if (!hero || !track || !dotsEl || !media) return null;
 
     var slides = Array.prototype.slice.call(track.querySelectorAll('.hero-slide'));
@@ -357,12 +359,11 @@
     var timer = null;
     var startX = 0;
     var startY = 0;
-    var deltaX = 0;
     var dragging = false;
-    var axis = null; // 'x' | 'y' | null
-    var locked = false; // true quand la vidéo hero joue
+    var axis = null;
+    var locked = false;
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var surface = hero; // swipe sur tout le hero (contenu en pointer-events: none)
+    var surface = hero;
 
     slides.forEach(function (_, i) {
       var b = document.createElement('button');
@@ -371,16 +372,17 @@
       b.setAttribute('role', 'tab');
       b.setAttribute('aria-label', 'Photo ' + (i + 1));
       b.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
-      b.addEventListener('click', function () { goTo(i, true); });
+      b.addEventListener('click', function (e) {
+        e.stopPropagation();
+        goTo(i, true);
+      });
       dotsEl.appendChild(b);
     });
 
-    function render(offsetPx) {
-      var w = media.clientWidth || window.innerWidth;
-      var x = (-index * w) + (offsetPx || 0);
-      track.style.transform = 'translate3d(' + x + 'px,0,0)';
+    function render() {
       slides.forEach(function (s, i) {
-        s.classList.toggle('is-active', i === index && !dragging);
+        s.classList.toggle('is-active', i === index);
+        s.classList.remove('is-prev');
         s.setAttribute('aria-hidden', i === index ? 'false' : 'true');
       });
       var dots = dotsEl.querySelectorAll('.hero-dot');
@@ -391,13 +393,15 @@
     }
 
     function goTo(i, user) {
-      index = (i + slides.length) % slides.length;
-      track.classList.remove('is-dragging');
-      render(0);
+      var next = (i + slides.length) % slides.length;
+      if (next === index) return;
+      index = next;
+      render();
       if (user) resetAuto();
     }
 
     function next() { goTo(index + 1, false); }
+    function prev() { goTo(index - 1, false); }
 
     function stopAuto() {
       if (timer) { clearInterval(timer); timer = null; }
@@ -421,67 +425,102 @@
       else startAuto();
     }
 
-    // Touch / pointer swipe (toute la surface hero)
-    surface.addEventListener('pointerdown', function (e) {
-      if (locked || (e.pointerType === 'mouse' && e.button !== 0)) return;
-      if (e.target.closest('button, a, input, textarea, select, label')) return;
+    if (btnPrev) btnPrev.addEventListener('click', function (e) {
+      e.stopPropagation();
+      goTo(index - 1, true);
+    });
+    if (btnNext) btnNext.addEventListener('click', function (e) {
+      e.stopPropagation();
+      goTo(index + 1, true);
+    });
+
+    function onStart(clientX, clientY) {
+      if (locked) return false;
       dragging = true;
       axis = null;
-      deltaX = 0;
-      startX = e.clientX;
-      startY = e.clientY;
-      track.classList.add('is-dragging');
+      startX = clientX;
+      startY = clientY;
       stopAuto();
+      return true;
+    }
+
+    function onMove(clientX, clientY) {
+      if (!dragging) return;
+      var dx = clientX - startX;
+      var dy = clientY - startY;
+      if (!axis) {
+        if (Math.abs(dx) < 10 && Math.abs(dy) < 10) return;
+        axis = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
+        if (axis === 'y') {
+          dragging = false;
+          resetAuto();
+        }
+      }
+    }
+
+    function onEnd(clientX) {
+      if (!dragging) return;
+      dragging = false;
+      var dx = clientX - startX;
+      var threshold = 50;
+      if (axis === 'x' && dx < -threshold) goTo(index + 1, true);
+      else if (axis === 'x' && dx > threshold) goTo(index - 1, true);
+      else resetAuto();
+      axis = null;
+    }
+
+    // Touch (fiable sur mobile)
+    surface.addEventListener('touchstart', function (e) {
+      if (e.target.closest('button, a, input, textarea, select, label')) return;
+      if (!e.touches[0]) return;
+      onStart(e.touches[0].clientX, e.touches[0].clientY);
+    }, { passive: true });
+
+    surface.addEventListener('touchmove', function (e) {
+      if (!dragging || !e.touches[0]) return;
+      onMove(e.touches[0].clientX, e.touches[0].clientY);
+    }, { passive: true });
+
+    surface.addEventListener('touchend', function (e) {
+      if (!e.changedTouches[0]) return;
+      onEnd(e.changedTouches[0].clientX);
+    }, { passive: true });
+
+    // Pointer / souris (desktop)
+    surface.addEventListener('pointerdown', function (e) {
+      if (e.pointerType === 'touch') return; // géré via touch*
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      if (e.target.closest('button, a, input, textarea, select, label')) return;
+      if (!onStart(e.clientX, e.clientY)) return;
       try { surface.setPointerCapture(e.pointerId); } catch (err) { /* no-op */ }
     });
 
     surface.addEventListener('pointermove', function (e) {
-      if (!dragging) return;
-      var dx = e.clientX - startX;
-      var dy = e.clientY - startY;
-      if (!axis) {
-        if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
-        axis = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
-        if (axis === 'y') {
-          dragging = false;
-          track.classList.remove('is-dragging');
-          render(0);
-          resetAuto();
-          try { surface.releasePointerCapture(e.pointerId); } catch (err) { /* no-op */ }
-          return;
-        }
-      }
-      if (axis !== 'x') return;
-      deltaX = dx;
-      render(deltaX);
+      if (e.pointerType === 'touch') return;
+      onMove(e.clientX, e.clientY);
     });
 
-    function endDrag() {
-      if (!dragging) return;
-      dragging = false;
-      track.classList.remove('is-dragging');
-      var threshold = Math.min(80, (media.clientWidth || 300) * 0.18);
-      if (axis === 'x' && deltaX < -threshold) goTo(index + 1, true);
-      else if (axis === 'x' && deltaX > threshold) goTo(index - 1, true);
-      else { render(0); resetAuto(); }
-      deltaX = 0;
-      axis = null;
-    }
+    surface.addEventListener('pointerup', function (e) {
+      if (e.pointerType === 'touch') return;
+      onEnd(e.clientX);
+    });
 
-    surface.addEventListener('pointerup', endDrag);
-    surface.addEventListener('pointercancel', endDrag);
+    surface.addEventListener('pointercancel', function (e) {
+      if (e.pointerType === 'touch') return;
+      dragging = false;
+      axis = null;
+      resetAuto();
+    });
 
     document.addEventListener('visibilitychange', function () {
       if (document.hidden) stopAuto();
       else resetAuto();
     });
 
-    window.addEventListener('resize', function () { render(0); }, { passive: true });
-
-    render(0);
+    render();
     startAuto();
 
-    return { goTo: goTo, setLocked: setLocked, next: next };
+    return { goTo: goTo, setLocked: setLocked, next: next, prev: prev };
   }
 
   /* ──────────── HERO VIDÉO (chargement conditionnel) ──────────── */
