@@ -589,17 +589,19 @@
     var soundBtn = document.getElementById('soundToggle');
     if (!soundBtn) return;
 
+    var STORAGE_KEY = 'starfobar-sound';
     var audio = null;
     var on = false;
+    var userMuted = false;
+    try { userMuted = sessionStorage.getItem(STORAGE_KEY) === 'off'; } catch (e) { /* no-op */ }
 
     function ensureAudio() {
       if (audio) return audio;
       audio = new Audio('/assets/audio/ambiance.mp3');
       audio.loop = true;
-      audio.preload = 'none';
+      audio.preload = 'auto';
       audio.volume = 0.7;
       audio.addEventListener('ended', function () {
-        // Sécurité si loop non supporté
         if (on) { audio.currentTime = 0; audio.play().catch(function () {}); }
       });
       return audio;
@@ -610,33 +612,96 @@
       soundBtn.querySelector('.icon').textContent = isOn ? '🔊' : '🔇';
       soundBtn.querySelector('.lbl').textContent = isOn ? 'SON ON' : 'SON OFF';
       soundBtn.setAttribute('aria-pressed', isOn ? 'true' : 'false');
+      soundBtn.setAttribute('aria-label', isOn ? 'Couper le son' : 'Activer l\'ambiance sonore');
       soundBtn.title = isOn ? 'Couper le son' : 'Activer l\'ambiance sonore';
+    }
+
+    function persist(isOn) {
+      try { sessionStorage.setItem(STORAGE_KEY, isOn ? 'on' : 'off'); } catch (e) { /* no-op */ }
+    }
+
+    function playSound(fromUser) {
+      if (userMuted && !fromUser) return Promise.resolve(false);
+      var a = ensureAudio();
+      return a.play().then(function () {
+        setUi(true);
+        userMuted = false;
+        persist(true);
+        if (fromUser) track('sound_on', { track: 'la-faille' });
+        return true;
+      }).catch(function () {
+        setUi(false);
+        return false;
+      });
+    }
+
+    function stopSound(fromUser) {
+      if (audio) audio.pause();
+      setUi(false);
+      userMuted = true;
+      persist(false);
+      if (fromUser) track('sound_off', {});
+    }
+
+    function unlockOnGesture(e) {
+      if (on || userMuted) {
+        removeUnlockListeners();
+        return;
+      }
+      // Le bouton son a son propre handler — ne pas doubler ici
+      if (e && soundBtn.contains(e.target)) return;
+      playSound(false).then(function (ok) {
+        if (ok) {
+          removeUnlockListeners();
+          track('sound_autoplay_unlocked', { track: 'la-faille' });
+        }
+      });
+    }
+
+    var unlockEvents = ['pointerdown', 'keydown', 'scroll', 'wheel'];
+    function addUnlockListeners() {
+      unlockEvents.forEach(function (ev) {
+        document.addEventListener(ev, unlockOnGesture, { passive: true });
+      });
+    }
+    function removeUnlockListeners() {
+      unlockEvents.forEach(function (ev) {
+        document.removeEventListener(ev, unlockOnGesture);
+      });
     }
 
     setUi(false);
 
-    soundBtn.addEventListener('click', function () {
-      var a = ensureAudio();
+    // Lancement auto au chargement (si le navigateur le permet)
+    if (!userMuted) {
+      ensureAudio();
+      playSound(false).then(function (ok) {
+        if (ok) track('sound_autoplay', { track: 'la-faille' });
+        else addUnlockListeners(); // sinon dès le 1er geste
+      });
+    }
+
+    soundBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
       if (!on) {
-        a.play().then(function () {
-          setUi(true);
-          track('sound_on', { track: 'la-faille' });
-        }).catch(function () {
-          setUi(false);
-          toast('Impossible de lancer le son — réessaie.');
+        userMuted = false;
+        playSound(true).then(function (ok) {
+          if (ok) removeUnlockListeners();
+          else toast('Impossible de lancer le son — réessaie.');
         });
       } else {
-        a.pause();
-        setUi(false);
-        track('sound_off', {});
+        stopSound(true);
       }
     });
 
     // Pause auto si l'onglet est masqué (économie batterie / politesse)
     document.addEventListener('visibilitychange', function () {
-      if (!audio || !on) return;
-      if (document.hidden) audio.pause();
-      else audio.play().catch(function () {});
+      if (!audio || userMuted) return;
+      if (document.hidden) {
+        audio.pause();
+      } else if (on) {
+        audio.play().catch(function () {});
+      }
     });
   }
 
