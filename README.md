@@ -18,6 +18,7 @@ js/
   analytics.js        → Vercel Web Analytics (injecté côté client)
 api/
   newsletter.js       → POST /api/newsletter → inscription Brevo
+  checkout.js         → POST /api/checkout → Stripe Checkout Session
 assets/
   sculptures/         → photos produit ({serie}.jpg) + packaging ({serie}-case.jpg)
   cars/               → voitures d'inspiration ({serie}.jpg) — fonds de section
@@ -57,15 +58,37 @@ Les URLs absolues (canonical, Open Graph, Twitter Card, JSON-LD) utilisent le
 `index.html` (balises `<link rel="canonical">`, `og:*`, `twitter:*`, JSON-LD `image`),
 `robots.txt` et `sitemap.xml`.
 
-## Brancher les paiements (Stripe Payment Links)
+## Brancher les paiements (Stripe Checkout)
 
-1. Dashboard Stripe → **Payment Links** → créer 7 liens :
-   - 4 séries à **190 €** : Propaganda, Racing, Old School BMW, Marlboro
-   - 3 combos : Duo **340 €**, Full **680 €**, Kit **229 €**
-2. Coller chaque URL dans `js/starfobar.js` → objet `CONFIG.paymentLinks`
-   (remplacer le `null` par `'https://buy.stripe.com/...'`).
-3. Tant qu'un lien vaut `null`, le bouton renvoie vers la capture email
+Le site ouvre un **panier** (série / duo / kit / full + zone de livraison), puis
+crée une **Checkout Session** via `POST /api/checkout`.
+
+1. Dashboard Stripe → Developers → API keys → copier la **Secret key**
+2. Dans Vercel (Project → Settings → Environment Variables) :
+   - `STRIPE_SECRET_KEY=sk_test_…` (ou `sk_live_…`)
+   - optionnel : `SITE_URL=https://starfobar.vercel.app`
+3. Redeploy. Sans cette clé, le bouton « Payer » renvoie vers la newsletter
    (« paiement en cours d'activation ») — **aucun paiement lancé**.
+
+### Catalogue (validé côté serveur)
+
+| Offre | Prix | Options panier |
+|---|---|---|
+| Sculpture seule | 190 € | 1 série |
+| Duo Ezéa | 340 € | 2 séries au choix |
+| Full Collection | 680 € | 4 séries fixées |
+| Kit Starfobar | 229 € | 1 série + textile + taille |
+
+### Frais de port (ajoutés au panier)
+
+| Zone | Tarif |
+|---|---|
+| France métropolitaine | 9,90 € |
+| Union européenne | 19,90 € |
+| International | 29,90 € |
+
+L'adresse de livraison exacte est collectée sur la page Stripe.
+Les choix (séries, merch, taille, zone) partent en `metadata` de la session.
 
 ## Newsletter (Brevo)
 

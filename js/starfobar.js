@@ -1,6 +1,6 @@
 /* ══════════════════════════════════════════════════════════
    Landing Starfobar × Ezéa — logique front
-   - CTAs → Stripe Payment Links (config ci-dessous)
+   - Panier → /api/checkout → Stripe Checkout
    - Modale galerie sculpture (clavier + swipe)
    - Capture newsletter (Brevo via /api/newsletter)
    - Hero vidéo avec fallback Ken Burns
@@ -11,27 +11,28 @@
   'use strict';
 
   /* ────────────────────────────────────────────────
-     CONFIG — À COMPLÉTER PAR MICHAËL
-     Colle ici les URL des Stripe Payment Links (1 par série + 1 par bundle).
-     Tant qu'une valeur est `null`, le CTA affiche « bientôt disponible »
-     et invite à laisser son email (aucun paiement lancé).
-     Voir README §Starfobar pour créer les Payment Links.
+     CONFIG — catalogue + livraison
+     Les montants sont aussi revalidés côté serveur (/api/checkout).
      ──────────────────────────────────────────────── */
   var CONFIG = {
     price: 190,
-    paymentLinks: {
-      // Séries (190 € chacune)
-      sleeper: null,      // ex : 'https://buy.stripe.com/xxxxx'
-      racing: null,
-      propaganda: null,
-      marlboro: null,
-      // Bundles
-      duo: null,          // 340 €
-      full: null,         // 680 €
-      kit: null,          // 229 €
+    bundles: {
+      duo: { price: 340, label: 'Duo Ezéa' },
+      full: { price: 680, label: 'Full Collection' },
+      kit: { price: 229, label: 'Kit Starfobar' },
     },
+    shipping: {
+      fr: { label: 'France métropolitaine', desc: 'Colissimo / Mondial Relay · 3–5 jours', amount: 9.9 },
+      eu: { label: 'Union européenne', desc: 'Suivi international · 5–10 jours', amount: 19.9 },
+      world: { label: 'International', desc: 'Hors UE · délais variables', amount: 29.9 },
+    },
+    merch: {
+      tshirt: 'T-shirt Starfobar',
+      jersey: 'Jersey Starfobar',
+      hoodie: 'Hoodie Starfobar',
+    },
+    sizes: ['S', 'M', 'L', 'XL', 'XXL'],
     // Détails affichés dans la modale « Voir les détails ».
-    // images : placeholders garage tant que les photos HD sculptures ne sont pas fournies.
     series: {
       sleeper: {
         title: 'Old School BMW',
@@ -112,6 +113,8 @@
     },
   };
 
+  var SERIES_ORDER = ['propaganda', 'racing', 'sleeper', 'marlboro'];
+
   /* ──────────── ANALYTICS (Vercel Web Analytics) ──────────── */
   function track(event, data) {
     try {
@@ -137,23 +140,308 @@
     toastEl._t = setTimeout(function () { toastEl.style.opacity = '0'; }, 4200);
   }
 
-  /* ──────────── CTAs → Payment Links ──────────── */
+  /* ──────────── CTAs → Panier ──────────── */
   function handleBuy(e) {
     var btn = e.currentTarget;
     e.preventDefault();
-    var id = btn.dataset.series || btn.dataset.bundle;
+    var seriesId = btn.dataset.series;
+    var bundleId = btn.dataset.bundle;
+    var id = seriesId || bundleId;
     if (!id) return;
-    var link = CONFIG.paymentLinks[id];
-    track('cta_click', { item: id, hasLink: !!link });
-    if (link) {
-      window.location.href = link;
-    } else {
-      toast('Paiement en cours d\'activation — laisse ton email, on te prévient dès l\'ouverture.');
-      var nl = document.getElementById('newsletter');
-      if (nl) nl.scrollIntoView({ behavior: 'smooth' });
-      var input = document.getElementById('newsletter-email');
-      if (input) setTimeout(function () { input.focus(); }, 600);
+    track('cta_click', { item: id });
+    if (bundleId) openCart({ type: bundleId });
+    else openCart({ type: 'single', series: [seriesId] });
+  }
+
+  /* ──────────── PANIER ──────────── */
+  var cartOverlay = document.getElementById('cartOverlay');
+  var cartBody = document.getElementById('cartBody');
+  var cartPayBtn = document.getElementById('cartPay');
+  var cartState = {
+    type: 'single',
+    series: [],
+    merch: null,
+    size: null,
+    shipping: 'fr',
+  };
+  var cartBusy = false;
+
+  function euro(n) {
+    var fixed = (Math.round(n * 100) / 100).toFixed(2).replace('.', ',');
+    return fixed.replace(',00', '') + ' €';
+  }
+
+  function cartSubtotal() {
+    if (cartState.type === 'single') return CONFIG.price;
+    if (CONFIG.bundles[cartState.type]) return CONFIG.bundles[cartState.type].price;
+    return 0;
+  }
+
+  function cartShippingAmount() {
+    var s = CONFIG.shipping[cartState.shipping];
+    return s ? s.amount : 0;
+  }
+
+  function cartTotal() {
+    return cartSubtotal() + cartShippingAmount();
+  }
+
+  function cartIsValid() {
+    if (!CONFIG.shipping[cartState.shipping]) return false;
+    if (cartState.type === 'single') {
+      return cartState.series.length === 1 && !!CONFIG.series[cartState.series[0]];
     }
+    if (cartState.type === 'duo') {
+      return cartState.series.length === 2 &&
+        cartState.series.every(function (s) { return !!CONFIG.series[s]; });
+    }
+    if (cartState.type === 'full') return true;
+    if (cartState.type === 'kit') {
+      return cartState.series.length === 1 &&
+        !!CONFIG.series[cartState.series[0]] &&
+        !!CONFIG.merch[cartState.merch] &&
+        CONFIG.sizes.indexOf(cartState.size) !== -1;
+    }
+    return false;
+  }
+
+  function seriesButtonsHtml(selectedId, slotKey) {
+    return SERIES_ORDER.map(function (id) {
+      var s = CONFIG.series[id];
+      var sel = selectedId === id ? ' is-selected' : '';
+      return '<button type="button" class="cart-option' + sel + '" data-pick-series="' + id + '"' +
+        (slotKey != null ? ' data-slot="' + slotKey + '"' : '') +
+        ' style="--co-accent:' + s.accent + '">' +
+        '<span class="co-swatch" aria-hidden="true"></span>' +
+        '<span class="co-label">' + s.title + '</span>' +
+        '</button>';
+    }).join('');
+  }
+
+  function renderCart() {
+    if (!cartBody) return;
+    var type = cartState.type;
+    var titleMap = {
+      single: 'Sculpture',
+      duo: 'Duo Ezéa',
+      full: 'Full Collection',
+      kit: 'Kit Starfobar',
+    };
+    var kickMap = {
+      single: 'Pièce unique · 190 €',
+      duo: 'Combo · 340 €',
+      full: 'Collector · 680 €',
+      kit: 'Sculpture + merch · 229 €',
+    };
+    document.getElementById('cartTitle').textContent = titleMap[type] || 'Panier';
+    document.getElementById('cartKicker').textContent = kickMap[type] || 'Panier';
+
+    var html = '';
+
+    if (type === 'single') {
+      html += '<div class="cart-section"><div class="cart-section-label">Série</div>' +
+        '<p class="cart-hint">Une sculpture 25 cm, numérotée.</p>' +
+        '<div class="cart-options">' + seriesButtonsHtml(cartState.series[0], null) + '</div></div>';
+    }
+
+    if (type === 'duo') {
+      html += '<div class="cart-section"><div class="cart-section-label">Composition</div>' +
+        '<p class="cart-hint">Choisis 2 sculptures (même série possible).</p><div class="cart-duo-slots">';
+      html += '<div><div class="cart-slot-label">Pièce 1</div><div class="cart-options">' +
+        seriesButtonsHtml(cartState.series[0], 0) + '</div></div>';
+      html += '<div><div class="cart-slot-label">Pièce 2</div><div class="cart-options">' +
+        seriesButtonsHtml(cartState.series[1], 1) + '</div></div>';
+      html += '</div></div>';
+    }
+
+    if (type === 'full') {
+      html += '<div class="cart-section"><div class="cart-section-label">Inclus</div>' +
+        '<p class="cart-hint">Les 4 séries + coffret collector + certificats.</p>' +
+        '<div class="cart-options">' +
+        SERIES_ORDER.map(function (id) {
+          var s = CONFIG.series[id];
+          return '<div class="cart-option is-selected" style="--co-accent:' + s.accent + ';cursor:default">' +
+            '<span class="co-swatch"></span><span class="co-label">' + s.title + '</span></div>';
+        }).join('') +
+        '</div></div>';
+    }
+
+    if (type === 'kit') {
+      html += '<div class="cart-section"><div class="cart-section-label">Sculpture</div>' +
+        '<div class="cart-options">' + seriesButtonsHtml(cartState.series[0], null) + '</div></div>';
+      html += '<div class="cart-section"><div class="cart-section-label">Textile Starfobar</div>' +
+        '<div class="cart-chip-row">' +
+        Object.keys(CONFIG.merch).map(function (m) {
+          return '<button type="button" class="cart-chip' + (cartState.merch === m ? ' is-selected' : '') +
+            '" data-pick-merch="' + m + '">' + CONFIG.merch[m].replace(' Starfobar', '') + '</button>';
+        }).join('') +
+        '</div></div>';
+      html += '<div class="cart-section"><div class="cart-section-label">Taille</div>' +
+        '<div class="cart-chip-row">' +
+        CONFIG.sizes.map(function (sz) {
+          return '<button type="button" class="cart-chip' + (cartState.size === sz ? ' is-selected' : '') +
+            '" data-pick-size="' + sz + '">' + sz + '</button>';
+        }).join('') +
+        '</div></div>';
+    }
+
+    html += '<div class="cart-section"><div class="cart-section-label">Livraison</div>' +
+      '<p class="cart-hint">Les frais s\'ajoutent au total. L\'adresse exacte sera saisie sur Stripe.</p>' +
+      '<div class="cart-ship-list">';
+    Object.keys(CONFIG.shipping).forEach(function (key) {
+      var sh = CONFIG.shipping[key];
+      html += '<button type="button" class="cart-ship' + (cartState.shipping === key ? ' is-selected' : '') +
+        '" data-pick-ship="' + key + '">' +
+        '<span class="cs-name">' + sh.label + '</span>' +
+        '<span class="cs-price">' + euro(sh.amount) + '</span>' +
+        '<span class="cs-desc">' + sh.desc + '</span></button>';
+    });
+    html += '</div></div>';
+
+    var productLabel = '—';
+    if (type === 'single' && cartState.series[0]) productLabel = CONFIG.series[cartState.series[0]].title;
+    if (type === 'duo' && cartState.series.length === 2) {
+      productLabel = cartState.series.map(function (s) { return CONFIG.series[s].title; }).join(' + ');
+    }
+    if (type === 'full') productLabel = '4 séries + coffret';
+    if (type === 'kit' && cartState.series[0] && cartState.merch && cartState.size) {
+      productLabel = CONFIG.series[cartState.series[0]].title + ' + ' +
+        CONFIG.merch[cartState.merch] + ' · ' + cartState.size;
+    }
+
+    html += '<div class="cart-section"><div class="cart-section-label">Récapitulatif</div><div class="cart-recap">' +
+      '<div class="cart-recap-row"><span>Produit</span><span>' + productLabel + '</span></div>' +
+      '<div class="cart-recap-row"><span>Sous-total</span><span>' + euro(cartSubtotal()) + '</span></div>' +
+      '<div class="cart-recap-row"><span>Livraison</span><span>' + euro(cartShippingAmount()) + '</span></div>' +
+      '<div class="cart-recap-row total"><span>Total</span><span>' + euro(cartTotal()) + '</span></div>' +
+      '</div></div>';
+
+    cartBody.innerHTML = html;
+    if (cartPayBtn) {
+      cartPayBtn.disabled = !cartIsValid() || cartBusy;
+      cartPayBtn.textContent = cartBusy ? 'Redirection…' : 'Payer ' + euro(cartTotal());
+    }
+  }
+
+  function openCart(opts) {
+    opts = opts || {};
+    cartState = {
+      type: opts.type || 'single',
+      series: (opts.series || []).slice(),
+      merch: null,
+      size: null,
+      shipping: 'fr',
+    };
+    if (cartState.type === 'full') cartState.series = SERIES_ORDER.slice();
+    if (cartState.type === 'duo' && cartState.series.length === 0) cartState.series = [null, null];
+    if (cartState.type === 'duo' && cartState.series.length === 1) cartState.series.push(null);
+    if (cartOverlay) {
+      cartOverlay.hidden = false;
+      cartOverlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    // Fermer la modale sculpture si ouverte
+    if (modal && modal.classList.contains('open')) closeModal();
+    renderCart();
+    track('cart_open', { type: cartState.type });
+    var closeBtn = document.getElementById('cartClose');
+    if (closeBtn) closeBtn.focus();
+  }
+
+  function closeCart() {
+    if (!cartOverlay) return;
+    cartOverlay.classList.remove('open');
+    cartOverlay.hidden = true;
+    if (!modal || !modal.classList.contains('open')) document.body.style.overflow = '';
+  }
+
+  function onCartClick(e) {
+    var t = e.target.closest('[data-pick-series], [data-pick-merch], [data-pick-size], [data-pick-ship]');
+    if (!t) return;
+    if (t.hasAttribute('data-pick-series')) {
+      var sid = t.getAttribute('data-pick-series');
+      var slot = t.getAttribute('data-slot');
+      if (cartState.type === 'duo' && slot != null) {
+        cartState.series[parseInt(slot, 10)] = sid;
+      } else {
+        cartState.series = [sid];
+      }
+    }
+    if (t.hasAttribute('data-pick-merch')) cartState.merch = t.getAttribute('data-pick-merch');
+    if (t.hasAttribute('data-pick-size')) cartState.size = t.getAttribute('data-pick-size');
+    if (t.hasAttribute('data-pick-ship')) cartState.shipping = t.getAttribute('data-pick-ship');
+    renderCart();
+  }
+
+  function submitCart() {
+    if (!cartIsValid() || cartBusy) return;
+    cartBusy = true;
+    renderCart();
+    var payload = {
+      type: cartState.type,
+      series: cartState.type === 'full' ? SERIES_ORDER.slice() : cartState.series.filter(Boolean),
+      merch: cartState.merch,
+      size: cartState.size,
+      shipping: cartState.shipping,
+    };
+    track('checkout_start', { type: payload.type, shipping: payload.shipping });
+    fetch('/api/checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    }).then(function (res) {
+      return res.json().then(function (data) { return { ok: res.ok, status: res.status, data: data }; });
+    }).then(function (r) {
+      if (r.ok && r.data && r.data.url) {
+        window.location.href = r.data.url;
+        return;
+      }
+      cartBusy = false;
+      renderCart();
+      if (r.status === 503 || (r.data && r.data.error === 'not_configured')) {
+        toast('Paiement en cours d\'activation — laisse ton email, on te prévient.');
+        closeCart();
+        var nl = document.getElementById('newsletter');
+        if (nl) nl.scrollIntoView({ behavior: 'smooth' });
+        return;
+      }
+      toast((r.data && r.data.error) || 'Impossible de lancer le paiement.');
+    }).catch(function () {
+      cartBusy = false;
+      renderCart();
+      toast('Erreur réseau — réessaie dans un instant.');
+    });
+  }
+
+  function initCart() {
+    if (!cartOverlay) return;
+    document.getElementById('cartClose').addEventListener('click', closeCart);
+    cartOverlay.addEventListener('click', function (e) {
+      if (e.target === cartOverlay) closeCart();
+    });
+    cartBody.addEventListener('click', onCartClick);
+    cartPayBtn.addEventListener('click', submitCart);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && cartOverlay.classList.contains('open')) closeCart();
+    });
+
+    // Retour Stripe
+    try {
+      var params = new URLSearchParams(window.location.search);
+      var checkout = params.get('checkout');
+      if (checkout === 'success') {
+        toast('Merci — paiement reçu. Tu vas recevoir la confirmation par email.');
+        track('checkout_success', {});
+      } else if (checkout === 'cancel') {
+        toast('Paiement annulé — ton panier t\'attend quand tu veux.');
+        track('checkout_cancel', {});
+      }
+      if (checkout) {
+        params.delete('checkout');
+        var qs = params.toString();
+        window.history.replaceState({}, '', window.location.pathname + (qs ? '?' + qs : '') + window.location.hash);
+      }
+    } catch (err) { /* no-op */ }
   }
 
   /* ──────────── MODALE SCULPTURE ──────────── */
@@ -781,6 +1069,7 @@
 
     initHeroVideo();
     initProductSliders();
+    initCart();
 
     // Bande ambiance : respecte prefers-reduced-motion (poster seul).
     var ambiance = document.querySelector('.ambiance-video');
