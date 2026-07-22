@@ -157,6 +157,7 @@ img { max-width: 100%; display: block; }
   justify-content: space-between;
   padding: 100px 40px 60px;
   overflow: hidden;
+  touch-action: pan-y;
 }
 
 .hero::before {
@@ -173,6 +174,12 @@ img { max-width: 100%; display: block; }
   max-width: 1400px;
   margin: 0 auto;
   width: 100%;
+  pointer-events: none;
+}
+
+.hero-content a,
+.hero-content button {
+  pointer-events: auto;
 }
 
 .hero-tag {
@@ -241,6 +248,12 @@ img { max-width: 100%; display: block; }
   align-items: flex-end;
   flex-wrap: wrap;
   gap: 20px;
+  pointer-events: none;
+}
+
+.hero-footer a,
+.hero-footer button {
+  pointer-events: auto;
 }
 
 .hero-metas {
@@ -1364,17 +1377,73 @@ footer {
   overflow: hidden;
 }
 
-.hero-kenburns {
+.hero-slider {
   position: absolute;
-  inset: -5%;
-  background: url('/assets/garage/09-entrance-marlboro-neon.jpg?v=2') center/cover no-repeat;
-  animation: kenburns 24s ease-in-out infinite alternate;
+  inset: 0;
+  overflow: hidden;
+}
+
+.hero-track {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform;
 }
 
-@keyframes kenburns {
-  0%   { transform: scale(1) translate(0, 0); }
-  100% { transform: scale(1.12) translate(-2%, -2%); }
+.hero-track.is-dragging {
+  transition: none;
+}
+
+.hero-slide {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.04);
+  transition: transform 8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-slide.is-active {
+  transform: scale(1.12);
+}
+
+.hero-dots {
+  position: absolute;
+  bottom: 120px;
+  left: 40px;
+  z-index: 5;
+  display: flex;
+  gap: 8px;
+  padding: 6px 10px;
+  background: rgba(0,0,0,0.35);
+  border: 1px solid rgba(255,255,255,0.12);
+  backdrop-filter: blur(6px);
+}
+
+.hero-dot {
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.35);
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.hero-dot:hover { background: rgba(255,255,255,0.7); }
+.hero-dot.active {
+  background: var(--red);
+  transform: scale(1.25);
+}
+
+@media (max-width: 768px) {
+  .hero-dots {
+    left: 20px;
+    bottom: 168px;
+  }
 }
 
 .hero-video {
@@ -1385,9 +1454,12 @@ footer {
   object-fit: cover;
   opacity: 0;
   transition: opacity 0.8s ease;
+  pointer-events: none;
 }
 
 .hero-video.is-playing { opacity: 1; }
+
+.hero.is-video-playing .hero-dots { opacity: 0; pointer-events: none; }
 
 .media-toggle {
   position: absolute;
@@ -1411,7 +1483,9 @@ footer {
 .media-toggle:hover { border-color: var(--red); color: var(--red); }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-kenburns { animation: none; }
+  .hero-track { transition: none; }
+  .hero-slide,
+  .hero-slide.is-active { transform: none; transition: none; }
   .fade-in,
   .sculpture-card.fade-in,
   .car-narrative.fade-in,
@@ -1886,16 +1960,28 @@ footer {
 </nav>
 
 <!-- ============ HERO / ENTRÉE DU GARAGE ============ -->
-<section class="hero">
-  <!-- Média hero : Ken Burns sur le poster (fallback immédiat) + vidéo optionnelle.
+<section class="hero" aria-roledescription="carousel" aria-label="Photos du garage Starfobar">
+  <!-- Média hero : swipe d'images garage + vidéo optionnelle (desktop).
        La vidéo ne se charge que si le fichier existe (voir js/starfobar.js). -->
-  <div class="hero-media">
-    <div class="hero-kenburns"></div>
+  <div class="hero-media" id="heroMedia">
+    <div class="hero-slider" id="heroSlider">
+      <div class="hero-track" id="heroTrack">
+        <div class="hero-slide is-active" style="background-image: url('/assets/garage/09-entrance-marlboro-neon.jpg?v=2');" role="group" aria-roledescription="slide" aria-label="1 sur 8"></div>
+        <div class="hero-slide" style="background-image: url('/assets/garage/01-tabac-marlboro-e30.jpg');" role="group" aria-roledescription="slide" aria-label="2 sur 8"></div>
+        <div class="hero-slide" style="background-image: url('/assets/garage/08-bmw1-propaganda-front.jpg');" role="group" aria-roledescription="slide" aria-label="3 sur 8"></div>
+        <div class="hero-slide" style="background-image: url('/assets/garage/04-drift-ornoir-garage.jpg');" role="group" aria-roledescription="slide" aria-label="4 sur 8"></div>
+        <div class="hero-slide" style="background-image: url('/assets/garage/12-bmw-e28-gold-liseret.jpg');" role="group" aria-roledescription="slide" aria-label="5 sur 8"></div>
+        <div class="hero-slide" style="background-image: url('/assets/garage/07-bmw1-pepinox-showroom.jpg');" role="group" aria-roledescription="slide" aria-label="6 sur 8"></div>
+        <div class="hero-slide" style="background-image: url('/assets/garage/10-ferrari-mezzanine.jpg');" role="group" aria-roledescription="slide" aria-label="7 sur 8"></div>
+        <div class="hero-slide" style="background-image: url('/assets/garage/11-facade-bmw-showroom.jpg');" role="group" aria-roledescription="slide" aria-label="8 sur 8"></div>
+      </div>
+    </div>
     <video class="hero-video" muted loop playsinline preload="none"
            poster="/assets/garage/09-entrance-marlboro-neon.jpg?v=2"
            data-src-mp4="/assets/video/hero-garage.mp4"
            data-src-webm="/assets/video/hero-garage.webm"></video>
   </div>
+  <div class="hero-dots" id="heroDots" role="tablist" aria-label="Navigation des photos"></div>
   <button class="media-toggle" id="mediaToggle" type="button" aria-label="Mettre en pause la vidéo">❚❚</button>
   <div class="hero-content">
     <div class="hero-tag">
@@ -2315,7 +2401,7 @@ footer {
 <!-- Analytics (Vercel Web Analytics — RGPD-safe) -->
 <script src="/js/analytics.js"></script>
 <!-- Logique landing Starfobar : CTAs Stripe, modale, newsletter, hero vidéo -->
-<script src="/js/starfobar.js"></script>
+<script src="/js/starfobar.js?v=5"></script>
 
 </body>
 </html>

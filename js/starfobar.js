@@ -3,7 +3,7 @@
    - CTAs → Stripe Payment Links (config ci-dessous)
    - Modale galerie sculpture (clavier + swipe)
    - Capture newsletter (Brevo via /api/newsletter)
-   - Hero vidéo avec fallback Ken Burns
+   - Hero swipe d'images + vidéo optionnelle
    Aucune dépendance externe. Vanilla JS.
    ══════════════════════════════════════════════════════════ */
 (function starfobar() {
@@ -339,13 +339,158 @@
     });
   }
 
+  /* ──────────── HERO SLIDER (swipe + autoplay) ──────────── */
+  var HERO_AUTO_MS = 4000;
+  var heroSliderApi = null;
+
+  function initHeroSlider() {
+    var hero = document.querySelector('.hero');
+    var track = document.getElementById('heroTrack');
+    var dotsEl = document.getElementById('heroDots');
+    var media = document.getElementById('heroMedia');
+    if (!hero || !track || !dotsEl || !media) return null;
+
+    var slides = Array.prototype.slice.call(track.querySelectorAll('.hero-slide'));
+    if (slides.length < 2) return null;
+
+    var index = 0;
+    var timer = null;
+    var startX = 0;
+    var startY = 0;
+    var deltaX = 0;
+    var dragging = false;
+    var axis = null; // 'x' | 'y' | null
+    var locked = false; // true quand la vidéo hero joue
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var surface = hero; // swipe sur tout le hero (contenu en pointer-events: none)
+
+    slides.forEach(function (_, i) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'hero-dot' + (i === 0 ? ' active' : '');
+      b.setAttribute('role', 'tab');
+      b.setAttribute('aria-label', 'Photo ' + (i + 1));
+      b.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+      b.addEventListener('click', function () { goTo(i, true); });
+      dotsEl.appendChild(b);
+    });
+
+    function render(offsetPx) {
+      var w = media.clientWidth || window.innerWidth;
+      var x = (-index * w) + (offsetPx || 0);
+      track.style.transform = 'translate3d(' + x + 'px,0,0)';
+      slides.forEach(function (s, i) {
+        s.classList.toggle('is-active', i === index && !dragging);
+        s.setAttribute('aria-hidden', i === index ? 'false' : 'true');
+      });
+      var dots = dotsEl.querySelectorAll('.hero-dot');
+      dots.forEach(function (d, i) {
+        d.classList.toggle('active', i === index);
+        d.setAttribute('aria-selected', i === index ? 'true' : 'false');
+      });
+    }
+
+    function goTo(i, user) {
+      index = (i + slides.length) % slides.length;
+      track.classList.remove('is-dragging');
+      render(0);
+      if (user) resetAuto();
+    }
+
+    function next() { goTo(index + 1, false); }
+
+    function stopAuto() {
+      if (timer) { clearInterval(timer); timer = null; }
+    }
+
+    function startAuto() {
+      stopAuto();
+      if (locked || reduce || slides.length < 2) return;
+      if (document.hidden) return;
+      timer = setInterval(next, HERO_AUTO_MS);
+    }
+
+    function resetAuto() {
+      if (!locked) startAuto();
+    }
+
+    function setLocked(isLocked) {
+      locked = !!isLocked;
+      hero.classList.toggle('is-video-playing', locked);
+      if (locked) stopAuto();
+      else startAuto();
+    }
+
+    // Touch / pointer swipe (toute la surface hero)
+    surface.addEventListener('pointerdown', function (e) {
+      if (locked || (e.pointerType === 'mouse' && e.button !== 0)) return;
+      if (e.target.closest('button, a, input, textarea, select, label')) return;
+      dragging = true;
+      axis = null;
+      deltaX = 0;
+      startX = e.clientX;
+      startY = e.clientY;
+      track.classList.add('is-dragging');
+      stopAuto();
+      try { surface.setPointerCapture(e.pointerId); } catch (err) { /* no-op */ }
+    });
+
+    surface.addEventListener('pointermove', function (e) {
+      if (!dragging) return;
+      var dx = e.clientX - startX;
+      var dy = e.clientY - startY;
+      if (!axis) {
+        if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
+        axis = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
+        if (axis === 'y') {
+          dragging = false;
+          track.classList.remove('is-dragging');
+          render(0);
+          resetAuto();
+          try { surface.releasePointerCapture(e.pointerId); } catch (err) { /* no-op */ }
+          return;
+        }
+      }
+      if (axis !== 'x') return;
+      deltaX = dx;
+      render(deltaX);
+    });
+
+    function endDrag() {
+      if (!dragging) return;
+      dragging = false;
+      track.classList.remove('is-dragging');
+      var threshold = Math.min(80, (media.clientWidth || 300) * 0.18);
+      if (axis === 'x' && deltaX < -threshold) goTo(index + 1, true);
+      else if (axis === 'x' && deltaX > threshold) goTo(index - 1, true);
+      else { render(0); resetAuto(); }
+      deltaX = 0;
+      axis = null;
+    }
+
+    surface.addEventListener('pointerup', endDrag);
+    surface.addEventListener('pointercancel', endDrag);
+
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) stopAuto();
+      else resetAuto();
+    });
+
+    window.addEventListener('resize', function () { render(0); }, { passive: true });
+
+    render(0);
+    startAuto();
+
+    return { goTo: goTo, setLocked: setLocked, next: next };
+  }
+
   /* ──────────── HERO VIDÉO (chargement conditionnel) ──────────── */
   function initHeroVideo() {
     var video = document.querySelector('.hero-video');
     var toggle = document.getElementById('mediaToggle');
     if (!video) return;
 
-    // Mobile : on économise la data → pas de vidéo, Ken Burns sur le poster.
+    // Mobile : on économise la data → pas de vidéo, swipe d'images.
     var isMobile = window.matchMedia('(max-width: 768px)').matches;
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (isMobile || reduce) return;
@@ -362,14 +507,26 @@
       video.play().then(function () {
         video.classList.add('is-playing');
         toggle.style.display = 'flex';
-      }).catch(function () { /* autoplay bloqué → poster/Ken Burns */ });
+        if (heroSliderApi) heroSliderApi.setLocked(true);
+      }).catch(function () { /* autoplay bloqué → swipe images */ });
     }).catch(function () { /* pas de vidéo → fallback silencieux */ });
 
     var playing = true;
     toggle.addEventListener('click', function () {
       playing = !playing;
-      if (playing) { video.play(); toggle.textContent = '❚❚'; toggle.setAttribute('aria-label', 'Mettre en pause la vidéo'); }
-      else { video.pause(); toggle.textContent = '►'; toggle.setAttribute('aria-label', 'Lire la vidéo'); }
+      if (playing) {
+        video.play();
+        toggle.textContent = '❚❚';
+        toggle.setAttribute('aria-label', 'Mettre en pause la vidéo');
+        video.classList.add('is-playing');
+        if (heroSliderApi) heroSliderApi.setLocked(true);
+      } else {
+        video.pause();
+        toggle.textContent = '►';
+        toggle.setAttribute('aria-label', 'Lire la vidéo');
+        video.classList.remove('is-playing');
+        if (heroSliderApi) heroSliderApi.setLocked(false);
+      }
     });
   }
 
@@ -503,6 +660,7 @@
     var nlForm = document.getElementById('newsletterForm');
     if (nlForm) nlForm.addEventListener('submit', submitNewsletter);
 
+    heroSliderApi = initHeroSlider();
     initHeroVideo();
 
     // Bande ambiance : respecte prefers-reduced-motion (poster seul).
