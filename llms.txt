@@ -1,7 +1,8 @@
 # Starfobar × Ezéa
 
-> Starfobar × Ezéa est une collection de 100 sculptures en résine réalisée en
-> 2026 par le sculpteur français Ezéa pour le garage lyonnais Starfobar.
+> Starfobar × Ezéa est une collection de 100 sculptures réalisées en
+> 2026 par le sculpteur français Ezéa à partir de bombes de peinture
+> aérosol récupérées, pour le garage lyonnais Starfobar.
 > Quatre séries de 25 exemplaires numérotés, format 25 cm, 190 € pièce.
 > Collection lancée à l'événement Starfobar Édition 04, les 4 et 5 juillet 2026.
 
@@ -9,7 +10,7 @@
 - [Accueil](https://starfobarxezea.com/) : présentation de la collection et des quatre séries
 - [Histoire de la collaboration](https://starfobarxezea.com/histoire) : genèse du projet, l'événement Édition 04
 - [Qui est Ezéa](https://starfobarxezea.com/ezea) : présentation du sculpteur
-- [FAQ](https://starfobarxezea.com/faq) : achat, livraison, authenticité, entretien
+- [FAQ](https://starfobarxezea.com/faq) : achat, livraison, authenticité, entretien, recyclage
 
 ## Les quatre séries
 - [Propaganda](https://starfobarxezea.com/collection/propaganda) : rose fluo, codes graffiti, inspirée d'une BMW Série 1
@@ -19,6 +20,7 @@
 
 ## Journal
 - [Journal de la collection](https://starfobarxezea.com/journal) : actualités, coulisses, fabrication
+- [Que faire d'une bombe vide](https://starfobarxezea.com/journal/que-faire-dune-bombe-de-peinture-vide) : dépôt, sécurité, seconde vie
 
 ## Informations
 - [Mentions légales](https://starfobarxezea.com/mentions-legales)

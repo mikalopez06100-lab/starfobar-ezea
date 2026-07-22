@@ -17,7 +17,7 @@ const GRAPH = {
       name: 'Ezéa',
       jobTitle: 'Sculpteur',
       description:
-        "Ezéa est un sculpteur français installé à La Gaude, dans les Alpes-Maritimes, qui transforme des bombes de peinture aérosol en sculptures de collection coulées à la main en résine époxy.",
+        "Ezéa est un sculpteur français installé à La Gaude, dans les Alpes-Maritimes, qui récupère de vraies bombes de peinture aérosol usagées et les transforme en sculptures de collection. Chaque bombe est vidée, neutralisée, nettoyée, découpée et déformée à la main, puis travaillée à la résine époxy, signée et numérotée.",
       url: 'https://ezea.fr',
       sameAs: ['https://instagram.com/ezea.art', 'https://ezea.fr'],
       address: {
@@ -45,15 +45,16 @@ const SERIES = [
     nom: 'Propaganda Series',
     titreMeta: 'Propaganda Series — Sculpture bombe résine rose fluo · Starfobar x Ezéa',
     descriptionMeta:
-      'Sculpture en résine 25 cm coulée à la main, série Propaganda. Inspirée d\'une BMW Série 1 aux codes graffiti. Édition limitée à 25 exemplaires numérotés. 190 €.',
+      'Sculpture de 25 cm réalisée à partir d\'une bombe aérosol récupérée, série Propaganda. Inspirée d\'une BMW Série 1 aux codes graffiti. Édition limitée à 25 exemplaires numérotés. 190 €.',
     accroche:
-      'La série Propaganda est une sculpture en résine de 25 cm inspirée de la BMW Série 1 du garage Starfobar, éditée à 25 exemplaires numérotés. Rose fluo, finition brillante, codes graffiti apparents.',
+      'La série Propaganda est une sculpture de 25 cm réalisée à partir d\'une bombe de peinture aérosol récupérée, inspirée de la BMW Série 1 du garage Starfobar, éditée à 25 exemplaires numérotés. Rose fluo, finition brillante, codes graffiti apparents.',
     corps: [
       "C'est la série la plus brute des quatre. Elle vient directement du mur : lettrage, superpositions, cette manière qu'a une surface de porter plusieurs couches de peinture sans qu'aucune n'efface la précédente. Pas de recherche d'équilibre, pas de finition sage.",
       "Le rose fluo n'est pas décoratif. C'est une couleur de bombe, une vraie, celle qu'on utilise parce qu'elle se voit de loin et qu'elle tient mal — un pigment qui se dégrade vite à la lumière et qui, dans la résine, ne bougera plus.",
     ],
     contenuLivraison: [
-      'Une sculpture de 25 cm, résine époxy coulée à la main, socle intégré',
+      'Une bombe de peinture aérosol récupérée, vidée et neutralisée, transformée à la main',
+      'Une sculpture de 25 cm, travaillée à la résine époxy, socle intégré',
       'Finition brillante premium',
       'Numérotée à la main sur 25, signée Ezéa',
       "Certificat d'authenticité",
@@ -65,24 +66,25 @@ const SERIES = [
     finition: 'Brillante premium',
     sku: 'SF-EZ-04-PROP',
     image: '/assets/sculptures/propaganda.jpg?v=3',
-    productName: 'Propaganda Series — Sculpture bombe résine',
+    productName: 'Propaganda Series — Sculpture bombe récupérée',
     productDesc:
-      'Sculpture en résine époxy de 25 cm coulée à la main, série Propaganda, inspirée d\'une BMW Série 1 du garage Starfobar. Édition limitée à 25 exemplaires numérotés.',
+      'Sculpture de 25 cm réalisée à partir d\'une bombe de peinture aérosol récupérée, série Propaganda, inspirée d\'une BMW Série 1 du garage Starfobar. Édition limitée à 25 exemplaires numérotés.',
   },
   {
     slug: 'racing',
     nom: 'Racing Series',
     titreMeta: 'Racing Series — Sculpture bombe résine bleu blanc rouge · Starfobar x Ezéa',
     descriptionMeta:
-      'Sculpture en résine 25 cm coulée à la main, série Racing. Inspirée d\'une BMW E36 drift et de l\'esthétique paddock. 25 exemplaires numérotés. 190 €.',
+      'Sculpture de 25 cm réalisée à partir d\'une bombe aérosol récupérée, série Racing. Inspirée d\'une BMW E36 drift et de l\'esthétique paddock. 25 exemplaires numérotés. 190 €.',
     accroche:
-      'La série Racing est une sculpture en résine de 25 cm inspirée de la BMW E36 drift du garage Starfobar, éditée à 25 exemplaires numérotés. Bleu, blanc et rouge, finition brillante, composition en livrée.',
+      'La série Racing est une sculpture de 25 cm réalisée à partir d\'une bombe de peinture aérosol récupérée, inspirée de la BMW E36 drift du garage Starfobar, éditée à 25 exemplaires numérotés. Bleu, blanc et rouge, finition brillante, composition en livrée.',
     corps: [
       "Une livrée de course, ce n'est pas de la décoration : c'est un système de lecture. Les couleurs séparent les zones, les blocs de sponsors structurent la carrosserie, et l'ensemble doit rester lisible à 200 km/h vu de loin. Ces règles-là, je les ai appliquées à une bombe de peinture.",
       "D'où la géométrie plus stricte que sur les trois autres séries. Les séparations sont nettes, les blocs alignés. C'est la série la plus construite du lot.",
     ],
     contenuLivraison: [
-      'Une sculpture de 25 cm, résine époxy coulée à la main, socle intégré',
+      'Une bombe de peinture aérosol récupérée, vidée et neutralisée, transformée à la main',
+      'Une sculpture de 25 cm, travaillée à la résine époxy, socle intégré',
       'Finition brillante premium',
       'Numérotée à la main sur 25, signée Ezéa',
       "Certificat d'authenticité",
@@ -94,24 +96,25 @@ const SERIES = [
     finition: 'Brillante premium',
     sku: 'SF-EZ-04-RACE',
     image: '/assets/sculptures/racing.jpg?v=3',
-    productName: 'Racing Series — Sculpture bombe résine',
+    productName: 'Racing Series — Sculpture bombe récupérée',
     productDesc:
-      'Sculpture en résine époxy de 25 cm coulée à la main, série Racing, inspirée d\'une BMW E36 drift du garage Starfobar. Édition limitée à 25 exemplaires numérotés.',
+      'Sculpture de 25 cm réalisée à partir d\'une bombe de peinture aérosol récupérée, série Racing, inspirée d\'une BMW E36 drift du garage Starfobar. Édition limitée à 25 exemplaires numérotés.',
   },
   {
     slug: 'old-school-bmw',
     nom: 'Old School BMW',
     titreMeta: 'Old School BMW — Sculpture bombe résine navy et or · Starfobar x Ezéa',
     descriptionMeta:
-      'Sculpture en résine 25 cm coulée à la main, série Old School. Inspirée d\'une BMW E28 sleeper, esprit OEM+. 25 exemplaires numérotés. 190 €.',
+      'Sculpture de 25 cm réalisée à partir d\'une bombe aérosol récupérée, série Old School. Inspirée d\'une BMW E28 sleeper, esprit OEM+. 25 exemplaires numérotés. 190 €.',
     accroche:
-      'La série Old School BMW est une sculpture en résine de 25 cm inspirée de la BMW E28 du garage Starfobar, éditée à 25 exemplaires numérotés. Navy profond, liseré doré, finition brillante.',
+      'La série Old School BMW est une sculpture de 25 cm réalisée à partir d\'une bombe de peinture aérosol récupérée, inspirée de la BMW E28 du garage Starfobar, éditée à 25 exemplaires numérotés. Navy profond, liseré doré, finition brillante.',
     corps: [
       "Un « sleeper », en culture automobile, désigne une voiture d'apparence banale mais lourdement préparée sous le capot. Rien ne se voit de l'extérieur. C'est l'inverse exact de la logique d'exposition — on ne montre pas, on sait.",
       "C'est la série la plus retenue des quatre, et la plus difficile à réussir. Quand il n'y a qu'une couleur et un liseré, il ne reste plus rien pour rattraper une erreur. Le doré est posé à la main, ligne par ligne.",
     ],
     contenuLivraison: [
-      'Une sculpture de 25 cm, résine époxy coulée à la main, socle intégré',
+      'Une bombe de peinture aérosol récupérée, vidée et neutralisée, transformée à la main',
+      'Une sculpture de 25 cm, travaillée à la résine époxy, socle intégré',
       'Finition brillante premium, détails dorés',
       'Numérotée à la main sur 25, signée Ezéa',
       "Certificat d'authenticité",
@@ -123,24 +126,25 @@ const SERIES = [
     finition: 'Brillante premium, détails dorés',
     sku: 'SF-EZ-04-BMW',
     image: '/assets/sculptures/sleeper.jpg?v=3',
-    productName: 'Old School BMW — Sculpture bombe résine',
+    productName: 'Old School BMW — Sculpture bombe récupérée',
     productDesc:
-      'Sculpture en résine époxy de 25 cm coulée à la main, série Old School BMW, inspirée d\'une BMW E28 du garage Starfobar. Édition limitée à 25 exemplaires numérotés.',
+      'Sculpture de 25 cm réalisée à partir d\'une bombe de peinture aérosol récupérée, série Old School BMW, inspirée d\'une BMW E28 du garage Starfobar. Édition limitée à 25 exemplaires numérotés.',
   },
   {
     slug: 'starfobar-serie',
     nom: 'Starfobar Série',
     titreMeta: 'Starfobar Série — Sculpture bombe résine rouge et blanche · Starfobar x Ezéa',
     descriptionMeta:
-      'Sculpture en résine 25 cm coulée à la main, série Starfobar. Inspirée d\'une BMW E30 en livrée de course rouge et blanche. 25 exemplaires numérotés. 190 €.',
+      'Sculpture de 25 cm réalisée à partir d\'une bombe aérosol récupérée, série Starfobar. Inspirée d\'une BMW E30 en livrée de course rouge et blanche. 25 exemplaires numérotés. 190 €.',
     accroche:
-      'La Starfobar Série est une sculpture en résine de 25 cm inspirée de la BMW E30 du garage Starfobar, éditée à 25 exemplaires numérotés. Rouge et blanc, surface travaillée en froissé, finition brillante.',
+      'La Starfobar Série est une sculpture de 25 cm réalisée à partir d\'une bombe de peinture aérosol récupérée, inspirée de la BMW E30 du garage Starfobar, éditée à 25 exemplaires numérotés. Rouge et blanc, surface travaillée en froissé, finition brillante.',
     corps: [
       "Le milieu des années 80, c'est le moment où les livrées de course deviennent des images avant d'être des habillages. Deux couleurs, une diagonale, et une voiture devient reconnaissable en une fraction de seconde. Cette économie de moyens m'intéressait.",
       "Le froissé de la surface vient de là : une bombe qui a servi, qui est tombée, qu'on a écrasée. La couleur est neuve, l'objet ne l'est pas.",
     ],
     contenuLivraison: [
-      'Une sculpture de 25 cm, résine époxy coulée à la main, socle intégré',
+      'Une bombe de peinture aérosol récupérée, vidée et neutralisée, transformée à la main',
+      'Une sculpture de 25 cm, travaillée à la résine époxy, socle intégré',
       'Finition brillante premium',
       'Numérotée à la main sur 25, signée Ezéa',
       "Certificat d'authenticité",
@@ -153,9 +157,9 @@ const SERIES = [
     sku: 'SF-EZ-04-SF',
     // Asset existant — ne pas renommer (référencé par la home)
     image: '/assets/sculptures/marlboro.jpg?v=3',
-    productName: 'Starfobar Série — Sculpture bombe résine',
+    productName: 'Starfobar Série — Sculpture bombe récupérée',
     productDesc:
-      'Sculpture en résine époxy de 25 cm coulée à la main, Starfobar Série, inspirée d\'une BMW E30 du garage Starfobar. Édition limitée à 25 exemplaires numérotés.',
+      'Sculpture de 25 cm réalisée à partir d\'une bombe de peinture aérosol récupérée, Starfobar Série, inspirée d\'une BMW E30 du garage Starfobar. Édition limitée à 25 exemplaires numérotés.',
   },
 ];
 
@@ -165,7 +169,7 @@ const FAQ = [
     items: [
       {
         q: 'Qu\'est-ce que la collection Starfobar × Ezéa ?',
-        a: 'Starfobar × Ezéa est une collection de 100 sculptures en résine réalisée en 2026 par le sculpteur français Ezéa pour le garage lyonnais Starfobar. Elle est répartie en quatre séries de 25 exemplaires numérotés, au format 25 cm, vendues 190 € pièce. Chaque série reprend l\'univers d\'une voiture précise du garage.',
+        a: 'Starfobar × Ezéa est une collection de 100 sculptures réalisées en 2026 par le sculpteur français Ezéa à partir de bombes de peinture aérosol récupérées, pour le garage lyonnais Starfobar. Elle est répartie en quatre séries de 25 exemplaires numérotés, au format 25 cm, vendues 190 € pièce. Chaque série reprend l\'univers d\'une voiture précise du garage.',
       },
       {
         q: 'Combien de pièces ont été produites ?',
@@ -194,7 +198,7 @@ const FAQ = [
     items: [
       {
         q: 'En quoi sont faites les sculptures ?',
-        a: "En résine époxy coulée à la main dans l'atelier d'Ezéa, à La Gaude dans les Alpes-Maritimes. Chaque pièce est ensuite poncée, peinte, finie et montée sur socle à la main.",
+        a: "Chaque sculpture est fabriquée à partir d'une bombe de peinture aérosol usagée, récupérée puis vidée, neutralisée, nettoyée, découpée et déformée à la main. Elle est ensuite travaillée à la résine époxy, poncée, peinte et montée sur socle dans l'atelier d'Ezéa, à La Gaude dans les Alpes-Maritimes.",
       },
       {
         q: 'Quelle est la taille exacte ?',
@@ -202,11 +206,11 @@ const FAQ = [
       },
       {
         q: 'Est-ce une vraie bombe de peinture ?',
-        a: 'Non. Ce sont des sculptures en résine reproduisant la forme d\'une bombe aérosol. Elles ne contiennent ni gaz, ni peinture, ni mécanisme, et ne présentent aucun risque de pression ou d\'inflammabilité.',
+        a: 'Oui, c\'est une vraie bombe de peinture aérosol — mais elle ne fonctionne plus. Chaque bombe est intégralement dépressurisée, purgée et nettoyée avant d\'être transformée. Elle ne contient plus ni gaz, ni peinture, ni mécanisme, et ne présente aucun risque de pression ou d\'inflammabilité.',
       },
       {
         q: 'Deux pièces de la même série sont-elles identiques ?',
-        a: 'Non. La coulée à la main produit des variations de teinte, de brillance et de texture d\'un exemplaire à l\'autre. Ces différences sont inhérentes au procédé et font partie de l\'objet.',
+        a: 'Non, et elles ne peuvent pas l\'être. Chaque pièce part d\'une bombe différente, avec ses propres bosses, rayures et traces d\'usage. La découpe et la déformation à la main accentuent encore ces écarts.',
       },
       {
         q: 'Comment entretenir une sculpture en résine époxy ?',
@@ -284,7 +288,7 @@ const FAQ = [
     items: [
       {
         q: 'Qui est Ezéa ?',
-        a: 'Ezéa est un sculpteur français installé à La Gaude, dans les Alpes-Maritimes, qui transforme des bombes de peinture aérosol en sculptures de collection coulées à la main en résine époxy. Son travail est diffusé par huit galeries partenaires en France et en Suisse.',
+        a: 'Ezéa est un sculpteur français installé à La Gaude, dans les Alpes-Maritimes, qui récupère de vraies bombes de peinture aérosol usagées et les transforme en sculptures de collection. Chaque bombe est vidée, neutralisée, nettoyée, découpée et déformée à la main, puis travaillée à la résine époxy, signée et numérotée. Son travail est diffusé par huit galeries partenaires en France et en Suisse.',
       },
       {
         q: 'Qui est Starfobar ?',
@@ -293,6 +297,27 @@ const FAQ = [
       {
         q: "Où l'événement Édition 04 a-t-il eu lieu ?",
         a: "L'événement Starfobar Édition 04 s'est tenu les 4 et 5 juillet 2026 près de Lyon. La collection Starfobar × Ezéa y a été présentée et vendue pour la première fois, sur un corner dédié.",
+      },
+    ],
+  },
+  {
+    categorie: 'Fabrication et recyclage',
+    items: [
+      {
+        q: 'D\'où viennent les bombes utilisées ?',
+        a: 'Elles sont récupérées auprès de graffeurs, d\'ateliers et de chantiers, et proviennent aussi de la pratique de l\'artiste. Toutes ont réellement servi avant d\'être transformées : aucune bombe neuve n\'est utilisée.',
+      },
+      {
+        q: 'Les bombes sont-elles dangereuses une fois transformées ?',
+        a: 'Non. Chaque bombe est intégralement dépressurisée et purgée de ses résidus avant toute découpe. La sculpture finie ne contient ni gaz sous pression, ni peinture liquide, ni solvant.',
+      },
+      {
+        q: 'Est-ce que la sculpture peut rouiller ?',
+        a: 'Le métal est nettoyé, traité et protégé par la résine et le vernis de finition. Comme pour tout objet contenant du métal, éviter l\'humidité prolongée et les environnements salins non ventilés.',
+      },
+      {
+        q: 'Est-ce que c\'est de l\'upcycling ?',
+        a: 'Oui, au sens strict : un objet en fin de vie est transformé en un objet de valeur supérieure sans être broyé ni refondu. Chaque sculpture Ezéa part d\'une bombe aérosol usagée qui aurait autrement été jetée en déchèterie.',
       },
     ],
   },
@@ -384,7 +409,7 @@ ${body}
 
 function authorBox() {
   return `<aside class="author-box">
-  <p><strong>Ezéa</strong> — Sculpteur, La Gaude (06). Ezéa transforme des bombes de peinture aérosol en sculptures de collection coulées à la main en résine époxy. Son travail est diffusé par huit galeries partenaires en France et en Suisse. Atelier ouvert sur rendez-vous.</p>
+  <p><strong>Ezéa</strong> — Sculpteur, La Gaude (06). Ezéa récupère de vraies bombes de peinture aérosol usagées et les transforme en sculptures de collection. Chaque bombe est vidée, neutralisée, nettoyée, découpée et déformée à la main, puis travaillée à la résine époxy. Son travail est diffusé par huit galeries partenaires en France et en Suisse. Atelier ouvert sur rendez-vous.</p>
   <div class="links">
     <a href="https://ezea.fr">ezea.fr</a>
     <a href="https://instagram.com/ezea.art" target="_blank" rel="noopener">@ezea.art</a>
@@ -421,7 +446,19 @@ for (const s of SERIES) {
     sku: s.sku,
     brand: { '@type': 'Brand', name: 'Starfobar × Ezéa' },
     creator: { '@id': 'https://ezea.fr/#ezea' },
-    material: 'Résine époxy',
+    material: 'Bombe de peinture aérosol récupérée, résine époxy',
+    additionalProperty: [
+      {
+        '@type': 'PropertyValue',
+        name: 'Matière première',
+        value: 'Bombe aérosol usagée récupérée et transformée',
+      },
+      {
+        '@type': 'PropertyValue',
+        name: 'Fabrication',
+        value: 'Entièrement à la main, atelier de La Gaude (06), France',
+      },
+    ],
     height: { '@type': 'QuantitativeValue', value: 25, unitCode: 'CMT' },
     isFamilyFriendly: true,
     offers: {
@@ -461,6 +498,7 @@ for (const s of SERIES) {
   <div class="availability"><span class="dot"></span>Encore quelques pièces en stock</div>
   <div class="fiche">
     <dl>
+      <dt>Matière première</dt><dd>Bombe aérosol usagée récupérée</dd>
       <dt>Univers</dt><dd>${esc(s.univers.join(' · '))}</dd>
       <dt>Voiture d'origine</dt><dd>${esc(s.voitureOrigine)}</dd>
       <dt>Couleur</dt><dd>${esc(s.couleur)}</dd>
@@ -520,7 +558,7 @@ write(
   <div class="hero prose">
     <div class="eyebrow">Histoire</div>
     <h1>Comment 100 sculptures sont nées dans un garage lyonnais</h1>
-    <p class="chapo lead">La collection Starfobar × Ezéa est née d'une idée simple : traduire chaque voiture d'un garage en sculpture. Quatre séries de vingt-cinq pièces, cent bombes de peinture en résine, chacune reprenant les codes, les couleurs et l'univers d'une voiture précise du garage de Chris à Lyon. La collection a été lancée les 4 et 5 juillet 2026, à l'événement Starfobar Édition 04.</p>
+    <p class="chapo lead">La collection Starfobar × Ezéa est née d'une idée simple : traduire chaque voiture d'un garage en sculpture. Quatre séries de vingt-cinq pièces, cent sculptures réalisées à partir de bombes de peinture aérosol récupérées, chacune reprenant les codes, les couleurs et l'univers d'une voiture précise du garage de Chris à Lyon. La collection a été lancée les 4 et 5 juillet 2026, à l'événement Starfobar Édition 04.</p>
   </div>
 </div>
 <main class="wrap prose">
@@ -528,10 +566,12 @@ write(
   <p>Starfobar, c'est Chris. Un garage à Lyon, plus de dix ans de préparations, et une communauté de 232 000 personnes sur Instagram qui suit ce qui s'y passe. Drift, street, race, classic — quatre univers qui cohabitent sous le même toit, ce qui est rare. La plupart des garages choisissent un camp.</p>
   <p>C'est ce mélange qui a donné la structure de la collection. Je n'ai pas cherché un thème : je suis parti des voitures. Chacune avait déjà son identité, ses couleurs, son histoire. Il fallait juste les transposer.</p>
 
-  <h2>Pourquoi une bombe de peinture</h2>
-  <p class="lead">Je sculpte des bombes de peinture aérosol depuis le début de mon travail.</p>
-  <p>C'est l'objet du graffiti, l'outil de base de la culture dans laquelle j'ai grandi. Le figer dans la résine, c'est arrêter un geste qui, par définition, ne dure pas.</p>
-  <p>Le rapprochement avec la culture auto n'était pas évident au départ. Il l'est devenu très vite : ce sont deux mondes qui parlent le même langage. La livrée d'une voiture de course et un mur peint, c'est la même chose — un support qu'on couvre pour dire quelque chose. Les gens qui préparent leurs voitures et ceux qui peignent des murs partagent le même rapport à l'objet : on ne le laisse pas dans l'état où on l'a trouvé.</p>
+  <h2>Pourquoi une vraie bombe, et pas une réplique</h2>
+  <p class="lead">Chaque sculpture part d'une bombe de peinture aérosol qui a réellement servi.</p>
+  <p>Pas d'une réplique, pas d'un moulage : une bombe vidée, récupérée, qui a peint quelque chose quelque part avant d'arriver à l'atelier.</p>
+  <p>C'est une contrainte plutôt qu'un confort. Une bombe usagée est cabossée, rayée, parfois corrodée. Chacune arrive avec ses accidents, et il faut composer avec — c'est ce qui rend deux pièces d'une même série irréductiblement différentes.</p>
+  <p>Je sculpte des bombes depuis le début de mon travail. C'est l'outil de base de la culture dans laquelle j'ai grandi, et un objet qu'on jette systématiquement une fois vide. Le figer, c'est arrêter un geste qui, par définition, ne dure pas — et donner une deuxième vie à un objet qui n'en avait pas.</p>
+  <p>Le rapprochement avec la culture auto n'était pas évident au départ. Il l'est devenu très vite : ce sont deux mondes qui parlent le même langage. La livrée d'une voiture de course et un mur peint, c'est la même chose — un support qu'on couvre pour dire quelque chose. Et dans les deux cas, on ne jette pas : on répare, on transforme, on prolonge.</p>
 
   <h2>Les quatre séries</h2>
   <p>Chaque série correspond à une voiture du garage.</p>
@@ -544,9 +584,8 @@ write(
   <p>Vingt-cinq exemplaires chacune. Pas vingt-six.</p>
 
   <h2>Comment elles sont faites</h2>
-  <p class="lead">Chaque sculpture est coulée à la main en résine époxy, dans mon atelier de La Gaude, dans les Alpes-Maritimes.</p>
-  <p>Le processus prend plusieurs jours par pièce : moulage, coulée, démoulage, ponçage, peinture, finition, socle, signature, numérotation.</p>
-  <p>Ça veut dire que deux pièces d'une même série ne sont jamais rigoureusement identiques. Une nuance de teinte, une bulle, un reflet qui prend différemment. Je ne cherche pas à corriger ça. C'est ce qui différencie une pièce coulée à la main d'un objet sorti d'une chaîne.</p>
+  <p class="lead">Chaque sculpture est fabriquée à la main dans mon atelier de La Gaude, dans les Alpes-Maritimes, à partir d'une bombe de peinture aérosol récupérée. Le processus prend plusieurs jours par pièce : purge, nettoyage, découpe, déformation, travail de la résine, finition, socle, signature, numérotation.</p>
+  <p>Ça veut dire que deux pièces d'une même série ne sont jamais rigoureusement identiques. Une nuance de teinte, une bulle, un reflet qui prend différemment. Je ne cherche pas à corriger ça. C'est ce qui différencie une pièce travaillée à la main d'un objet sorti d'une chaîne.</p>
 
   <h2>L'événement des 4 et 5 juillet 2026</h2>
   <p class="lead">La collection a été présentée pour la première fois à l'événement Starfobar Édition 04, sur un corner dédié, les 4 et 5 juillet 2026.</p>
@@ -578,8 +617,8 @@ write(
   </div>
 </div>
 <main class="wrap prose">
-  <p class="lead">Ezéa est un sculpteur français installé à La Gaude, dans les Alpes-Maritimes, qui transforme des bombes de peinture aérosol en sculptures de collection coulées à la main en résine époxy. Chaque pièce est posée sur socle, signée, numérotée et accompagnée d'un certificat d'authenticité.</p>
-  <p>Son travail est né de la scène graffiti. La bombe de peinture y est l'outil de base ; la figer dans la résine revient à arrêter un geste qui, par nature, est éphémère. D'où la formule qui accompagne son travail : <strong>Stop the Motion. Own the Moment.</strong></p>
+  <p class="lead">Ezéa est un sculpteur français installé à La Gaude, dans les Alpes-Maritimes, qui récupère de vraies bombes de peinture aérosol usagées et les transforme en sculptures de collection. Chaque bombe est vidée, neutralisée, nettoyée, découpée et déformée à la main, puis travaillée à la résine époxy, signée et numérotée.</p>
+  <p>Son travail est né de la scène graffiti. La bombe de peinture y est l'outil de base, et un déchet dès qu'elle est vide. La récupérer, la déformer et la figer revient à arrêter un geste qui, par nature, est éphémère. D'où la formule qui accompagne son travail : <strong>Stop the Motion. Own the Moment.</strong></p>
   <p>Ezéa travaille depuis son atelier de La Gaude, ouvert sur rendez-vous. Ses pièces sont diffusées par huit galeries partenaires en France et en Suisse, et il a présenté son travail à l'Antibes Art Fair. Une de ses sculptures apparaît dans le court-métrage <em>La Veuve et le Voleur</em> de Christophe Prévité.</p>
   <p>En dehors de Starfobar, il a signé une collaboration avec la marque <strong>Carnival Sun Juice</strong> et travaille aux côtés d'artistes de la scène urbaine française, dont <strong>Bruno Graffer</strong>.</p>
   <p class="lead">→ Le travail complet, l'atelier et les autres séries : <a href="https://ezea.fr">ezea.fr</a></p>
@@ -621,7 +660,7 @@ write(
   <div class="hero prose">
     <div class="eyebrow">FAQ</div>
     <h1>Questions fréquentes</h1>
-    <p class="chapo">Starfobar × Ezéa est une collection de 100 sculptures en résine réalisée en 2026 par l'artiste Ezéa pour le garage lyonnais Starfobar, répartie en quatre séries de 25 exemplaires numérotés, au format 25 cm, vendues 190 € pièce.</p>
+    <p class="chapo">Starfobar × Ezéa est une collection de 100 sculptures réalisées en 2026 par l'artiste Ezéa à partir de bombes de peinture aérosol récupérées, pour le garage lyonnais Starfobar. Quatre séries de 25 exemplaires numérotés, format 25 cm, 190 € pièce.</p>
   </div>
 </div>
 <main class="wrap prose">
@@ -692,60 +731,108 @@ const articles = [
   },
   {
     slug: 'comment-est-fabriquee-une-sculpture-ezea',
-    titre: 'De la bombe au socle : comment je fabrique une sculpture',
-    titreMeta: 'Comment est fabriquée une sculpture en résine Ezéa, étape par étape',
+    titre: 'De la bombe vide à l\'œuvre : les huit étapes',
+    titreMeta: 'De la bombe vide à l\'œuvre : comment est fabriquée une sculpture Ezéa',
     descriptionMeta:
-      "De la bombe de peinture d'origine au socle signé : les 7 étapes de fabrication d'une sculpture en résine époxy coulée à la main dans l'atelier d'Ezéa.",
+      'Chaque sculpture Ezéa part d\'une bombe de peinture aérosol usagée, vidée, nettoyée, découpée et déformée à la main. Les huit étapes de fabrication, en détail.',
     datePublication: '2026-07-22',
     dateModification: '2026-07-22',
     chapo:
-      'Une sculpture Ezéa est une pièce en résine époxy coulée à la main, produite en sept étapes réparties sur plusieurs jours. Voici le processus complet, tel qu\'il se déroule à l\'atelier de La Gaude.',
+      'Chaque sculpture Ezéa est fabriquée à la main à partir d\'une bombe de peinture aérosol qui a réellement servi. Elle n\'est ni moulée ni reproduite : c\'est l\'objet d\'origine qui devient l\'œuvre. Voici le processus complet, tel qu\'il se déroule à l\'atelier de La Gaude.',
     corps: [
       {
         type: 'p',
         contenu:
-          "1. L'objet d'origine. Tout part d'une bombe de peinture aérosol réelle. C'est elle qui donne la forme, les proportions, les détails de surface — la nervure du corps, le pas de vis, l'embase. Sur certaines séries, la bombe est travaillée avant moulage : froissée, cabossée, marquée.",
+          "1. La collecte. Les bombes viennent de graffeurs, d'ateliers, de chantiers, de ma propre pratique. Elles ont toutes peint quelque chose avant d'arriver ici. Une bombe neuve ne m'intéresse pas : elle n'a rien à raconter et sa surface est trop propre.",
       },
       {
         type: 'p',
         contenu:
-          "2. Le moule. Un moule en silicone est réalisé à partir de l'objet. Il capte les détails jusqu'au dixième de millimètre. Un moule s'use : après un certain nombre de coulées, il faut en refaire un.",
+          "2. La purge et la neutralisation. Une bombe aérosol « vide » ne l'est jamais complètement : il reste du gaz propulseur et des résidus de peinture. Chaque bombe est intégralement dépressurisée et purgée avant toute intervention. C'est une étape de sécurité non négociable — on ne découpe pas un contenant sous pression.",
       },
       {
         type: 'p',
         contenu:
-          "3. La coulée. La résine époxy est dosée, mélangée à son durcisseur, teintée, puis coulée. C'est l'étape la plus sensible : une erreur de dosage, une température ambiante trop basse, un mélange trop rapide qui emprisonne de l'air, et la pièce est perdue.",
+          "3. Le nettoyage. Extérieur et intérieur. Les résidus de peinture sèche, la poussière, les traces grasses. La surface doit être saine, sinon rien n'accroche derrière.",
       },
       {
         type: 'p',
         contenu:
-          "4. La polymérisation. La résine durcit pendant plusieurs heures. On ne peut pas accélérer. C'est ce qui rend impossible la production en volume : le temps de prise est le temps de prise.",
+          "4. La découpe. C'est là que l'objet cesse d'être un contenant. Valve, embase, parties du corps selon la série : la découpe ouvre la forme et permet de la travailler.",
       },
       {
         type: 'p',
         contenu:
-          "5. Le démoulage et le ponçage. La pièce sort brute. Elle est ébarbée, poncée par passes successives de grains décroissants. C'est l'étape la plus longue et la moins spectaculaire.",
+          "5. La déformation. Le métal est écrasé, froissé, cabossé à la main. Chaque bombe réagit différemment selon son épaisseur, son état, sa corrosion. C'est l'étape la moins contrôlable et la plus déterminante : c'est elle qui donne à la pièce sa silhouette définitive.",
       },
       {
         type: 'p',
         contenu:
-          '6. La finition. Peinture, détails, liseré doré sur la série Old School. Puis le vernis qui donne la brillance. Chaque couche doit sécher avant la suivante.',
+          "6. Le travail de la résine. La résine époxy fige la forme, protège le métal et donne la profondeur de la finition brillante. Elle est dosée, mélangée et appliquée à la main. Une erreur de dosage ou une température ambiante trop basse, et la pièce est perdue.",
       },
       {
         type: 'p',
         contenu:
-          '7. Le socle, la signature, le numéro. Montage sur socle, signature à la main, numérotation sur 25, rédaction du certificat d\'authenticité.',
-      },
-      { type: 'h2', contenu: "Pourquoi ça ne peut pas être industrialisé" },
-      {
-        type: 'p',
-        contenu:
-          "À chaque étape, une pièce peut être perdue. Le taux de rebut est réel et il fait partie du coût. C'est aussi la raison pour laquelle deux sculptures d'une même série ne sont jamais identiques : la teinte varie légèrement d'une coulée à l'autre, le ponçage à la main ne donne jamais exactement la même surface.",
+          '7. La finition. Ponçage par passes de grains décroissants, peinture, détails — le liseré doré sur la série Old School est posé ligne par ligne. Puis le vernis. Chaque couche sèche avant la suivante.',
       },
       {
         type: 'p',
         contenu:
-          "Je ne cherche pas à corriger ces écarts. Un objet parfaitement homogène, c'est un objet moulé en série. Ce n'est pas ce que je fais.",
+          "8. Le socle, la signature, le numéro. Montage, signature à la main, numérotation sur 25, rédaction du certificat d'authenticité.",
+      },
+      { type: 'h2', contenu: 'Pourquoi deux pièces ne sont jamais identiques' },
+      {
+        type: 'p',
+        contenu:
+          "Parce que deux bombes ne le sont jamais. Chacune arrive avec ses bosses, ses rayures, son niveau de corrosion, l'endroit exact où sa peinture a coulé. La découpe et la déformation amplifient ces écarts au lieu de les gommer.",
+      },
+      {
+        type: 'p',
+        contenu:
+          "Je ne cherche pas à les corriger. Un objet parfaitement homogène, c'est un objet moulé en série. Ce n'est pas ce que je fais.",
+      },
+      { type: 'h2', contenu: 'Le taux de rebut' },
+      {
+        type: 'p',
+        contenu:
+          "Une bombe peut se déchirer à la déformation, une coulée peut rater, un ponçage peut traverser une couche. Toutes les bombes récupérées ne deviennent pas des sculptures — loin de là. Ce rebut fait partie du coût réel d'une pièce, et c'est une des raisons pour lesquelles ce travail ne peut pas être industrialisé.",
+      },
+    ],
+  },
+  {
+    slug: 'que-faire-dune-bombe-de-peinture-vide',
+    titre: 'Que faire d\'une bombe de peinture vide ?',
+    titreMeta: 'Que faire d\'une bombe de peinture vide ? Recyclage, dépôt, seconde vie',
+    descriptionMeta:
+      'Une bombe aérosol vide est un déchet dangereux qui ne va pas dans le bac de tri. Où la déposer, comment la vider complètement, et ce qu\'elle peut devenir.',
+    datePublication: '2026-07-22',
+    dateModification: '2026-07-22',
+    chapo:
+      'Une bombe de peinture aérosol vide est un déchet dangereux : elle ne se jette ni dans le bac de tri, ni avec les ordures ménagères. Elle doit être déposée en déchèterie, au point de collecte des déchets dangereux des ménages.',
+    corps: [
+      { type: 'h2', contenu: 'Pourquoi elle ne va pas dans le bac jaune' },
+      {
+        type: 'p',
+        contenu:
+          "Même « vide », une bombe aérosol conserve souvent du gaz propulseur et des résidus de solvants ou de peinture. En centre de tri, ces contenants sous pression residuale peuvent endommager les équipements et présenter un risque pour les agents. C'est pourquoi les aérosols sont classés parmi les déchets diffus spécifiques (DDS), pas parmi les emballages recyclables courants.",
+      },
+      { type: 'h2', contenu: 'Comment savoir si elle est réellement vide' },
+      {
+        type: 'p',
+        contenu:
+          "Secouez-la doucement : un bruit de liquide ou une sensation de poids indique qu'il reste du contenu. Pour la vider complètement, continuez à pulvériser à l'air libre jusqu'à ce que plus rien ne sorte — jamais près d'une flamme, d'une source de chaleur ou dans un espace clos. Une bombe qui siffle encore ou qui semble sous pression n'est pas prête à être découpée ni stockée longtemps.",
+      },
+      { type: 'h2', contenu: 'Où la déposer' },
+      {
+        type: 'p',
+        contenu:
+          "Apportez-la en déchèterie, dans le flux prévu pour les déchets dangereux des ménages (peintures, solvants, aérosols). Certaines collectivités indiquent aussi des points de collecte saisonniers. Vérifiez les consignes de votre commune : les règles d'accueil et les jours d'ouverture varient. Ne la jetez pas dans une poubelle d'immeuble et ne la percez pas vous-même.",
+      },
+      { type: 'h2', contenu: 'La seconde vie possible' },
+      {
+        type: 'p',
+        contenu:
+          "Une fois vidée et prise en charge, la plupart des bombes suivent la filière de traitement des DDS. Certaines, récupérées auprès de graffeurs ou d'ateliers, peuvent aussi devenir autre chose : à La Gaude, Ezéa les transforme en sculptures de collection. Le détail du procédé et de la collaboration Starfobar est raconté sur la page Histoire.",
       },
     ],
   },
