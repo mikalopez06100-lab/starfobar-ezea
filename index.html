@@ -1238,6 +1238,21 @@ footer {
 
 .footer-tagline .accent { color: var(--red); }
 
+.footer-legal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-legal a {
+  color: var(--grey);
+  text-decoration: none;
+  border: 0;
+}
+
+.footer-legal a:hover { color: var(--white); }
+
 /* ============ FADE-IN AU SCROLL ============ */
 .fade-in {
   opacity: 0;
@@ -2681,7 +2696,13 @@ footer {
     <div class="footer-bottom">
       <div>© 2026 EZÉA · ORIGINAL HAND ARTWORK</div>
       <div class="footer-tagline">SF·EZ·04·2026 <span class="accent">·</span> ÉDITION LIMITÉE</div>
-      <div>Mentions légales · CGV · Livraison</div>
+      <div class="footer-legal">
+        <a href="/mentions-legales">Mentions légales</a>
+        <span aria-hidden="true">·</span>
+        <a href="/cgv">CGV</a>
+        <span aria-hidden="true">·</span>
+        <a href="/cgv#a8">Livraison</a>
+      </div>
     </div>
   </div>
 </footer>
