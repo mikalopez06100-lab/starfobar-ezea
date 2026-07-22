@@ -319,7 +319,7 @@ section.block {
 /* ========== CE QUE J'AI MIS SUR LA TABLE ========== */
 .gifts {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 20px;
   margin: 30px 0 0;
 }
@@ -402,6 +402,63 @@ section.block {
   margin-bottom: 6px;
   letter-spacing: 2px;
   text-transform: uppercase;
+}
+
+.gift-value {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--grey-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.gift-value span {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+.gift-value b {
+  font-family: 'Bebas Neue', sans-serif;
+  font-weight: 400;
+  font-size: 27px;
+  line-height: 1;
+  letter-spacing: 0.5px;
+  color: var(--gold);
+}
+
+.gifts-total {
+  margin-top: 20px;
+  border: 1px solid var(--gold);
+  background: linear-gradient(180deg, rgba(201,166,81,.10), rgba(201,166,81,.02));
+  padding: 26px 30px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 18px;
+}
+.gifts-total .gt-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.gifts-total .gt-value {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 48px;
+  line-height: 1;
+  letter-spacing: 0.5px;
+  color: var(--gold);
+  margin-left: auto;
+}
+.gifts-total .gt-note {
+  flex-basis: 100%;
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  color: var(--grey-light);
 }
 
 /* ========== PROPOSITION - 3 LEVIERS ========== */
@@ -993,7 +1050,7 @@ footer {
     <h2 class="section-title">De <span class="red">mon côté</span> aussi.</h2>
 
     <p class="body-text">
-      Tu as fait le premier pas en m'ouvrant cette porte, et j'ai aussitôt pris mes responsabilités. En dehors des 87 pièces prêtes pour la vente, voici la valeur concrète déjà posée entre nous.
+      Tu as fait le premier pas en m'ouvrant cette porte, et j'ai aussitôt pris mes responsabilités. En dehors des 87 pièces prêtes pour la vente, voici la valeur concrète déjà posée entre nous — <strong>plus de 12 000 €</strong> de créations.
     </p>
 
     <div class="gifts">
@@ -1007,6 +1064,7 @@ footer {
         <p class="gift-desc">
           La grosse pièce que je t'ai livrée est déjà installée chez toi. <strong>Elle est à toi.</strong> Pas de contrepartie, pas de compteur. C'était mon geste d'ouverture — bien avant d'écrire ce message.
         </p>
+        <div class="gift-value"><span>Valeur</span><b>4 000 €</b></div>
       </div>
 
       <!-- Gift 2 : 15 uniques -->
@@ -1023,6 +1081,7 @@ footer {
           <strong>DÉJÀ POURVUS</strong>
           Chatreix · Medo · Sofiane Shiftech · 71 Custom · David Diversion Store
         </div>
+        <div class="gift-value"><span>Valeur</span><b>2 850 €</b></div>
       </div>
 
       <!-- Gift 3 : 4 XL -->
@@ -1033,9 +1092,29 @@ footer {
         </div>
         <h3 class="gift-title">4 exemplaires XL pour animer.</h3>
         <p class="gift-desc">
-          4 pièces au format XL. Idée : les faire gagner à ta communauté pour donner de l'énergie à l'opération — tirage au sort, concours, ce que tu sens. <strong>On décide ensemble.</strong>
+          4 pièces au format XL. Idée : les faire gagner à ta communauté pour donner de l'énergie à l'opération — un <strong>« ticket d'or »</strong> caché dans l'une des pièces, concours, ce que tu sens. <strong>On décide ensemble.</strong>
         </p>
+        <div class="gift-value"><span>Valeur</span><b>3 400 €</b></div>
       </div>
+
+      <!-- Gift 4 : 10 winner série (event) -->
+      <div class="gift">
+        <div class="gift-header">
+          <div class="gift-tag">— WINNER SÉRIE —</div>
+          <div class="gift-count">+10</div>
+        </div>
+        <h3 class="gift-title">10 pièces déjà remportées à l'event.</h3>
+        <p class="gift-desc">
+          Pendant l'Édition 04, <strong>10 créations sont déjà parties dans ta communauté</strong> via la winner série — autant d'ambassadeurs qui repartent avec une pièce Starfobar × Ezéa en main. De la visibilité déjà offerte.
+        </p>
+        <div class="gift-value"><span>Valeur</span><b>1 900 €</b></div>
+      </div>
+    </div>
+
+    <div class="gifts-total">
+      <div class="gt-label">Valeur totale déjà engagée</div>
+      <div class="gt-value">12 150 €</div>
+      <div class="gt-note">Modèle XXL · 15 pièces réseau · 4 formats XL · winner série — hors les 87 pièces en vente.</div>
     </div>
   </div>
 </section>
