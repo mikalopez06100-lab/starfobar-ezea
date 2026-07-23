@@ -469,17 +469,87 @@ for (const s of SERIES) {
       itemCondition: 'https://schema.org/NewCondition',
       url: SITE + '/collection/' + s.slug,
       seller: { '@id': 'https://ezea.fr/#ezea' },
-      shippingDetails: {
-        '@type': 'OfferShippingDetails',
-        shippingDestination: { '@type': 'DefinedRegion', addressCountry: 'FR' },
-      },
+      shippingDetails: [
+        {
+          '@type': 'OfferShippingDetails',
+          shippingRate: { '@type': 'MonetaryAmount', value: '9.90', currency: 'EUR' },
+          shippingDestination: { '@type': 'DefinedRegion', addressCountry: 'FR' },
+          deliveryTime: {
+            '@type': 'ShippingDeliveryTime',
+            handlingTime: {
+              '@type': 'QuantitativeValue',
+              minValue: 1,
+              maxValue: 3,
+              unitCode: 'DAY',
+            },
+            transitTime: {
+              '@type': 'QuantitativeValue',
+              minValue: 3,
+              maxValue: 7,
+              unitCode: 'DAY',
+            },
+          },
+        },
+        {
+          '@type': 'OfferShippingDetails',
+          shippingRate: { '@type': 'MonetaryAmount', value: '19.90', currency: 'EUR' },
+          shippingDestination: {
+            '@type': 'DefinedRegion',
+            addressCountry: ['BE', 'DE', 'IT', 'ES', 'PT', 'NL', 'AT', 'IE', 'LU', 'CH', 'MC', 'AD'],
+          },
+          deliveryTime: {
+            '@type': 'ShippingDeliveryTime',
+            handlingTime: {
+              '@type': 'QuantitativeValue',
+              minValue: 1,
+              maxValue: 3,
+              unitCode: 'DAY',
+            },
+            transitTime: {
+              '@type': 'QuantitativeValue',
+              minValue: 5,
+              maxValue: 10,
+              unitCode: 'DAY',
+            },
+          },
+        },
+        {
+          '@type': 'OfferShippingDetails',
+          shippingRate: { '@type': 'MonetaryAmount', value: '29.90', currency: 'EUR' },
+          shippingDestination: {
+            '@type': 'DefinedRegion',
+            addressCountry: ['GB', 'US', 'CA', 'AU', 'JP'],
+          },
+          deliveryTime: {
+            '@type': 'ShippingDeliveryTime',
+            handlingTime: {
+              '@type': 'QuantitativeValue',
+              minValue: 1,
+              maxValue: 3,
+              unitCode: 'DAY',
+            },
+            transitTime: {
+              '@type': 'QuantitativeValue',
+              minValue: 7,
+              maxValue: 15,
+              unitCode: 'DAY',
+            },
+          },
+        },
+      ],
       hasMerchantReturnPolicy: {
         '@type': 'MerchantReturnPolicy',
-        applicableCountry: 'FR',
+        applicableCountry: ['FR', 'BE', 'DE', 'IT', 'ES', 'PT', 'NL', 'AT', 'IE', 'LU'],
         returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
         merchantReturnDays: 14,
         returnMethod: 'https://schema.org/ReturnByMail',
         returnFees: 'https://schema.org/ReturnShippingFees',
+        returnShippingFeesAmount: {
+          '@type': 'MonetaryAmount',
+          value: '9.90',
+          currency: 'EUR',
+        },
+        url: SITE + '/cgv#a10',
       },
     },
   };
